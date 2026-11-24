@@ -3,7 +3,7 @@ import edge_tts.communicate as _c
 _c._SSL_CTX=ssl.create_default_context(cafile="/root/.ccr/ca-bundle.crt")
 lines=[
 "Hey! Is your website actually bringing you customers?",
-"Meet Afai Pixel. Web design, branding and digital marketing for small businesses in the UK and Europe.",
+"Meet Afai Pixel. Web design, branding and digital marketing for businesses worldwide.",
 "This is the real site. Fast, clean, and built to turn visitors into enquiries.",
 "Websites, logos, branding, social media, Google Ads, hosting and custom systems. All under one roof.",
 "Here's a real example. Global Supermarket EU needed an online store for shoppers across Europe.",
