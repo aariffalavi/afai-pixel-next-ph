@@ -1,6 +1,6 @@
 # Afai Pixel promo reel
 
-`afaipixel-reel.mp4`: 1080x1920 vertical, 30 fps, 54.4 s, H.264 + AAC. Ready for Instagram Reels, TikTok and YouTube Shorts. `cover.jpg` is a designed cover (web elements, a WORLDWIDE badge, the real site in a browser and a phone). Upload it as the reel cover.
+`afaipixel-reel.mp4`: 1080x1920 vertical, 30 fps, 54.4 s, H.264 + AAC. Ready for Instagram Reels, TikTok and YouTube Shorts. `cover.jpg` is a designed cover: web elements, a WORLDWIDE badge, and live client websites (windoors.lk, smeraldomilano.eu, aglsrilanka.com, kingstonesurface.co.uk). Upload it as the reel cover.
 
 ## Structure
 | Time | Scene | Voice-over |
