@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
+:root{--g1:#6dbe45;--g2:#3fa33e;--g3:#199541;--ink:#111518;--grey:#4d4d4d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#fff}
+.scene{position:absolute;inset:0;overflow:hidden;display:none}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.dark{background:radial-gradient(1200px 900px at 85% 10%,rgba(63,163,62,.30),transparent 60%),radial-gradient(900px 900px at 0% 95%,rgba(25,149,65,.25),transparent 60%),#101417}
+.light{background:radial-gradient(900px 700px at 100% 0%,rgba(109,190,69,.18),transparent 60%),#f4f7f2}
+.eyebrow{font-weight:700;font-size:30px;letter-spacing:.22em;color:var(--g1);text-transform:uppercase}
+.h1{font-weight:800;letter-spacing:-.035em;line-height:1.02}
+/* phone */
+.phone{position:absolute;left:254px;top:330px;width:572px;height:1204px;border-radius:78px;background:#0b0d0e;padding:16px;box-shadow:0 0 0 3px #2b3136,0 50px 120px rgba(0,0,0,.55),0 0 90px rgba(109,190,69,.18)}
+.phone .scr{width:540px;height:1172px;border-radius:62px;overflow:hidden;position:relative;background:#fff}
+.phone .scr img{width:540px;height:1172px;display:block;position:absolute;top:66px;left:0}
+.sbar{position:absolute;top:0;left:0;right:0;height:66px;background:#fff;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:6px 46px 0 52px;font-weight:700;font-size:24px;color:#111}
+.sbar i{font-style:normal;letter-spacing:3px;font-size:20px}
+.phone .island{position:absolute;top:30px;left:50%;width:132px;height:36px;margin-left:-66px;background:#000;border-radius:24px;z-index:3}
+.urlpill{display:inline-flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:999px;padding:20px 40px;font-weight:700;font-size:48px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.lock{width:34px;height:34px;border-radius:9px;background:var(--g2);display:grid;place-items:center;color:#fff;font-size:20px}
+.chip{position:absolute;display:inline-flex;align-items:center;gap:16px;background:#fff;color:var(--ink);border-radius:26px;padding:20px 28px;font-weight:700;font-size:38px;box-shadow:0 20px 50px rgba(0,0,0,.30);white-space:nowrap}
+.chip .ic{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--g1),var(--g3));display:grid;place-items:center;color:#fff;font-size:28px;font-weight:800}
+.chip.dk{background:#161b1f;color:#fff;box-shadow:0 0 0 2px rgba(109,190,69,.5),0 20px 50px rgba(0,0,0,.35)}
+.sq{position:absolute;border-radius:10px;background:linear-gradient(135deg,var(--g1),var(--g3))}
+/* captions */
+#caps{position:absolute;left:90px;right:90px;top:1585px;text-align:center;z-index:50;display:none}
+#caps span.box{display:inline-block;background:rgba(10,12,14,.86);border-radius:22px;padding:14px 30px 18px;font-weight:800;font-size:62px;color:#fff;letter-spacing:-.02em;line-height:1.15;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+#caps b{font-weight:800}
+#caps b.on{color:var(--g1)}
+/* wipe bar */
+.wipebar{position:absolute;left:0;right:0;height:26px;background:linear-gradient(90deg,var(--g1),var(--g3));z-index:40}
+/* hey grid */
+.heyrow{position:absolute;left:-400px;white-space:nowrap;font-weight:900;font-size:190px;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:3px rgba(63,163,62,.22)}
+.word{display:inline-block;margin:0 .13em;transform-origin:50% 80%}
+/* comment ui */
+.sheet{position:absolute;left:40px;right:40px;top:790px;height:830px;background:#fff;border-radius:44px 44px 44px 44px;box-shadow:0 30px 90px rgba(0,0,0,.25);overflow:hidden}
+.sheet .grab{width:90px;height:10px;border-radius:9px;background:#d9d9d9;margin:22px auto 0}
+.sheet .ttl{text-align:center;font-weight:700;font-size:36px;margin:20px 0 10px;color:#111}
+.sheet hr{border:0;border-top:2px solid #eee}
+.cm{display:flex;gap:24px;padding:20px 40px;align-items:flex-start;position:relative}
+.av{width:84px;height:84px;border-radius:50%;flex:none;display:grid;place-items:center;overflow:hidden}
+.cm .nm{font-weight:700;font-size:30px;color:#111}
+.cm .nm small{font-weight:500;color:#8a8a8a;font-size:26px;margin-left:12px}
+.cm .tx{font-size:36px;color:#111;margin-top:6px;font-weight:500;line-height:1.3}
+.cm .meta{font-size:25px;color:#8a8a8a;margin-top:10px;font-weight:600}
+.cm .heart{position:absolute;right:44px;top:44px;font-size:40px;text-align:center;color:#8a8a8a;line-height:1}
+.cm .heart small{display:block;font-size:22px;margin-top:6px;font-weight:600}
+.inputrow{position:absolute;left:0;right:0;bottom:0;height:150px;border-top:2px solid #eee;display:flex;align-items:center;gap:22px;padding:0 34px;background:#fff}
+.inputbox{flex:1;height:92px;border:2px solid #ddd;border-radius:46px;display:flex;align-items:center;padding:0 34px;font-size:38px;color:#111;font-weight:600}
+.send{width:92px;height:92px;border-radius:50%;background:var(--g2);display:grid;place-items:center;color:#fff;font-size:44px;font-weight:800}
+.pinned{font-size:24px;color:#8a8a8a;font-weight:600;padding:18px 40px 0}
+.verified{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#3897f0;color:#fff;font-size:18px;margin-left:8px;vertical-align:2px}
+.stars{color:#fbbc04;letter-spacing:6px}
+</style></head>
+<body><div id="stage">
+
+<!-- HOOK -->
+<div class="scene" id="hook" style="background:#fff">
+  <div id="heygrid"></div>
+  <div class="abs center" id="heybig" style="top:600px;font-weight:900;font-size:340px;letter-spacing:-.04em;color:var(--g2);text-shadow:10px 12px 0 #111518">HEY!</div>
+  <div class="abs center h1" id="hookq" style="top:900px;font-size:118px;color:var(--ink);padding:0 60px"></div>
+  <div id="hooksq"></div>
+</div>
+
+<!-- BRAND -->
+<div class="scene" id="brand" style="background:#fff">
+  <div class="abs" style="inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 2px,transparent 2px),linear-gradient(90deg,rgba(0,0,0,.035) 2px,transparent 2px);background-size:90px 90px"></div>
+  <div class="abs center eyebrow" id="br_meet" style="top:300px;color:var(--g3)">Meet</div>
+  <img id="br_logo" class="abs" src="assets/logo.png" style="left:65px;top:380px;width:950px">
+  <div id="br_chips"></div>
+</div>
+
+<!-- HERO -->
+<div class="scene dark" id="hero">
+  <div id="hero_sq"></div>
+  <div class="abs center eyebrow" id="hero_eb" style="top:150px">The real website</div>
+  <div class="abs center" id="hero_url" style="top:205px"><span class="urlpill"><span class="lock">●</span>afaipixel.com</span></div>
+  <div class="phone" id="hero_ph"><div class="island"></div><div class="scr"><img id="hero_img"></div></div>
+  <div id="hero_badges"></div>
+</div>
+
+<!-- SERVICES -->
+<div class="scene dark" id="services">
+  <div id="sv_sq"></div>
+  <div class="abs center eyebrow" id="sv_eb" style="top:150px">What we do</div>
+  <div class="abs center h1" id="sv_h" style="top:200px;font-size:84px;color:#fff">One team. <span style="color:var(--g1)">Every service.</span></div>
+  <div class="phone" id="sv_ph"><div class="island"></div><div class="scr"><img id="sv_img"></div></div>
+  <div id="sv_chips"></div>
+  <div class="abs center" id="sv_stamp" style="top:820px;z-index:20"><span style="display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g3));color:#fff;font-weight:900;font-size:86px;padding:26px 50px;border-radius:30px;letter-spacing:-.03em;box-shadow:0 30px 80px rgba(0,0,0,.45);border:6px solid #fff">ALL UNDER ONE ROOF</span></div>
+</div>
+
+<!-- CASE -->
+<div class="scene light" id="case">
+  <div class="abs center eyebrow" id="cs_eb" style="top:120px;color:var(--g3)">Real example · E-commerce</div>
+  <div class="abs center h1" id="cs_h" style="top:168px;font-size:92px;color:var(--ink)">Global Supermarket EU</div>
+  <div class="abs center" id="cs_sub" style="top:276px;font-size:34px;color:#5b6168;font-weight:600">Online grocery store for shoppers across Europe</div>
+  <div class="phone" id="cs_ph" style="top:350px;box-shadow:0 0 0 3px #2b3136,0 50px 120px rgba(0,0,0,.30)"><div class="island"></div><div class="scr"><img id="cs_img"></div></div>
+  <div id="cs_cards"></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="scene dark" id="reviews">
+  <div class="abs center" id="rv_card" style="top:120px">
+    <div style="display:inline-flex;align-items:center;gap:34px;background:#fff;border-radius:36px;padding:26px 46px;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+      <div style="font-weight:900;font-size:120px;color:var(--ink);letter-spacing:-.04em" id="rv_num">5.0</div>
+      <div style="text-align:left">
+        <div class="stars" id="rv_stars" style="font-size:64px"></div>
+        <div style="font-weight:700;font-size:36px;color:#333;margin-top:4px"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span> · 25 reviews</div>
+      </div>
+    </div>
+  </div>
+  <div class="phone" id="rv_ph" style="top:400px"><div class="island"></div><div class="scr"><img id="rv_img"></div></div>
+</div>
+
+<!-- COMMENT -->
+<div class="scene" id="comment" style="background:linear-gradient(180deg,#eaf5e4 0%,#f7faf5 55%,#e3f0dc 100%)">
+  <div class="abs center h1" id="cm_q" style="top:160px;font-size:92px;color:var(--ink)">Want a <span style="color:var(--g2)">FREE</span> quote?</div>
+  <div class="abs center" id="cm_cta" style="top:295px">
+    <div style="font-weight:800;font-size:64px;color:var(--ink);letter-spacing:-.02em">Comment</div>
+    <div style="display:inline-block;margin-top:16px;background:var(--ink);color:#fff;font-weight:900;font-size:128px;letter-spacing:.02em;padding:18px 54px;border-radius:34px;box-shadow:12px 14px 0 var(--g2)" id="cm_word">WEBSITE</div>
+  </div>
+  <div class="abs center" id="cm_reply" style="top:622px;font-weight:700;font-size:40px;color:#2f3a33">We reply within <span style="color:var(--g3)">1 working day</span></div>
+  <div class="abs center" id="cm_arrow" style="top:680px;font-size:84px;color:var(--g2);font-weight:900">↓</div>
+  <div class="sheet" id="cm_sheet">
+    <div class="grab"></div>
+    <div class="ttl">Comments</div>
+    <hr>
+    <div class="pinned">📌 Pinned by afaipixel</div>
+    <div class="cm" id="cm_pin">
+      <div class="av" style="background:#fff;border:2px solid #e6e6e6"><img src="assets/logomark.png" style="width:70px;height:70px"></div>
+      <div style="padding-right:90px"><div class="nm">afaipixel<small>Author</small></div>
+        <div class="tx">Comment <b>WEBSITE</b> and we'll send you a free, no‑obligation quote 👇</div>
+        <div class="meta">Reply</div></div>
+      <div class="heart">♡</div>
+    </div>
+    <div class="cm" id="cm_user" style="opacity:0">
+      <div class="av" style="background:linear-gradient(135deg,#f6c453,#e6683c)"><span style="font-size:44px">🙂</span></div>
+      <div><div class="nm">you<small>now</small></div><div class="tx" style="font-weight:800">WEBSITE</div><div class="meta">Reply</div></div>
+      <div class="heart" id="cm_uheart">♡</div>
+    </div>
+    <div class="cm" id="cm_ans" style="opacity:0;padding-left:148px">
+      <div class="av" style="width:64px;height:64px;background:#fff;border:2px solid #e6e6e6"><img src="assets/logomark.png" style="width:54px;height:54px"></div>
+      <div><div class="nm" style="font-size:28px">afaipixel<small>Author</small></div><div class="tx" style="font-size:33px">Thanks! Check your DMs 🚀</div></div>
+    </div>
+    <div class="inputrow">
+      <div class="av" style="width:76px;height:76px;background:linear-gradient(135deg,#f6c453,#e6683c)"><span style="font-size:40px">🙂</span></div>
+      <div class="inputbox" id="cm_input"><span id="cm_typed"></span><span id="cm_caret" style="display:inline-block;width:4px;height:46px;background:var(--g2);margin-left:4px"></span><span id="cm_ph" style="color:#9a9a9a;font-weight:500">Add a comment…</span></div>
+      <div class="send" id="cm_send">➤</div>
+    </div>
+  </div>
+  <div id="cm_tap" class="abs" style="width:120px;height:120px;border-radius:50%;border:8px solid rgba(63,163,62,.8);display:none"></div>
+</div>
+
+<!-- OUTRO -->
+<div class="scene" id="outro" style="background:#fff">
+  <div id="ou_sq"></div>
+  <div class="abs" style="inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 2px,transparent 2px),linear-gradient(90deg,rgba(0,0,0,.035) 2px,transparent 2px);background-size:90px 90px"></div>
+  <img id="ou_logo" class="abs" src="assets/logo.png" style="left:65px;top:560px;width:950px">
+  <div class="abs center" id="ou_url" style="top:950px"><span class="urlpill" style="background:var(--ink);color:#fff;font-size:58px;padding:24px 52px"><span class="lock">●</span>afaipixel.com</span></div>
+  <div class="abs center" id="ou_btn" style="top:1110px"><span style="display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g3));color:#fff;font-weight:800;font-size:46px;padding:26px 60px;border-radius:999px;box-shadow:0 20px 50px rgba(25,149,65,.35)">Get a free quote →</span></div>
+  <div class="abs center" id="ou_loc" style="top:1260px;font-weight:600;font-size:34px;color:#5b6168">Web design · Branding · Digital marketing<br><span style="color:var(--g3)">UK · Europe · Sri Lanka</span></div>
+  
+</div>
+
+<div id="caps"><span class="box" id="capbox"></span></div>
+<div class="wipebar" id="wipebar" style="display:none"></div>
+</div>
+
+<script>
+const FPS=30;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const oC=x=>1-Math.pow(1-x,3);
+const iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const oB=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const $=id=>document.getElementById(id);
+let TL=null, REC={};
+const NREC={hero:180,services:246,case:384,reviews:108};
+function sc(id){return TL.scenes.find(s=>s.id===id)}
+function words(line){return TL.caps.filter(c=>c.line===line)}
+function wordT(line,idx){return words(line)[idx].s}
+function findWord(line,txt,from=0){const w=words(line);for(let i=from;i<w.length;i++){if(w[i].w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt.toLowerCase()))return w[i].s}return null}
+
+// --- static builders ---
+function rnd(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return (s-1)/2147483646}}
+function makeSquares(el,n,seed,opts={}){const r=rnd(seed);const arr=[];for(let i=0;i<n;i++){const d=document.createElement('div');d.className='sq';const sz=opts.min+(opts.max-opts.min)*r();d.style.width=d.style.height=sz+'px';const o={el:d,x:r()*1080,y:opts.y0+(opts.y1-opts.y0)*r(),sp:.3+r()*.9,ph:r()*6.28,op:opts.op*(0.4+0.6*r()),rot:r()*40-20};el.appendChild(d);arr.push(o)}return arr}
+function animSquares(arr,u,k=1){for(const o of arr){const y=o.y+Math.sin(u*o.sp+o.ph)*18;const x=o.x+Math.cos(u*o.sp*.7+o.ph)*12;o.el.style.transform=`translate(${x}px,${y}px) rotate(${o.rot+u*8*o.sp}deg)`;o.el.style.opacity=o.op*k}}
+let SQ={};
+function init(tl){
+  TL=tl;
+  document.querySelectorAll('.scr').forEach(e=>{const b=document.createElement('div');b.className='sbar';b.innerHTML='<span>9:41</span><i>▂▄▆ ◖▮▮▯</i>';e.prepend(b)});
+  // hey grid
+  const g=$('heygrid');for(let r=0;r<12;r++){const d=document.createElement('div');d.className='heyrow';d.style.top=(r*170-60)+'px';d.textContent='HEY! HEY! HEY! HEY! HEY! HEY! HEY!';g.appendChild(d)}
+  // hook question words
+  const q=$('hookq');const lines=[["Is","your","website"],["actually","bringing","you"],["customers?"]];let wi=0;
+  lines.forEach(l=>{const row=document.createElement('div');l.forEach(w=>{const s=document.createElement('span');s.className='word';s.textContent=w;s.dataset.i=wi++;if(w==='customers?'){s.style.color='#fff';s.style.background='linear-gradient(135deg,#6dbe45,#199541)';s.style.padding='0 28px 10px';s.style.borderRadius='26px';s.style.marginTop='18px'}row.appendChild(s)});q.appendChild(row)});
+  SQ.hook=makeSquares($('hooksq'),16,3,{min:22,max:60,y0:1330,y1:1800,op:.9});
+  // brand chips
+  const bc=$('br_chips');
+  [["Web design","▣",1000],["Branding","◆",1130],["Digital marketing","↗",1260]].forEach(([t,ic,y],i)=>{const c=document.createElement('div');c.className='chip dk';c.id='brc'+i;c.innerHTML=`<span class="ic">${ic}</span>${t}`;c.style.top=y+'px';bc.appendChild(c)});
+  const fl=document.createElement('div');fl.className='chip';fl.id='brc3';fl.innerHTML='🇬🇧 UK &nbsp;·&nbsp; 🇪🇺 Europe';fl.style.top='1400px';fl.style.boxShadow='0 0 0 3px #6dbe45, 0 20px 50px rgba(0,0,0,.15)';bc.appendChild(fl);
+  const sb=document.createElement('div');sb.className='abs center';sb.id='brc4';sb.style.cssText='top:900px;font-weight:700;font-size:40px;color:#4d4d4d';sb.textContent='for small businesses';bc.appendChild(sb);
+  SQ.hero=makeSquares($('hero_sq'),14,7,{min:18,max:46,y0:300,y1:1800,op:.35});
+  SQ.sv=makeSquares($('sv_sq'),14,11,{min:18,max:46,y0:300,y1:1800,op:.35});
+  SQ.ou=makeSquares($('ou_sq'),12,5,{min:16,max:40,y0:100,y1:1800,op:.5});
+  // hero badges
+  const hb=$('hero_badges');
+  [["⚡","Fast",60,600],["✦","Clean",640,860],["✉","Turns visitors into enquiries",90,1150]].forEach(([ic,t,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='hb'+i;c.innerHTML=`<span class="ic">${ic}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';hb.appendChild(c)});
+  // service chips: [label, icon, word, x, y]
+  const sv=$('sv_chips');
+  SVC=[["Websites","▣","websites",40,430],["Logos","◆","logos",620,560],["Branding","✦","branding",50,700],["Social media","♥","social",560,840],["Google Ads","↗","google",40,980],["Hosting","☁","hosting",640,1120],["Custom systems","</>","custom",60,1260]];
+  SVC.forEach(([t,ic,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='svc'+i;c.innerHTML=`<span class="ic" style="${ic.length>2?'font-size:20px':''}">${ic}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';sv.appendChild(c)});
+  // case cards
+  const cc=$('cs_cards');
+  CASE=[["1","Category structure","categories",40,620],["2","Product → Basket → Checkout","path",120,900],["3","Ongoing marketing","marketing",420,1180]];
+  CASE.forEach(([n,t,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='csc'+i;c.innerHTML=`<span class="ic">${n}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';c.style.boxShadow='0 0 0 3px #6dbe45,0 24px 60px rgba(0,0,0,.25)';cc.appendChild(c)});
+  const tag=document.createElement('div');tag.className='chip dk';tag.id='cstag';tag.innerHTML='<span class="ic">🛒</span>Online store · Europe';tag.style.left='520px';tag.style.top='760px';cc.appendChild(tag);
+  // caption chunks
+  CH=[];let cur=[];const caps=TL.caps;
+  for(let i=0;i<caps.length;i++){const c=caps[i];const prev=cur[cur.length-1];
+    if(cur.length&&(cur.length>=3||c.line!==prev.line||c.s-prev.e>0.22)){CH.push(cur);cur=[]}
+    cur.push(c)}
+  if(cur.length)CH.push(cur);
+}
+let SVC,CASE,CH;
+function setImg(img,dir,n,u){const f=clamp(Math.floor(u*FPS),0,n-1);const src=`${dir}/${String(f).padStart(4,'0')}.jpg`;if(img.getAttribute('src')!==src){img.setAttribute('src',src);return img.decode().catch(()=>{})}return null}
+function show(id,v){$(id).style.display=v?'block':'none'}
+function pop(el,u,a,dur=.35,from=0){const k=P(u,a,a+dur);const s=from+(1-from)*oB(k);el.style.opacity=clamp(k*3);el.style.transform=(el.dataset.base||'')+` scale(${k<=0?from:s})`;return k}
+function fade(el,u,a,b,dy=40){const k=oC(P(u,a,b));el.style.opacity=k;el.style.transform=`translateY(${(1-k)*dy}px)`;return k}
+function phoneIn(el,u,extra=''){const k=oC(P(u,0.05,0.6));el.style.transform=`translateY(${(1-k)*900}px) ${extra}`}
+
+async function render(t){
+  const waits=[];
+  const active=[];
+  TL.scenes.forEach((s,i)=>{const next=TL.scenes[i+1];const vis=t>=s.s && (t<s.e || (!next && t<=s.e+1)) || (next && t>=next.s && t<next.s+0.32 && t>=s.s);show(s.id,vis);if(vis)active.push(s)});
+  // transitions: incoming scene wipes up from bottom
+  let wipe=null;
+  TL.scenes.forEach((s,i)=>{const el=$(s.id);el.style.zIndex=i;if(i===0){el.style.clipPath='none';return}const k=iO(P(t,s.s,s.s+0.32));el.style.clipPath=k<1?`inset(${(1-k)*100}% 0 0 0)`:'none';if(k>0&&k<1)wipe=(1-k)*1920});
+  const wb=$('wipebar');if(wipe!==null){wb.style.display='block';wb.style.top=(wipe-13)+'px'}else wb.style.display='none';
+
+  for(const s of active){const u=t-s.s, D=s.e-s.s;
+  if(s.id==='hook'){
+    const g=$('heygrid');g.style.transform=`translate(${-u*40}px,${-u*25}px) scale(${1+u*.02})`;g.style.opacity=oC(P(u,-0.3,.4));
+    const hb=$('heybig');const k=P(u,-0.2,0.4);const up=iO(P(u,0.75,1.15));
+    hb.style.transform=`translateY(${-up*360}px) scale(${(k<=0?0:oB(k))*(1-up*0.38)}) rotate(${(1-oC(k))*-8}deg)`;
+    hb.style.opacity=clamp(k*4);
+    document.querySelectorAll('#hookq .word').forEach(w=>{const i=+w.dataset.i;const ts=TL.caps[i+1].s;const kk=P(t,ts-0.04,ts+0.26);w.style.opacity=clamp(kk*3);w.style.transform=`translateY(${(1-oC(kk))*50}px) scale(${kk<=0?.6:0.6+0.4*oB(kk)})`});
+    const q=$('hookq');q.style.top='800px';animSquares(SQ.hook,u,oC(P(u,0.3,1.0)));
+  }
+  if(s.id==='brand'){
+    const L=1;const lg=$('br_logo');const k=oC(P(u,0.15,1.0));lg.style.clipPath=`inset(0 ${(1-k)*100}% 0 0)`;lg.style.transform=`scale(${0.92+0.08*k})`;
+    lg.style.top=(470-oC(P(u,0.9,1.4))*90)+'px';
+    fade($('br_meet'),u,0.1,0.5);
+    const ts=[findWord(L,'web'),findWord(L,'branding'),findWord(L,'digital')];
+    for(let i=0;i<3;i++){const c=$('brc'+i);const w=c.offsetWidth;c.style.left=((1080-w)/2)+'px';const kk=P(t,ts[i]-0.05,ts[i]+0.35);c.style.opacity=clamp(kk*3);c.style.transform=`translateX(${(1-oC(kk))*(i%2?300:-300)}px)`}
+    const c3=$('brc3');c3.style.left=((1080-c3.offsetWidth)/2)+'px';pop(c3,t,findWord(L,'uk')-0.1,.4,.4);
+    fade($('brc4'),t,findWord(L,'small')-0.05,findWord(L,'small')+0.35);
+  }
+  if(s.id==='hero'){
+    animSquares(SQ.hero,u);
+    fade($('hero_eb'),u,0.15,0.55);const ku=P(u,0.25,0.7);const url=$('hero_url');url.style.opacity=clamp(ku*3);url.style.transform=`scale(${ku<=0?.5:oB(ku)})`;
+    phoneIn($('hero_ph'),u);
+    const w=setImg($('hero_img'),'rec_hero',NREC.hero,u);if(w)waits.push(w);
+    const L=2;const ts=[findWord(L,'fast'),findWord(L,'clean'),findWord(L,'visitors')];
+    for(let i=0;i<3;i++){const c=$('hb'+i);const kk=P(t,ts[i]-0.08,ts[i]+0.32);const out=P(u,D-0.45,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateY(${Math.sin(u*2+i)*8}px) scale(${kk<=0?.3:.3+.7*oB(kk)})`}
+  }
+  if(s.id==='services'){
+    animSquares(SQ.sv,u);fade($('sv_eb'),u,0.15,0.5);fade($('sv_h'),u,0.25,0.65);
+    phoneIn($('sv_ph'),u);
+    const w=setImg($('sv_img'),'rec_services',NREC.services,u);if(w)waits.push(w);
+    const L=3;let from=0;
+    SVC.forEach((d,i)=>{const c=$('svc'+i);const ts=findWord(L,d[2]);const kk=P(t,ts-0.06,ts+0.3);const out=P(t,ts+1.9,ts+2.2);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(d[3]<500?-200:200)}px) translateY(${-out*30}px) scale(${kk<=0?.5:.5+.5*oB(kk)})`});
+    const st=$('sv_stamp');const ts=findWord(L,'all');const kk=P(t,ts-0.05,ts+0.3);st.style.opacity=clamp(kk*4);st.style.transform=`scale(${kk<=0?2.2:2.2-1.2*oC(kk)}) rotate(${-4}deg)`;
+  }
+  if(s.id==='case'){
+    fade($('cs_eb'),u,0.15,0.5);fade($('cs_h'),u,0.25,0.65);fade($('cs_sub'),u,0.4,0.8);
+    phoneIn($('cs_ph'),u);
+    const w=setImg($('cs_img'),'rec_case',NREC.case,u);if(w)waits.push(w);
+    const tg=$('cstag');const t4=findWord(4,'online');const kt=P(t,t4-.05,t4+.35);const ot=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg.style.opacity=clamp(kt*3)*(1-ot);tg.style.transform=`scale(${kt<=0?.4:.4+.6*oB(kt)})`;
+    CASE.forEach((d,i)=>{const c=$('csc'+i);const ts=findWord(5,d[2]);const kk=P(t,ts-0.1,ts+0.3);const out=P(u,D-0.4,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(i===2?260:-260)}px) rotate(${(1-oC(kk))*-6}deg)`});
+  }
+  if(s.id==='reviews'){
+    const k=P(u,0.1,0.5);$('rv_card').style.opacity=clamp(k*3);$('rv_card').style.transform=`scale(${k<=0?.5:.5+.5*oB(k)})`;
+    let st='';for(let i=0;i<5;i++){const on=u>0.45+i*0.13;st+=`<span style="color:${on?'#fbbc04':'#e3e3e3'}">★</span>`}$('rv_stars').innerHTML=st;
+    phoneIn($('rv_ph'),u);
+    const w=setImg($('rv_img'),'rec_reviews',NREC.reviews,u);if(w)waits.push(w);
+  }
+  if(s.id==='comment'){
+    const L=7;
+    fade($('cm_q'),u,0.1,0.45,30);
+    const tw=findWord(L,'comment');const kc=P(t,tw-0.05,tw+0.35);const cta=$('cm_cta');cta.style.opacity=clamp(kc*3);cta.style.transform=`scale(${kc<=0?.6:.6+.4*oB(kc)})`;
+    const wW=findWord(L,'website');const pulse=u>0?1+0.04*Math.sin(Math.max(0,t-wW)*9)*Math.exp(-Math.max(0,t-wW)*1.2):1;$('cm_word').style.transform=`scale(${t>wW?pulse:1})`;
+    fade($('cm_reply'),t,findWord(L,'reply')-0.1,findWord(L,'reply')+0.3,20);
+    const ar=$('cm_arrow');ar.style.opacity=clamp(P(u,0.6,0.9));ar.style.transform=`translateY(${Math.abs(Math.sin(u*5))*-22}px)`;
+    const sh=$('cm_sheet');const ks=oC(P(u,0.15,0.65));sh.style.transform=`translateY(${(1-ks)*900}px)`;
+    // typing
+    const t0=wW+0.05, word='WEBSITE';const n=clamp(Math.floor((t-t0)/0.085),0,word.length);
+    const sent=t0+word.length*0.085+0.35;
+    $('cm_typed').textContent=t<sent?word.slice(0,n):'';
+    $('cm_ph').style.display=(t<t0||t>=sent)?'inline':'none';
+    $('cm_caret').style.display=(t>=t0&&t<sent&&Math.floor(u*3)%2===0)?'inline-block':'none';
+    const tap=$('cm_tap');const sb=$('cm_send').getBoundingClientRect();const kt=P(t,sent-0.12,sent+0.3);
+    if(kt>0&&kt<1){tap.style.display='block';tap.style.left=(sb.left+sb.width/2-60)+'px';tap.style.top=(sb.top+sb.height/2-60)+'px';tap.style.transform=`scale(${0.4+kt*1.1})`;tap.style.opacity=1-kt}else tap.style.display='none';
+    $('cm_send').style.transform=`scale(${1-0.15*Math.sin(Math.PI*P(t,sent-0.1,sent+0.15))})`;
+    const ku=P(t,sent,sent+0.35);const cu=$('cm_user');cu.style.opacity=clamp(ku*2);cu.style.transform=`translateY(${(1-oC(ku))*60}px)`;
+    const hk=P(t,sent+0.7,sent+1.0);const uh=$('cm_uheart');uh.innerHTML=hk>0?'<span style="color:#ed4956">♥</span>':'♡';uh.style.transform=`scale(${hk>0?1+0.5*Math.sin(Math.PI*hk):1})`;
+    const ka=P(t,sent+1.25,sent+1.6);const ca=$('cm_ans');ca.style.opacity=clamp(ka*2);ca.style.transform=`translateY(${(1-oC(ka))*50}px)`;
+    
+  }
+  if(s.id==='outro'){
+    animSquares(SQ.ou,u);
+    const lg=$('ou_logo');const k=oC(P(u,0.15,1.0));lg.style.clipPath=`inset(0 ${(1-k)*100}% 0 0)`;lg.style.transform=`scale(${0.9+0.1*k+u*0.006})`;
+    const ku=P(u,0.6,1.0);$('ou_url').style.opacity=clamp(ku*3);$('ou_url').style.transform=`scale(${ku<=0?.5:.5+.5*oB(ku)})`;
+    const kb=P(u,1.0,1.4);$('ou_btn').style.opacity=clamp(kb*3);$('ou_btn').style.transform=`scale(${(kb<=0?.5:.5+.5*oB(kb))*(1+0.035*Math.sin(Math.max(0,u-1.5)*5))})`;
+    fade($('ou_loc'),u,1.3,1.8,25);
+  }
+  }
+  // captions
+  const capScenes=['brand','hero','services','case','reviews'];
+  const cur=active[active.length-1];
+  const capEl=$('caps');
+  let chunk=null;
+  if(cur&&capScenes.includes(cur.id)){for(const c of CH){if(t>=c[0].s-0.05&&t<c[c.length-1].e+0.25){chunk=c}}}
+  if(chunk){capEl.style.display='block';$('capbox').innerHTML=chunk.map((w,j)=>`<b class="${(t>=w.s-0.02&&(j===chunk.length-1||t<chunk[j+1].s-0.02))?'on':''}">${w.w.toUpperCase()}</b>`).join(' ');const k=P(t,chunk[0].s-0.05,chunk[0].s+0.1);capEl.style.transform=`scale(${0.85+0.15*oB(k)})`}else capEl.style.display='none';
+  await Promise.all(waits);
+  return true;
+}
+</script></body></html>
