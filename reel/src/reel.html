@@ -100,9 +100,9 @@ body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antiali
 
 <!-- CASE -->
 <div class="scene light" id="case">
-  <div class="abs center eyebrow" id="cs_eb" style="top:120px;color:var(--g3)">Real example · E-commerce</div>
-  <div class="abs center h1" id="cs_h" style="top:168px;font-size:92px;color:var(--ink)">Global Supermarket EU</div>
-  <div class="abs center" id="cs_sub" style="top:276px;font-size:34px;color:#5b6168;font-weight:600">Online grocery store for shoppers across Europe</div>
+  <div class="abs center eyebrow" id="cs_eb" style="top:120px;color:var(--g3)">Real example · Wholesale food</div>
+  <div class="abs center h1" id="cs_h" style="top:172px;font-size:84px;color:var(--ink)">Transfood Grosshandel</div>
+  <div class="abs center" id="cs_sub" style="top:276px;font-size:34px;color:#5b6168;font-weight:600">Wholesale food supply across Germany 🇩🇪</div>
   <div class="phone" id="cs_ph" style="top:350px;box-shadow:0 0 0 3px #2b3136,0 50px 120px rgba(0,0,0,.30)"><div class="island"></div><div class="scr"><img id="cs_img"></div></div>
   <div id="cs_cards"></div>
 </div>
@@ -184,7 +184,7 @@ const iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
 const oB=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
 const $=id=>document.getElementById(id);
 let TL=null, REC={};
-const NREC={hero:180,services:246,case:384,reviews:108};
+const NREC={hero:180,services:246,case:461,reviews:108};
 function sc(id){return TL.scenes.find(s=>s.id===id)}
 function words(line){return TL.caps.filter(c=>c.line===line)}
 function wordT(line,idx){return words(line)[idx].s}
@@ -221,9 +221,10 @@ function init(tl){
   SVC.forEach(([t,ic,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='svc'+i;c.innerHTML=`<span class="ic" style="${ic.length>2?'font-size:20px':''}">${ic}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';sv.appendChild(c)});
   // case cards
   const cc=$('cs_cards');
-  CASE=[["1","Category structure","categories",40,620],["2","Product → Basket → Checkout","path",120,900],["3","Ongoing marketing","marketing",420,1180]];
+  CASE=[["1","Shop by brand","brands",40,640],["2","New arrivals","new",380,900],["3","Order in bulk","bulk",60,1180]];
   CASE.forEach(([n,t,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='csc'+i;c.innerHTML=`<span class="ic">${n}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';c.style.boxShadow='0 0 0 3px #6dbe45,0 24px 60px rgba(0,0,0,.25)';cc.appendChild(c)});
-  const tag=document.createElement('div');tag.className='chip dk';tag.id='cstag';tag.innerHTML='<span class="ic">🛒</span>Online store · Europe';tag.style.left='520px';tag.style.top='760px';cc.appendChild(tag);
+  const tag=document.createElement('div');tag.className='chip dk';tag.id='cstag';tag.innerHTML='<span class="ic">🚚</span>Wholesale · Germany';tag.style.left='500px';tag.style.top='700px';cc.appendChild(tag);
+  const tag2=document.createElement('div');tag2.className='chip';tag2.id='cstag2';tag2.innerHTML='🍛 Indian · Asian · African &amp; more';tag2.style.left='60px';tag2.style.top='1120px';tag2.style.boxShadow='0 0 0 3px #6dbe45,0 24px 60px rgba(0,0,0,.25)';cc.appendChild(tag2);
   // caption chunks
   CH=[];let cur=[];const caps=TL.caps;
   for(let i=0;i<caps.length;i++){const c=caps[i];const prev=cur[cur.length-1];
@@ -285,8 +286,9 @@ async function render(t){
     fade($('cs_eb'),u,0.15,0.5);fade($('cs_h'),u,0.25,0.65);fade($('cs_sub'),u,0.4,0.8);
     phoneIn($('cs_ph'),u);
     const w=setImg($('cs_img'),'rec_case',NREC.case,u);if(w)waits.push(w);
-    const tg=$('cstag');const t4=findWord(4,'online');const kt=P(t,t4-.05,t4+.35);const ot=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg.style.opacity=clamp(kt*3)*(1-ot);tg.style.transform=`scale(${kt<=0?.4:.4+.6*oB(kt)})`;
-    CASE.forEach((d,i)=>{const c=$('csc'+i);const ts=findWord(5,d[2]);const kk=P(t,ts-0.1,ts+0.3);const out=P(u,D-0.4,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(i===2?260:-260)}px) rotate(${(1-oC(kk))*-6}deg)`});
+    const tg2=$('cstag2');const ti=findWord(4,'indian');const ki=P(t,ti-.05,ti+.35);const oi=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg2.style.opacity=clamp(ki*3)*(1-oi);tg2.style.transform=`translateX(${(1-oC(ki))*-200}px)`;
+    const tg=$('cstag');const t4=findWord(4,'wholesale');const kt=P(t,t4-.05,t4+.35);const ot=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg.style.opacity=clamp(kt*3)*(1-ot);tg.style.transform=`scale(${kt<=0?.4:.4+.6*oB(kt)})`;
+    CASE.forEach((d,i)=>{const c=$('csc'+i);const ts=findWord(5,d[2]);const kk=P(t,ts-0.1,ts+0.3);const out=P(u,D-0.4,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(i===1?260:-260)}px) rotate(${(1-oC(kk))*-6}deg)`});
   }
   if(s.id==='reviews'){
     const k=P(u,0.1,0.5);$('rv_card').style.opacity=clamp(k*3);$('rv_card').style.transform=`scale(${k<=0?.5:.5+.5*oB(k)})`;
