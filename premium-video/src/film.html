@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraLight.otf);font-weight:200}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Light.otf);font-weight:300}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+:root{--g1:#7fd35a;--g2:#3fa33e;--g3:#199541}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#050707}
+.scene{position:absolute;inset:0;overflow:hidden;display:none}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.lt{font-weight:300;letter-spacing:-.03em}
+.bd{font-weight:800;letter-spacing:-.045em}
+.gr{background:linear-gradient(100deg,#b7f08f,#5cc443 45%,#1f9d4a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.w{display:inline-block;margin:0 .11em;will-change:transform,filter}
+.eyebrow{font-weight:600;font-size:26px;letter-spacing:.5em;color:rgba(255,255,255,.55);text-transform:uppercase}
+#orbs div{position:absolute;border-radius:50%;filter:blur(90px)}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 45%,rgba(0,0,0,.75) 100%);pointer-events:none;z-index:60}
+#grain{position:absolute;inset:-50px;background:url(noise.png);opacity:.07;mix-blend-mode:overlay;z-index:61;pointer-events:none}
+/* logo wall */
+.tile{position:absolute;width:230px;height:230px;border-radius:34px;background:#fff;display:grid;place-items:center;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.2)}
+.tile img{width:88%;height:88%;object-fit:contain}
+/* browser cards */
+.card{position:absolute;left:-280px;top:-200px;width:560px;border-radius:18px;overflow:hidden;background:#fff;backface-visibility:hidden;box-shadow:0 40px 90px rgba(0,0,0,.7);-webkit-box-reflect:below 14px linear-gradient(transparent 70%,rgba(255,255,255,.18))}
+.card .bar{height:34px;background:#eef0f2;display:flex;align-items:center;gap:8px;padding:0 14px}
+.card .bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.card .bar span{margin-left:10px;flex:1;height:22px;border-radius:11px;background:#fff;font-size:14px;font-weight:600;color:#333;display:flex;align-items:center;padding:0 10px}
+.card img{width:560px;display:block}
+/* glass notifications */
+.note{position:absolute;left:110px;width:860px;height:150px;border-radius:34px;background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.05));border:1.5px solid rgba(255,255,255,.18);box-shadow:0 30px 70px rgba(0,0,0,.45);display:flex;align-items:center;gap:26px;padding:0 34px;backdrop-filter:blur(18px)}
+.note .ic{width:84px;height:84px;border-radius:24px;background:linear-gradient(135deg,var(--g1),var(--g3));display:grid;place-items:center;font-size:40px;flex:none}
+.note b{display:block;font-size:34px;font-weight:700}
+.note span{font-size:28px;color:rgba(255,255,255,.72);font-weight:500}
+.note small{position:absolute;right:34px;top:30px;font-size:22px;color:rgba(255,255,255,.5);font-weight:600}
+/* phone */
+.phone{position:absolute;left:254px;width:572px;height:1204px;border-radius:78px;background:#0b0d0e;padding:16px;box-shadow:0 0 0 2px #2c3236,0 60px 140px rgba(0,0,0,.8),0 0 120px rgba(109,190,69,.18)}
+.phone .scr{width:540px;height:1172px;border-radius:62px;overflow:hidden;position:relative;background:#000}
+.phone .island{position:absolute;top:30px;left:50%;width:132px;height:36px;margin-left:-66px;background:#000;border-radius:24px;z-index:9}
+.dm{position:absolute;inset:0;background:#000;color:#fff;font-family:IN,'Noto Color Emoji'}
+.dm .sb{height:66px;display:flex;justify-content:space-between;align-items:center;padding:8px 46px 0 52px;font-weight:700;font-size:24px}
+.dm .hd{display:flex;align-items:center;gap:18px;padding:14px 26px 18px;border-bottom:1px solid #1f1f1f}
+.dm .av{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden;flex:none}
+.dm .hd b{font-size:28px;font-weight:700;display:block}
+.dm .hd span{font-size:21px;color:#9a9a9a}
+.bub{position:absolute;max-width:440px;padding:22px 28px;border-radius:32px;font-size:32px;line-height:1.35;font-weight:500}
+.me{right:24px;background:linear-gradient(135deg,#3fa33e,#1d8f45);border-bottom-right-radius:10px}
+.them{left:24px;background:#262626;border-bottom-left-radius:10px}
+.dm .in{position:absolute;left:22px;right:22px;bottom:30px;height:84px;border-radius:42px;background:#1a1a1a;display:flex;align-items:center;padding:0 30px;font-size:27px;color:#8a8a8a;gap:10px}
+</style></head>
+<body><div id="stage">
+<div id="orbs" class="abs" style="inset:0;z-index:0"><div id="o1" style="width:700px;height:700px;background:rgba(63,163,62,.38)"></div><div id="o2" style="width:600px;height:600px;background:rgba(25,149,65,.30)"></div><div id="o3" style="width:500px;height:500px;background:rgba(160,230,120,.12)"></div></div>
+
+<!-- A -->
+<div class="scene" id="deserve"><div class="abs" id="A_in" style="inset:0">
+  <div class="abs center lt" id="A1" style="top:700px;font-size:96px"></div>
+  <div class="abs center bd" id="A2" style="top:830px;font-size:118px"></div>
+  <div class="abs" id="A_line" style="left:340px;width:400px;top:1040px;height:2px;background:linear-gradient(90deg,transparent,var(--g1),transparent)"></div>
+</div></div>
+
+<!-- B -->
+<div class="scene" id="brand">
+  <div class="abs center lt" id="B1" style="top:200px;font-size:84px"></div>
+  <div class="abs center bd" id="B2" style="top:300px;font-size:120px"></div>
+  <div class="abs" id="B_wall" style="left:540px;top:1080px;width:0;height:0;perspective:1600px"><div id="B_rot" style="transform-style:preserve-3d"></div></div>
+</div>
+
+<!-- C -->
+<div class="scene" id="design">
+  <div class="abs center lt" id="C1" style="top:200px;font-size:84px"></div>
+  <div class="abs center bd" id="C2" style="top:300px;font-size:150px"></div>
+  <div class="abs" style="left:540px;top:1060px;width:0;height:0;perspective:2000px"><div id="C_ring" style="transform-style:preserve-3d"></div></div>
+</div>
+
+<!-- D -->
+<div class="scene" id="marketing">
+  <div class="abs center lt" id="D1" style="top:200px;font-size:84px"></div>
+  <div class="abs center bd" id="D2" style="top:300px;font-size:120px"></div>
+  <div id="D_notes"></div>
+  <svg class="abs" id="D_chart" style="left:60px;top:1260px" width="960" height="420" viewBox="0 0 960 420">
+    <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#1f9d4a"/><stop offset="1" stop-color="#b7f08f"/></linearGradient>
+    <linearGradient id="ar" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(109,190,69,.35)"/><stop offset="1" stop-color="rgba(109,190,69,0)"/></linearGradient>
+    <filter id="gl"><feGaussianBlur stdDeviation="6"/></filter></defs>
+    <g stroke="rgba(255,255,255,.07)" stroke-width="1.5"><line x1="0" y1="100" x2="960" y2="100"/><line x1="0" y1="200" x2="960" y2="200"/><line x1="0" y1="300" x2="960" y2="300"/><line x1="0" y1="400" x2="960" y2="400"/></g>
+    <path id="D_area" d="M0 380 C120 370 180 330 260 320 C360 305 400 250 500 230 C600 210 650 150 740 110 C820 75 880 50 960 30 L960 420 L0 420 Z" fill="url(#ar)"/>
+    <path id="D_glow" d="M0 380 C120 370 180 330 260 320 C360 305 400 250 500 230 C600 210 650 150 740 110 C820 75 880 50 960 30" fill="none" stroke="#6dbe45" stroke-width="14" filter="url(#gl)" opacity=".6"/>
+    <path id="D_line" d="M0 380 C120 370 180 330 260 320 C360 305 400 250 500 230 C600 210 650 150 740 110 C820 75 880 50 960 30" fill="none" stroke="url(#lg)" stroke-width="6" stroke-linecap="round"/>
+    <circle id="D_dot" r="12" fill="#b7f08f"/>
+  </svg>
+</div>
+
+<!-- E -->
+<div class="scene" id="world">
+  <div class="abs center lt" id="E1" style="top:200px;font-size:84px"></div>
+  <div class="abs center bd" id="E2" style="top:300px;font-size:120px"></div>
+  <svg class="abs" id="E_svg" style="left:0;top:560px" width="1080" height="1080" viewBox="0 0 1080 1080"></svg>
+</div>
+
+<!-- F -->
+<div class="scene" id="rating">
+  <div class="abs center eyebrow" id="F0" style="top:520px">Google reviews</div>
+  <div class="abs center" id="F1" style="top:600px;font-weight:200;font-size:400px;letter-spacing:-.06em;line-height:1">5.0</div>
+  <div class="abs center" id="F_stars" style="top:1040px"></div>
+  <div class="abs center" id="F2" style="top:1210px;font-weight:500;font-size:38px;color:rgba(255,255,255,.7)">Rated five stars · 25 reviews</div>
+</div>
+
+<!-- G -->
+<div class="scene" id="next"><div class="abs" id="G_in" style="inset:0">
+  <div class="abs center lt" id="G1" style="top:740px;font-size:120px"></div>
+  <div class="abs center bd" id="G2" style="top:880px;font-size:130px"></div>
+</div></div>
+
+<!-- H -->
+<div class="scene" id="dm">
+  <div class="abs center lt" id="H1" style="top:150px;font-size:84px"></div>
+  <div class="abs center bd" id="H2" style="top:245px;font-size:116px"></div>
+  <div class="phone" id="H_ph" style="top:430px;transform-origin:50% 0">
+    <div class="island"></div>
+    <div class="scr"><div class="dm">
+      <div class="sb"><span>9:41</span><span style="letter-spacing:3px;font-size:20px">▂▄▆ ◖▮▮▯</span></div>
+      <div class="hd"><span style="font-size:40px;color:#ddd">‹</span><div class="av"><img src="../assets/logomark.png" style="width:60px;height:60px"></div><div><b>afaipixel</b><span>Web design · Branding · Marketing</span></div></div>
+      <div class="abs center" style="top:190px;font-size:20px;color:#7a7a7a;font-weight:600">Today</div>
+      <div class="bub me" id="b1" style="top:250px">Hi! I need a new website for my business 👋</div>
+      <div class="bub them" id="typing" style="top:440px;padding:22px 26px"><span class="dot">●</span> <span class="dot">●</span> <span class="dot">●</span></div>
+      <div class="bub them" id="b2" style="top:440px">Let's make it happen ✨</div>
+      <div class="bub them" id="b3" style="top:560px">Tell us about your business and we'll send you a plan.</div>
+      <div class="in"><span id="typed" style="color:#fff"></span><span id="caret" style="display:inline-block;width:3px;height:34px;background:#6dbe45"></span><span id="ph">Message…</span><span style="margin-left:auto;color:#6dbe45;font-weight:700" id="sendb">Send</span></div>
+    </div></div>
+  </div>
+  <div class="abs center" id="H3" style="top:1490px;font-weight:600;font-size:38px;color:rgba(255,255,255,.85)">💬 DM us on Instagram</div>
+  <div class="abs center" id="H4" style="top:1560px;font-weight:600;font-size:34px;color:rgba(255,255,255,.7)">WhatsApp <span class="gr" style="font-weight:800">+94 757 323 323</span> · <span class="gr" style="font-weight:800">+44 7517 755147</span></div>
+</div>
+
+<!-- I -->
+<div class="scene" id="logo">
+  <div class="abs" id="I_logo" style="left:250px;top:640px;width:580px;height:349px">
+    <img src="../assets/logo_white.png" style="width:580px;display:block">
+    <div id="I_shine" class="abs" style="inset:0;-webkit-mask:url(../assets/logo_white.png) center/contain no-repeat;mask:url(../assets/logo_white.png) center/contain no-repeat;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.95) 50%,transparent 65%);background-size:300% 100%"></div>
+  </div>
+  <div class="abs center" id="I_url" style="top:1110px;font-weight:600;font-size:46px;letter-spacing:.04em">afaipixel.com</div>
+  <div class="abs center" id="I_cta" style="top:1200px"><span style="display:inline-block;border:2px solid rgba(127,211,90,.8);color:#b7f08f;font-weight:700;font-size:36px;padding:20px 46px;border-radius:999px;background:rgba(63,163,62,.12)">Send us a message →</span></div>
+</div>
+
+<div id="vig"></div><div id="grain"></div>
+</div>
+
+<script>
+const FPS=30;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const oC=x=>1-Math.pow(1-x,3);
+const oQ=x=>1-Math.pow(1-x,5);
+const iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const $=id=>document.getElementById(id);
+let TL;
+function lineWords(l){return TL.caps.filter(c=>c.line===l)}
+function fw(l,txt){for(const w of lineWords(l)){if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt))return w.s}return null}
+// build text: parts = [[word, cls]], times from line words starting at index off
+function build(el,line,parts,off){const ws=lineWords(line);parts.forEach(([w,c],i)=>{const s=document.createElement('span');s.className='w '+(c||'');s.textContent=w;s.dataset.t=ws[Math.min(off+i,ws.length-1)].s;el.appendChild(s)})}
+function reveal(el,t){el.querySelectorAll('.w').forEach(w=>{const ts=+w.dataset.t;const k=P(t,ts-0.2,ts+0.5);w.style.opacity=k;w.style.filter=`blur(${(1-k)*16}px)`;w.style.transform=`translateY(${(1-oQ(k))*40}px)`})}
+const LOGOS=['J-Junk-Rubbish-Removal.webp','Web-client-logo-02.jpg','Web-client-logo-05.jpg','Web-client-logo-07.jpg','Web-client-logo-08.jpg','Web-client-logo-09.jpg','Windoors-Logo-02.jpg','agl-sri-lanka-logo.webp','global-supermarket-eu-.webp','kingstone-surface-logo.webp','prime-park-heathrow-.webp','surfacestone.webp'];
+const SITES=[['tf_d','transfoodgrosshandel.com'],['wd_d','windoors.lk'],['sm_d','smeraldomilano.eu'],['agl_d','aglsrilanka.com'],['ks_d','kingstonesurface.co.uk']];
+const NOTES=[['✉️','New enquiry','“We’d love a new website for our restaurant.”'],['💬','New message','“Can we book a call this week?”'],['🛒','New order','Order received from your website'],['⭐','New lead','Contact form submitted']];
+const LOFF={UK:[-70,-14],Germany:[22,-22],Italy:[18,40]};
+const CITIES=[['UK',53.4,-1.5],['Germany',51.2,10.4],['Italy',45.5,9.2],['UAE',25.2,55.3],['Sri Lanka',6.9,79.9],['Australia',-33.9,151.2],['South Africa',-26.2,28.0]];
+function init(tl){
+  TL=tl;
+  build($('A1'),0,[['Your'],['business'],['deserves']],0);
+  build($('A2'),0,[['more','gr'],['than'],['a'],['website.']],3);
+  build($('B1'),1,[['It'],['deserves'],['a'],['brand']],0);
+  build($('B2'),1,[['people'],['remember.','gr']],4);
+  build($('C1'),2,[['Design'],['that'],['feels']],0);
+  build($('C2'),2,[['premium.','gr']],3);
+  build($('D1'),3,[['Marketing'],['that'],['brings']],0);
+  build($('D2'),3,[['real','gr'],['customers.']],3);
+  build($('E1'),4,[['Trusted'],['by'],['brands']],0);
+  build($('E2'),4,[['worldwide.','gr']],2);
+  build($('G1'),6,[['Your'],['idea']],0);
+  build($('G2'),6,[['could'],['be'],['next.','gr']],2);
+  build($('H1'),7,[['Send'],['us']],0);
+  build($('H2'),7,[['a'],['message.','gr']],2);
+  const r=$('B_rot');LOGOS.forEach((f,i)=>{const d=document.createElement('div');d.className='tile';d.id='tl'+i;d.innerHTML=`<img src="logos/${f}">`;r.appendChild(d)});
+  const ring=$('C_ring');SITES.forEach(([f,u],i)=>{const d=document.createElement('div');d.className='card';d.id='cd'+i;d.innerHTML=`<div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span>🔒 ${u}</span></div><img src="../clients/${f}.jpg">`;ring.appendChild(d)});
+  const dn=$('D_notes');NOTES.forEach(([ic,b,s],i)=>{const d=document.createElement('div');d.className='note';d.id='nt'+i;d.innerHTML=`<div class="ic">${ic}</div><div><b>${b}</b><span>${s}</span></div><small>now</small>`;dn.appendChild(d)});
+  let st='';for(let i=0;i<5;i++)st+=`<svg width="120" height="120" viewBox="0 0 24 24" style="margin:0 10px;overflow:visible"><defs><clipPath id="sc${i}"><rect id="sr${i}" x="0" y="0" width="0" height="24"/></clipPath></defs><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z" fill="none" stroke="rgba(255,255,255,.25)" stroke-width=".8"/><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z" fill="#f6c34a" clip-path="url(#sc${i})" style="filter:drop-shadow(0 0 6px rgba(246,195,74,.8))"/></svg>`;
+  $('F_stars').innerHTML=st;
+  document.fonts.ready;
+}
+function sceneAlpha(s,t){return P(t,s.s-0.35,s.s+0.25)*(1-P(t,s.e-0.1,s.e+0.45))}
+function globe(u){
+  const R=400,cx=540,cy=540,lam0=(-20+u*32)*Math.PI/180,phi0=18*Math.PI/180;
+  const proj=(lat,lon)=>{lat*=Math.PI/180;lon*=Math.PI/180;const x=Math.cos(lat)*Math.sin(lon-lam0);const y=Math.cos(phi0)*Math.sin(lat)-Math.sin(phi0)*Math.cos(lat)*Math.cos(lon-lam0);const z=Math.sin(phi0)*Math.sin(lat)+Math.cos(phi0)*Math.cos(lat)*Math.cos(lon-lam0);return [cx+R*x,cy-R*y,z]};
+  let g=`<defs><radialGradient id="atm"><stop offset=".78" stop-color="rgba(109,190,69,0)"/><stop offset=".86" stop-color="rgba(109,190,69,.28)"/><stop offset="1" stop-color="rgba(109,190,69,0)"/></radialGradient><radialGradient id="body" cx=".4" cy=".35"><stop offset="0" stop-color="#16301c"/><stop offset="1" stop-color="#070b08"/></radialGradient><filter id="pg"><feGaussianBlur stdDeviation="5"/></filter></defs>`;
+  g+=`<circle cx="${cx}" cy="${cy}" r="${R*1.18}" fill="url(#atm)"/><circle cx="${cx}" cy="${cy}" r="${R}" fill="url(#body)" stroke="rgba(127,211,90,.35)" stroke-width="2"/>`;
+  const seg=(pts)=>{let d='',pen=false;for(const [x,y,z] of pts){if(z>0){d+=(pen?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);pen=true}else pen=false}return d};
+  let d='';for(let lon=-180;lon<180;lon+=15){const pts=[];for(let lat=-90;lat<=90;lat+=5)pts.push(proj(lat,lon));d+=seg(pts)}
+  for(let lat=-60;lat<=75;lat+=15){const pts=[];for(let lon=-180;lon<=180;lon+=5)pts.push(proj(lat,lon));d+=seg(pts)}
+  g+=`<path d="${d}" fill="none" stroke="rgba(127,211,90,.22)" stroke-width="1.4"/>`;
+  // arcs from Sri Lanka & UK
+  const hubs=[CITIES[4],CITIES[0]];
+  hubs.forEach((h,hi)=>{CITIES.forEach((c,ci)=>{if(c===h||(hi===1&&ci===4))return;const k=clamp((u-0.6-ci*0.18-hi*0.4)/0.9);if(k<=0)return;
+    const a=[h[1],h[2]].map(v=>v*Math.PI/180),b=[c[1],c[2]].map(v=>v*Math.PI/180);
+    const v=(la,lo)=>[Math.cos(la)*Math.cos(lo),Math.cos(la)*Math.sin(lo),Math.sin(la)];const A=v(...a),B=v(...b);const om=Math.acos(clamp(A[0]*B[0]+A[1]*B[1]+A[2]*B[2],-1,1));
+    const pts=[];const N=40;for(let i=0;i<=N*k;i++){const f=i/N;const s1=Math.sin((1-f)*om)/Math.sin(om),s2=Math.sin(f*om)/Math.sin(om);const p=[A[0]*s1+B[0]*s2,A[1]*s1+B[1]*s2,A[2]*s1+B[2]*s2];const lat=Math.asin(p[2])*180/Math.PI,lon=Math.atan2(p[1],p[0])*180/Math.PI;const alt=1+0.18*Math.sin(Math.PI*f);const q=proj(lat,lon);pts.push([cx+(q[0]-cx)*alt,cy+(q[1]-cy)*alt,q[2]+0.15])}
+    g+=`<path d="${seg(pts)}" fill="none" stroke="rgba(183,240,143,.85)" stroke-width="2.6" stroke-linecap="round"/>`})});
+  CITIES.forEach(([n,la,lo],i)=>{const [x,y,z]=proj(la,lo);if(z<=0.02)return;const pulse=(u*1.2+i*0.3)%1;const k=clamp((u-0.3-i*0.12)/0.4);if(k<=0)return;
+    g+=`<circle cx="${x}" cy="${y}" r="${10+pulse*36}" fill="none" stroke="rgba(183,240,143,${(1-pulse)*0.8*k})" stroke-width="3"/><circle cx="${x}" cy="${y}" r="16" fill="#b7f08f" filter="url(#pg)" opacity="${k}"/><circle cx="${x}" cy="${y}" r="8" fill="#fff" opacity="${k}"/><text x="${x+(LOFF[n]||[20,-18])[0]}" y="${y+(LOFF[n]||[20,-18])[1]}" fill="rgba(255,255,255,${0.9*k*clamp(z*3)})" font-family="IN" font-weight="600" font-size="28">${n}</text>`});
+  $('E_svg').innerHTML=g;
+}
+async function render(t){
+  // orbs
+  $('o1').style.transform=`translate(${520+Math.sin(t*.25)*220}px,${200+Math.cos(t*.2)*160}px)`;
+  $('o2').style.transform=`translate(${-120+Math.cos(t*.18)*200}px,${1250+Math.sin(t*.22)*200}px)`;
+  $('o3').style.transform=`translate(${300+Math.sin(t*.3+1)*300}px,${800+Math.cos(t*.27)*300}px)`;
+  const g=$('grain');const f=Math.floor(t*FPS);g.style.backgroundPosition=`${(f*137)%512}px ${(f*251)%512}px`;
+  for(const s of TL.scenes){const a=sceneAlpha(s,t);const el=$(s.id);if(a<=0){el.style.display='none';continue}el.style.display='block';el.style.opacity=a;const u=t-s.s,D=s.e-s.s;
+  if(s.id==='deserve'){reveal(el,t);$('A_in').style.transform=`scale(${1+u*0.015})`;const k=oC(P(t,fw(0,'website'),fw(0,'website')+0.8));$('A_line').style.transform=`scaleX(${k})`;$('A_line').style.opacity=k}
+  if(s.id==='brand'){reveal(el,t);
+    $('B_rot').style.transform=`rotateX(${22-u*2}deg) rotateZ(${-8+u*1.2}deg) translateY(${-u*14}px)`;
+    LOGOS.forEach((_,i)=>{const c=i%3,r=Math.floor(i/3);const x=(c-1)*260-115,y=(r-1.5)*260-115;const k=oQ(P(u,0.35+i*0.08,1.15+i*0.08));const e=$('tl'+i);e.style.transform=`translate3d(${x}px,${y}px,${(1-k)*-900+Math.sin(u*1.4+i)*18}px)`;e.style.opacity=k;e.style.filter=`blur(${(1-k)*10}px)`})}
+  if(s.id==='design'){reveal(el,t);
+    const n=SITES.length;SITES.forEach((_,i)=>{const a=(i/n)*360-u*24-19.2;const e=$('cd'+i);e.style.transform=`rotateY(${a}deg) translateZ(470px)`;const k=oQ(P(u,0.1+i*0.08,0.9+i*0.08));e.style.opacity=k})}
+  if(s.id==='marketing'){reveal(el,t);
+    const start=fw(3,'marketing')+0.2;NOTES.forEach((_,i)=>{const ts=start+i*0.62;const k=oQ(P(t,ts,ts+0.5));const later=NOTES.reduce((acc,__,j)=>j>i?acc+oQ(P(t,start+j*0.62,start+j*0.62+0.5)):acc,0);const e=$('nt'+i);e.style.top=(560+later*168)+'px';e.style.opacity=k*(1-clamp((later-2.6)))*1;e.style.transform=`translateY(${(1-k)*-60}px) scale(${0.92+0.08*k})`;e.style.filter=`blur(${(1-k)*8}px)`});
+    const L=$('D_line'),len=1200;const k=iO(P(u,0.6,D-0.6));[L,$('D_glow')].forEach(p=>{p.style.strokeDasharray=len;p.style.strokeDashoffset=len*(1-k)});$('D_area').style.opacity=k*0.9;const pt=L.getPointAtLength(L.getTotalLength()*k);$('D_dot').setAttribute('cx',pt.x);$('D_dot').setAttribute('cy',pt.y);$('D_dot').style.opacity=k>0.01?1:0}
+  if(s.id==='world'){reveal(el,t);globe(u);const k=oQ(P(u,0,0.9));$('E_svg').style.transform=`scale(${0.85+0.15*k})`;$('E_svg').style.opacity=k}
+  if(s.id==='rating'){const k=oQ(P(u,0.05,0.8));$('F1').style.opacity=k;$('F1').style.filter=`blur(${(1-k)*20}px)`;$('F1').style.transform=`scale(${1.08-0.08*k})`;
+    $('F0').style.opacity=oC(P(u,0.3,0.8));for(let i=0;i<5;i++){$('sr'+i).setAttribute('width',24*oC(P(u,0.5+i*0.16,0.8+i*0.16)))}$('F2').style.opacity=oC(P(u,1.4,1.9))}
+  if(s.id==='next'){reveal(el,t);$('G_in').style.transform=`scale(${1+u*0.02})`}
+  if(s.id==='dm'){reveal(el,t);
+    const kp=oQ(P(u,0.1,0.9));$('H_ph').style.transform=`translateY(${(1-kp)*500}px) scale(.86)`;$('H_ph').style.opacity=kp;
+    const t0=s.s+0.9,msg='Hi! I need a new website for my business 👋';const chars=[...msg];const n=clamp(Math.floor((t-t0)/0.045),0,chars.length);const sent=t0+chars.length*0.045+0.3;
+    $('typed').textContent=t<sent?chars.slice(0,n).join(''):'';$('ph').style.display=(t<t0||t>=sent)?'inline':'none';$('caret').style.display=(t>=t0&&t<sent&&Math.floor(u*3)%2===0)?'inline-block':'none';
+    const k1=oQ(P(t,sent,sent+0.4));$('b1').style.opacity=k1;$('b1').style.transform=`translateY(${(1-k1)*40}px) scale(${0.9+0.1*k1})`;
+    const ty=P(t,sent+0.5,sent+0.6)*(1-P(t,sent+1.7,sent+1.8));$('typing').style.opacity=ty;document.querySelectorAll('.dot').forEach((d,i)=>d.style.opacity=0.35+0.65*Math.abs(Math.sin(u*5+i*0.8)));
+    const k2=oQ(P(t,sent+1.8,sent+2.2));$('b2').style.opacity=k2;$('b2').style.transform=`translateY(${(1-k2)*40}px)`;
+    const k3=oQ(P(t,sent+2.6,sent+3.0));$('b3').style.opacity=k3;$('b3').style.transform=`translateY(${(1-k3)*40}px)`;
+    $('H3').style.opacity=oC(P(u,2.0,2.6));$('H4').style.opacity=oC(P(u,2.4,3.0));window.__sent=sent}
+  if(s.id==='logo'){const k=oQ(P(u,0.2,1.4));const lg=$('I_logo');lg.style.opacity=k;lg.style.filter=`blur(${(1-k)*18}px)`;lg.style.transform=`scale(${1.1-0.1*k+u*0.008})`;
+    const sh=P(u,1.3,2.5);$('I_shine').style.backgroundPosition=`${100-sh*100}% 0`;$('I_shine').style.opacity=sh>0&&sh<1?1:0;
+    const ku=oC(P(u,1.8,2.5));$('I_url').style.opacity=ku;$('I_url').style.letterSpacing=(0.2-0.16*ku)+'em';$('I_cta').style.opacity=oC(P(u,2.4,3.0));$('I_cta').style.transform=`translateY(${(1-oC(P(u,2.4,3.0)))*20}px)`}
+  }
+  await Promise.all([...document.images].filter(i=>!i.complete).map(i=>i.decode().catch(()=>{})));
+  return true;
+}
+</script></body></html>
