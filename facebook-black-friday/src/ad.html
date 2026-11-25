@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Regular.otf);font-weight:400}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
+:root{--bg:#0c0c0c;--ink:#f3f1ec;--mute:#8d8a84;--line:#2a2a2a;--g:#3fa33e;--g2:#57b947}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow:hidden;background:#000}
+body{font-family:IN,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+#stage{position:relative;overflow:hidden;background:var(--bg)}
+.abs{position:absolute}
+.scene{position:absolute;left:0;right:0;display:none}
+.mask{overflow:hidden;display:block}
+.mask>span{display:block}
+.k{font-weight:900;letter-spacing:-.045em;line-height:.9;text-transform:uppercase}
+.meta{font-weight:600;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rule{height:1px;background:var(--line)}
+.tag{display:inline-block;background:var(--g);color:#06120a;font-weight:800;letter-spacing:.02em;border-radius:6px}
+.btn{display:inline-flex;align-items:center;gap:18px;background:var(--ink);color:#0c0c0c;font-weight:700;border-radius:10px}
+.browser{position:absolute;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.45);border:1px solid #333}
+.browser .bar{height:34px;background:#1b1b1b;display:flex;align-items:center;gap:8px;padding:0 14px}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:#3a3a3a;display:inline-block}
+.browser .bar span{margin-left:12px;font-size:15px;color:#9a9a9a;font-weight:500}
+.browser img{display:block;width:100%}
+.phone{position:absolute;border-radius:44px;background:#111;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid #333}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#fff}
+.phone .scr img{position:absolute;top:0;left:0;width:100%}
+.phone .isl{position:absolute;top:16px;left:50%;width:84px;height:24px;margin-left:-42px;background:#000;border-radius:14px;z-index:3}
+.pkg{position:absolute;left:0;right:0;border:1px solid var(--line);border-radius:14px;background:#121212;padding:30px 34px}
+.pkg h3{font-weight:800;font-size:46px;letter-spacing:-.03em}
+.pkg .n{font-weight:600;font-size:20px;letter-spacing:.14em;color:var(--mute)}
+.pkg ul{list-style:none;margin-top:16px}
+.pkg li{font-size:27px;color:#c9c6bf;padding:6px 0;display:flex;gap:14px;align-items:center}
+.pkg li:before{content:'';width:8px;height:8px;background:var(--g);border-radius:2px;flex:none}
+.pkg .off{position:absolute;right:30px;top:30px;font-size:26px;padding:10px 16px}
+.feat{position:absolute;border-top:1px solid var(--line);padding-top:26px}
+.feat .ic{width:64px;height:64px;border:2px solid var(--g);border-radius:12px;display:grid;place-items:center}
+.feat b{display:block;font-weight:800;font-size:44px;letter-spacing:-.03em;margin-top:22px;line-height:1.05}
+.feat span{display:block;font-size:26px;color:var(--mute);margin-top:10px;line-height:1.35}
+#ticker{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--g);color:#06120a;overflow:hidden;white-space:nowrap;font-weight:900;font-size:28px;letter-spacing:.06em;line-height:64px;z-index:20}
+#top{position:absolute;left:60px;right:60px;top:52px;display:flex;justify-content:space-between;align-items:center;z-index:20}
+#fade{position:absolute;inset:0;background:#000;z-index:50;pointer-events:none}
+</style></head>
+<body><div id="stage">
+<div id="top"><img src="../assets/logo_white.png" style="height:74px"><span class="meta" style="color:#bdbab3">Black Friday · Websites</span></div>
+<div id="rtop" class="abs rule" style="left:60px;right:60px;top:150px;z-index:20"></div>
+
+<!-- S1 -->
+<div class="scene" id="s1">
+  <div class="abs" style="left:60px;right:60px" id="s1c">
+    <div class="meta" id="s1m">Limited-time offer</div>
+    <div class="k" style="font-size:230px;margin-top:24px"><span class="mask"><span id="s1a">Black</span></span><span class="mask"><span id="s1b">Friday</span></span></div>
+    <div id="s1off" style="position:relative;margin-top:40px;height:290px">
+      <div id="s1blk" class="abs" style="left:0;top:0;height:290px;background:var(--g);border-radius:8px"></div>
+      <div id="s1pct" class="abs k" style="left:34px;top:34px;font-size:220px;white-space:nowrap;color:#06120a">20% off</div>
+    </div>
+    <div class="mask" style="margin-top:34px"><span id="s1w" style="font-weight:700;font-size:58px;letter-spacing:-.02em">every new website.</span></div>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="scene" id="s2">
+  <div class="abs" style="left:60px;right:60px" id="s2t">
+    <div class="meta" id="s2m">01 — Custom websites</div>
+    <div style="font-weight:800;font-size:84px;letter-spacing:-.04em;line-height:1;margin-top:20px"><span class="mask"><span id="s2a">Built to bring</span></span><span class="mask"><span id="s2b">you <span style="color:var(--g2)">enquiries.</span></span></span></div>
+  </div>
+  <div class="browser" id="s2br" style="left:60px;width:820px"><div class="bar"><i></i><i></i><i></i><span id="s2url">windoors.lk</span></div><img id="s2img" src="../clients/wd_d.jpg"></div>
+  <div class="phone" id="s2ph" style="width:300px;height:620px"><div class="isl"></div><div class="scr"><img id="s2pimg" src="../rec_case/0000.jpg"></div></div>
+  <div class="abs meta" id="s2cap" style="left:60px;right:60px;font-size:20px">Client work — Windoors.lk · Transfood Grosshandel</div>
+</div>
+
+<!-- S3 -->
+<div class="scene" id="s3">
+  <div class="abs" style="left:60px;right:60px" id="s3t">
+    <div class="meta">02 — Website packages</div>
+    <div style="font-weight:800;font-size:76px;letter-spacing:-.04em;line-height:1;margin-top:18px"><span class="mask"><span id="s3a">20% off all three.</span></span></div>
+  </div>
+  <div class="abs" id="s3list" style="left:60px;right:60px">
+    <div class="pkg" id="p0"><span class="n">STARTER</span><span class="tag off">−20%</span><h3>Starter Website</h3><ul><li>4–6 pages, custom design</li><li>Contact form &amp; WhatsApp button</li><li>Google Business Profile setup</li></ul></div>
+    <div class="pkg" id="p1"><span class="n">BUSINESS</span><span class="tag off">−20%</span><h3>Business Website</h3><ul><li>8–15 pages, SEO service pages</li><li>Analytics &amp; Search Console</li><li>3 months free support</li></ul></div>
+    <div class="pkg" id="p2"><span class="n">E-COMMERCE</span><span class="tag off">−20%</span><h3>Online Store</h3><ul><li>WooCommerce or Shopify</li><li>Card, PayPal &amp; local payments</li><li>Training to manage your shop</li></ul></div>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="scene" id="s4">
+  <div class="abs" style="left:60px;right:60px" id="s4t">
+    <div class="meta">03 — Every website includes</div>
+  </div>
+  <div class="abs" id="s4g" style="left:60px;right:60px"></div>
+</div>
+
+<!-- S5 -->
+<div class="scene" id="s5">
+  <div class="abs" style="left:60px;right:60px" id="s5c">
+    <div class="meta" id="s5m">Black Friday · Limited time</div>
+    <div style="font-weight:900;font-size:128px;letter-spacing:-.05em;line-height:.92;margin-top:26px;text-transform:uppercase"><span class="mask"><span id="s5a">Claim</span></span><span class="mask"><span id="s5b"><span style="color:var(--g2)">20% off</span></span></span><span class="mask"><span id="s5c2">your website.</span></span></div>
+    <div id="s5btn" style="margin-top:56px"><span class="btn" style="font-size:40px;padding:28px 40px">Send us a message <svg width="36" height="36" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="#0c0c0c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="rule" id="s5r" style="margin-top:56px"></div>
+    <div id="s5d" style="margin-top:30px;display:flex;justify-content:space-between;gap:20px;font-size:28px;line-height:1.5">
+      <div><div class="meta" style="font-size:18px">Web</div><b style="font-weight:700">afaipixel.com</b></div>
+      <div><div class="meta" style="font-size:18px">WhatsApp</div><b style="font-weight:700">+94 757 323 323<br>+44 7517 755147</b></div>
+    </div>
+  </div>
+</div>
+
+<div id="ticker"><span id="tk"></span></div>
+<div id="fade"></div>
+</div>
+<script>
+const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1080),H=+(Q.get('h')||1350);const TALL=H>1600;
+document.body.style.width=W+'px';document.body.style.height=H+'px';const ST=document.getElementById('stage');ST.style.width=W+'px';ST.style.height=H+'px';
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));const P=(t,a,b)=>clamp((t-a)/(b-a));
+const oQ=x=>1-Math.pow(1-x,5),oC=x=>1-Math.pow(1-x,3),iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const $=id=>document.getElementById(id);let TL;
+function fw(l,txt,n=1){let c=0;for(const w of TL.caps.filter(c=>c.line===l)){if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt)){c++;if(c===n)return w.s}}console.warn('nf',txt);return 0}
+function up(e,k,d=1.05){e.style.transform=`translateY(${(1-oQ(k))*100*d}%)`}   // mask reveal
+function fadeUp(e,k,px=30){e.style.opacity=k;e.style.transform=`translateY(${(1-oQ(k))*px}px)`}
+const CTOP=TALL?300:210;   // content top under header
+function init(tl){TL=tl;
+  $('tk').innerHTML=Array(14).fill('<span class="tu" style="display:inline-block;padding-right:42px">BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;AFAIPIXEL.COM&nbsp;&nbsp;·</span>').join('');$('tk').style.display='inline-block';
+  if(!TALL){$('ticker').style.height='56px';$('ticker').style.lineHeight='56px';$('ticker').style.fontSize='24px'}
+  ['s1c','s2t','s3t','s4t','s5c'].forEach(id=>$(id).style.top=CTOP+'px');
+  if(!TALL){document.querySelector('#s1 .k').style.fontSize='200px';$('s1off').style.height='250px';$('s1blk').style.height='250px';$('s1pct').style.fontSize='196px';$('s1pct').style.top='30px';}
+  // s2 layout
+  const bt=TALL?640:520;$('s2br').style.top=bt+'px';$('s2br').style.width=(TALL?820:760)+'px';
+  $('s2ph').style.left=(TALL?700:720)+'px';$('s2ph').style.top=(TALL?820:610)+'px';if(!TALL){$('s2ph').style.width='270px';$('s2ph').style.height='560px'}
+  $('s2cap').style.top=(TALL?1520:1195)+'px';
+  // s3 layout
+  $('s3list').style.top=(TALL?470:370)+'px';const ph=TALL?330:270,gap=TALL?30:22;
+  ['p0','p1','p2'].forEach((id,i)=>{const e=$(id);e.style.top=(i*(ph+gap))+'px';e.style.height=ph+'px';if(!TALL){e.style.padding='22px 30px';e.querySelector('h3').style.fontSize='40px';e.querySelectorAll('li').forEach(l=>{l.style.fontSize='24px';l.style.padding='4px 0'});e.querySelector('ul').style.marginTop='10px'}});
+  // s4 grid
+  const F=[['SEO-ready','Search-friendly pages from day one.','<path d="M10 17a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm5-2 6 6" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','ready'],
+           ['Fast & secure','SSL, speed set-up and backups.','<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','fast'],
+           ['Mobile-first','Designed and tested on every screen.','<rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="#57b947" stroke-width="2.2"/><path d="M11 18.5h2" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','secure'],
+           ['Fixed quote','Clear price and plan in one working day.','<rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="#57b947" stroke-width="2.2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','fixed']];
+  const g=$('s4g');g.style.top=(CTOP+70)+'px';const cw=(W-120-40)/2,rh=TALL?420:330;
+  F.forEach(([b,s,ic,w],i)=>{const d=document.createElement('div');d.className='feat';d.id='f'+i;d.dataset.w=w;d.style.left=((i%2)*(cw+40))+'px';d.style.top=(Math.floor(i/2)*rh)+'px';d.style.width=cw+'px';d.innerHTML=`<div class="ic"><svg width="36" height="36" viewBox="0 0 24 24">${ic}</svg></div><b>${b}</b><span>${s}</span>`;g.appendChild(d)});
+  if(TALL){const big=document.createElement('div');big.className='abs';big.id='s4big';big.style.cssText=`left:0;right:0;top:${2*rh+40}px;border:1px solid var(--line);border-radius:14px;padding:34px;display:flex;justify-content:space-between;align-items:center`;big.innerHTML=`<div><div class="meta" style="font-size:20px">Black Friday</div><div style="font-weight:800;font-size:56px;letter-spacing:-.03em;margin-top:8px">All of this, 20% off.</div></div><span class="tag" style="font-size:40px;padding:14px 22px">−20%</span>`;g.appendChild(big)}
+  // s5
+  if(!TALL){$('s5c').querySelector('div[style*="font-size:128px"]').style.fontSize='112px';$('s5btn').style.marginTop='40px';$('s5r').style.marginTop='40px'}
+}
+function centerTall(id,ofs=0){if(!TALL)return;const e=$(id);e.style.top=Math.max(230,(H-64-e.offsetHeight)/2+ofs)+'px'}
+function vis(s,t){return P(t,s.s-0.05,s.s+0.2)*(1-P(t,s.e-0.15,s.e+0.1))}
+async function render(t){
+  const sc=id=>TL.scenes.find(x=>x.id===id);
+  const uw=document.querySelector('.tu').offsetWidth;$('tk').style.transform=`translateX(${-((t*90)%uw)}px)`;
+  for(const s of TL.scenes){const a=vis(s,t);const e=$(s.id);if(a<=0){e.style.display='none';continue}e.style.display='block';e.style.opacity=a;e.style.top='0';e.style.height=H+'px';const u=t-s.s;
+  if(s.id==='s1'){centerTall('s1c',-20);fadeUp($('s1m'),P(u,0.1,0.5),16);up($('s1a'),P(t,fw(0,'black')-0.15,fw(0,'black')+0.35));up($('s1b'),P(t,fw(0,'friday')-0.15,fw(0,'friday')+0.35));
+    const tp=fw(0,'twenty');const kb=iO(P(t,tp-0.25,tp+0.3));const fullW=W-120;$('s1blk').style.width=(fullW*kb)+'px';$('s1pct').style.clipPath=`inset(0 ${(1-kb)*100}% 0 0)`;
+    up($('s1w'),P(t,fw(0,'every')-0.1,fw(0,'every')+0.4))}
+  if(s.id==='s2'){fadeUp($('s2m'),P(u,0.0,0.4),16);up($('s2a'),P(u,0.1,0.55));up($('s2b'),P(u,0.25,0.7));
+    const kb=oQ(P(u,0.2,0.9));$('s2br').style.opacity=kb;$('s2br').style.transform=`translateY(${(1-kb)*60}px)`;
+    const sw=t>fw(1,'built');$('s2img').src=sw?'../clients/tf_d.jpg':'../clients/wd_d.jpg';$('s2url').textContent=sw?'transfoodgrosshandel.com':'windoors.lk';
+    const kp=oQ(P(u,0.6,1.3));$('s2ph').style.opacity=kp;$('s2ph').style.transform=`translateY(${(1-kp)*80}px)`;
+    const f=clamp(240+Math.floor(u*30*1.4),240,460);const src=`../rec_case/${String(f).padStart(4,'0')}.jpg`;if($('s2pimg').getAttribute('src')!==src)$('s2pimg').setAttribute('src',src);
+    fadeUp($('s2cap'),P(u,1.2,1.7),10)}
+  if(s.id==='s3'){up($('s3a'),P(u,0.05,0.5));['starter','business','online'].forEach((w,i)=>{const tw=fw(2,w);const k=oQ(P(t,tw-0.3,tw+0.25));const e=$('p'+i);e.style.opacity=k;e.style.transform=`translateY(${(1-k)*40}px)`;e.style.borderColor=t>=tw-0.05&&(i===2||t<fw(2,['starter','business','online'][i+1])-0.05)?'#3fa33e':'#2a2a2a'})}
+  if(s.id==='s4'){for(let i=0;i<4;i++){const e=$('f'+i);const tw=fw(3,e.dataset.w);const k=oQ(P(t,tw-0.25,tw+0.25));e.style.opacity=k;e.style.transform=`translateY(${(1-k)*30}px)`}
+    const b=$('s4big');if(b){const k=oQ(P(t,fw(3,'working')-0.2,fw(3,'working')+0.4));b.style.opacity=k;b.style.transform=`translateY(${(1-k)*30}px)`}}
+  if(s.id==='s5'){centerTall('s5c',-40);fadeUp($('s5m'),P(u,0,0.4),16);up($('s5b'),P(u,0.25,0.65));up($('s5c2'),P(u,0.4,0.8));
+    up($('s5a'),P(u,0.1,0.5));
+    const kb=oQ(P(t,fw(4,'send')-0.1,fw(4,'send')+0.4));$('s5btn').style.opacity=kb;$('s5btn').style.transform=`translateY(${(1-kb)*20}px)`;
+    $('s5r').style.transform=`scaleX(${oC(P(t,fw(4,'claim')-0.2,fw(4,'claim')+0.6))})`;$('s5r').style.transformOrigin='0 0';fadeUp($('s5d'),P(t,fw(4,'claim'),fw(4,'claim')+0.5),14)}
+  }
+  $('fade').style.opacity=1-P(t,0,0.35)+P(t,TL.total-0.5,TL.total);
+  await Promise.all([...document.images].filter(i=>!i.complete).map(i=>i.decode().catch(()=>{})));return true}
+</script></body></html>
