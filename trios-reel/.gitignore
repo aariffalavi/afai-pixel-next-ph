@@ -1,0 +1,7 @@
+src/frames/
+src/prev/
+src/chk/
+src/log*.txt
+src/mix.wav
+src/vo/*.mp3
+src/vo/*.wav
