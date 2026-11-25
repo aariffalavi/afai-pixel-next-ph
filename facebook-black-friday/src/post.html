@@ -9,36 +9,42 @@
 body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;position:relative}
 .abs{position:absolute}
 .k{font-weight:900;letter-spacing:-.05em;line-height:.84;text-transform:uppercase}
-.chip{display:inline-flex;align-items:center;gap:10px;font-weight:700;border-radius:999px;padding:12px 20px}
-.phone{position:absolute;border-radius:36px;background:#111;padding:8px;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid #333}
-.phone .scr{position:relative;width:100%;height:100%;border-radius:29px;overflow:hidden;background:#fff}
-.phone .scr img{position:absolute;top:0;left:0;width:100%}
-.phone .isl{position:absolute;top:13px;left:50%;width:70px;height:20px;margin-left:-35px;background:#000;border-radius:12px;z-index:3}
+.br{position:absolute;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18)}
+.br .bar{background:#1b1b1b;display:flex;align-items:center;gap:6px;padding:0 10px}
+.br .bar i{width:8px;height:8px;border-radius:50%;background:#444;display:inline-block}
+.br .bar span{margin-left:8px;color:#a9a9a9;font-weight:600;white-space:nowrap;overflow:hidden}
+.br img{display:block;width:100%}
+.lt{background:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.lt img{max-width:86%;max-height:76%;width:auto;height:auto;display:block}
 </style></head><body><div id="root"></div>
 <script>
 const Q=new URLSearchParams(location.search);const W=+Q.get('w'),H=+Q.get('h');const V=Q.get('v')||'dark';
-document.body.style.width=W+'px';document.body.style.height=H+'px';
-const SQ=W===H,TALL=H>1600;
-const C=V==='green'?{bg:'#46b03f',ink:'#06120a',acc:'#06120a',sub:'#0f2a12',chipBg:'rgba(6,18,10,.12)',btnBg:'#06120a',btnInk:'#f4f2ed',tk:'#06120a',tkInk:'#46b03f',logo:'brightness(0)'}
-                  :{bg:'#0b0b0b',ink:'#f4f2ed',acc:'#46b03f',sub:'#a7a49d',chipBg:'#1b1b1b',btnBg:'#46b03f',btnInk:'#06120a',tk:'#46b03f',tkInk:'#06120a',logo:'none'};
+document.body.style.width=W+'px';document.body.style.height=H+'px';const SQ=W===H,TALL=H>1600;
+const C=V==='green'?{bg:'#46b03f',ink:'#06120a',acc:'#06120a',sub:'#123d16',btnBg:'#06120a',btnInk:'#f4f2ed',tk:'#06120a',tkInk:'#46b03f',logo:'brightness(0)',stampBg:'#06120a',stampInk:'#46b03f'}
+                  :{bg:'#0b0b0b',ink:'#f4f2ed',acc:'#46b03f',sub:'#a7a49d',btnBg:'#46b03f',btnInk:'#06120a',tk:'#46b03f',tkInk:'#06120a',logo:'none',stampBg:'#f4f2ed',stampInk:'#0b0b0b'};
 document.body.style.background=C.bg;document.body.style.color=C.ink;
-const L=SQ?{bf:112,bfTop:136,pct:400,pctTop:236,off:170,offTop:584,ev:36,chips:24,chipTop:760,cta:34,ctaTop:860,tk:50,nchip:3}
- :TALL?{bf:146,bfTop:290,pct:455,pctTop:436,off:230,offTop:828,ev:50,chips:30,chipTop:1070,cta:44,ctaTop:1230,tk:68,nchip:4,pkTop:1390}
- :{bf:150,bfTop:158,pct:450,pctTop:296,off:210,offTop:686,ev:46,chips:27,chipTop:906,cta:38,ctaTop:1068,tk:58,nchip:4,pkTop:1196};
-let h=`<div class="abs" style="left:56px;right:56px;top:${SQ?40:48}px;display:flex;justify-content:space-between;align-items:center"><img src="../assets/logo_white.png" style="height:${SQ?60:70}px;filter:${C.logo}"><span style="font-weight:900;font-size:${SQ?20:23}px;letter-spacing:.12em;padding:9px 14px;border:2px solid ${C.ink};border-radius:6px">LIMITED TIME</span></div>`;
+const L=SQ?{bf:100,bfTop:128,pct:330,pctTop:214,off:140,offTop:500,ev:30,devTop:660,devW:330,ctaTop:900,cta:32,tk:48,logos:false}
+ :TALL?{bf:146,bfTop:280,pct:455,pctTop:420,off:220,offTop:808,ev:48,devTop:1040,devW:430,ctaTop:1370,cta:42,tk:66,logos:true,lgTop:1500,lgS:150}
+ :{bf:118,bfTop:146,pct:380,pctTop:250,off:170,offTop:578,ev:38,devTop:760,devW:380,ctaTop:1050,cta:36,tk:56,logos:true,lgTop:1152,lgS:118};
+let h=`<div class="abs" style="left:56px;right:56px;top:${SQ?38:46}px;display:flex;justify-content:space-between;align-items:center"><img src="../assets/logo_white.png" style="height:${SQ?58:68}px;filter:${C.logo}"><span style="font-weight:900;font-size:${SQ?19:22}px;letter-spacing:.1em;padding:9px 14px;border:2px solid ${C.ink};border-radius:6px">20 DAYS ONLY</span></div>`;
 h+=`<div class="abs k" style="left:52px;top:${L.bfTop}px;font-size:${L.bf}px;white-space:nowrap">Black Friday</div>`;
-h+=`<div class="abs k" id="pct" style="left:34px;top:${L.pctTop}px;font-size:${L.pct}px;color:${C.acc};white-space:nowrap">20%</div>`;
-h+=`<div class="abs" id="offwrap" style="left:52px;top:${L.offTop}px;display:flex;align-items:center;gap:${SQ?24:30}px"><div class="k" style="font-size:${L.off}px">OFF</div>
- <span style="display:inline-block;background:${C.ink};color:${C.bg};font-weight:900;font-size:${L.ev}px;letter-spacing:-.02em;line-height:1.02;padding:${L.ev*0.4}px ${L.ev*0.5}px;border-radius:10px;text-transform:uppercase">Every new<br>website</span></div>`;
-const chips=['Custom design','Mobile-ready','SEO-ready','Fixed quote in 24h'];
-h+=`<div class="abs" style="left:56px;right:56px;top:${L.chipTop}px;display:flex;flex-wrap:wrap;gap:12px">${chips.slice(0,L.nchip).map(c=>`<span class="chip" style="font-size:${L.chips}px;background:${C.chipBg};color:${C.ink}"><b style="color:${C.acc}">✓</b>${c}</span>`).join('')}</div>`;
-h+=`<div class="abs" style="left:56px;right:56px;top:${L.ctaTop}px;display:flex;align-items:center;justify-content:space-between;gap:20px">
- <span style="display:inline-flex;align-items:center;gap:16px;background:${C.btnBg};color:${C.btnInk};font-weight:900;font-size:${L.cta}px;padding:${L.cta*0.6}px ${L.cta*0.85}px;border-radius:12px;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap">💬 Message us to claim</span>
- <span style="font-weight:700;font-size:${L.cta*0.62}px;color:${C.sub};line-height:1.35;text-align:right">afaipixel.com<br>+94 757 323 323</span></div>`;
-if(TALL){const lg=['Windoors-Logo-02.jpg','agl-sri-lanka-logo.webp','global-supermarket-eu-.webp','Web-client-logo-08.jpg','prime-park-heathrow-.webp'];
- h+=`<div class="abs" style="left:56px;right:56px;top:1470px"><div style="font-weight:700;font-size:22px;letter-spacing:.16em;color:${C.sub};text-transform:uppercase">Trusted by brands worldwide</div><div style="display:flex;gap:14px;margin-top:18px">${lg.map(f=>`<div style="flex:1;aspect-ratio:1;background:#fff;border-radius:16px;display:grid;place-items:center;overflow:hidden"><img src="../r3/logos/${f}" style="width:86%;height:86%;object-fit:contain"></div>`).join('')}</div></div>`}
-if(L.pkTop)h+=`<div class="abs" style="left:56px;right:56px;top:${L.pkTop}px;font-weight:700;font-size:${TALL?30:24}px;color:${C.sub};letter-spacing:.06em;text-transform:uppercase">Starter · Business · E-commerce websites</div>`;
-h+=`<div class="abs" style="left:0;right:0;bottom:0;height:${L.tk}px;line-height:${L.tk}px;background:${C.tk};color:${C.tkInk};font-weight:900;font-size:${L.tk*0.42}px;letter-spacing:.06em;white-space:nowrap;overflow:hidden">${'&nbsp;BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;MESSAGE US&nbsp;&nbsp;·'.repeat(6)}</div>`;
+h+=`<div class="abs k" style="left:34px;top:${L.pctTop}px;font-size:${L.pct}px;color:${C.acc};white-space:nowrap" id="pct">20%</div>`;
+// date stamp to the right of 20%
+const stS=SQ?150:TALL?0:170;
+if(!TALL)h+=`<div class="abs" id="stamp" style="right:52px;top:${L.pctTop+(SQ?18:28)}px;width:${stS}px;height:${stS}px;border-radius:50%;background:${C.stampBg};color:${C.stampInk};display:grid;place-items:center;text-align:center;transform:rotate(10deg)"><div><div style="font-weight:700;font-size:${stS*0.12}px;letter-spacing:.1em">VALID</div><div class="k" style="font-size:${stS*0.3}px;line-height:.95">1–20</div><div style="font-weight:900;font-size:${stS*0.13}px;letter-spacing:.06em">DEC</div></div></div>`;
+h+=`<div class="abs" style="left:52px;top:${L.offTop}px;display:flex;align-items:center;gap:${SQ?22:28}px"><div class="k" style="font-size:${L.off}px">OFF</div>
+ <span style="display:inline-block;background:${C.ink};color:${C.bg};font-weight:900;font-size:${L.ev}px;letter-spacing:-.02em;line-height:1.02;padding:${L.ev*0.4}px ${L.ev*0.5}px;border-radius:10px;text-transform:uppercase">Every new<br>website</span>
+ ${TALL?`<span style="display:inline-block;margin-left:6px;background:${C.stampBg};color:${C.stampInk};font-weight:900;font-size:${L.ev*0.82}px;line-height:1.05;padding:${L.ev*0.36}px ${L.ev*0.42}px;border-radius:10px;text-transform:uppercase;transform:rotate(4deg)">1–20<br>Dec</span>`:''}</div>`;
+// device fan: 3 browser windows
+const sites=[['shots/ss_d.jpg','surfacestone.co.uk'],['shots/tf_d.jpg','transfoodgrosshandel.com'],['shots/ks_d.jpg','kingstonesurface.co.uk']];
+const dw=L.devW,dh=dw*0.625,bar=Math.round(dw*0.07);const cx=W/2;
+[[-1,-5],[1,5],[0,0]].forEach(([pos,rot],j)=>{const i=pos===-1?0:pos===1?2:1;const x=cx-dw/2+pos*(dw*0.62),y=L.devTop+(pos===0?0:dh*0.12);
+ h+=`<div class="br" style="left:${x}px;top:${y}px;width:${dw}px;transform:rotate(${rot}deg);z-index:${pos===0?3:1}"><div class="bar" style="height:${bar}px"><i></i><i></i><i></i><span style="font-size:${bar*0.46}px">${sites[i][1]}</span></div><img src="${sites[i][0]}"></div>`});
+h+=`<div class="abs" style="left:56px;right:56px;top:${L.ctaTop}px;display:flex;align-items:center;justify-content:space-between;gap:18px;z-index:5">
+ <span style="display:inline-flex;align-items:center;gap:14px;background:${C.btnBg};color:${C.btnInk};font-weight:900;font-size:${L.cta}px;padding:${L.cta*0.58}px ${L.cta*0.82}px;border-radius:12px;text-transform:uppercase;white-space:nowrap;box-shadow:0 14px 40px rgba(0,0,0,.35)">💬 Message us to claim</span>
+ <span style="font-weight:700;font-size:${L.cta*0.6}px;color:${C.sub};line-height:1.35;text-align:right">afaipixel.com<br>+94 757 323 323</span></div>`;
+if(L.logos){const lg=[['logos/smeraldo.png'],['logos/kingstone.png'],['logos/surfacestone.png'],['logos/agl.png'],['logos/transfood.png']];
+ h+=`<div class="abs" style="left:56px;right:56px;top:${L.lgTop}px;z-index:5"><div style="font-weight:800;font-size:${TALL?24:18}px;letter-spacing:.16em;color:${C.sub};text-transform:uppercase">Trusted by brands worldwide</div><div style="display:flex;gap:${TALL?14:12}px;margin-top:${TALL?16:10}px">${lg.map(([f])=>`<div class="lt" style="flex:1;height:${L.lgS*0.62}px"><img src="${f}"></div>`).join('')}</div></div>`}
+h+=`<div class="abs" style="left:0;right:0;bottom:0;height:${L.tk}px;line-height:${L.tk}px;background:${C.tk};color:${C.tkInk};font-weight:900;font-size:${L.tk*0.42}px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;z-index:6">${'&nbsp;BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;1–20 DECEMBER&nbsp;&nbsp;·'.repeat(6)}</div>`;
 document.getElementById('root').innerHTML=h;
-
 </script></body></html>

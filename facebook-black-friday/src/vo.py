@@ -7,9 +7,10 @@ lines=[
 "Every new website.",
 "Want more customers?",
 "Custom design. Mobile ready. Built for Google.",
+"Trusted by brands across the UK and Europe.",
 "Starter sites. Business websites. Online stores.",
 "All twenty percent off!",
-"Limited time only.",
+"From December first, to December twentieth.",
 "Message us now, and claim your twenty percent off!",
 ]
 async def one(i,l):

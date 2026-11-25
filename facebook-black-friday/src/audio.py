@@ -46,10 +46,12 @@ def wt(l,w):
         if c['line']==l and c['w'].lower().startswith(w):return c['s']
 for tt in (wt(0,'black'),wt(0,'friday')):add(fx,hit()*0.8,tt)
 add(fx,riser(0.9),wt(1,'twenty')-0.9);add(fx,hit()*1.3,wt(1,'twenty'));add(fx,hit()*0.8,wt(1,'off'))
-add(fx,hit()*1.2,wt(6,'all'));add(fx,hit(),wt(8,'claim'))
-for w in ('starter','business','online'):add(fx,hit()*0.6,wt(5,w)+0.25)
+add(fx,hit()*1.2,wt(7,'all'));add(fx,hit(),wt(9,'claim'));add(fx,hit()*0.9,wt(8,'december'))
+for w in ('starter','business','online'):add(fx,hit()*0.6,wt(6,w)+0.25)
+for i in range(5):add(fx,hit()*0.4,[s_ for s_ in tl['scenes'] if s_['id']=='trust'][0]['s']+0.35+i*0.16)
 for w in ('custom','mobile','built'):add(fx,tick()*2.5,wt(4,w))
-for i in range(int(1.9/0.25)):add(fx,tick()*1.2,tl['scenes'][5]['s']+i*0.25)
+ds=[s_ for s_ in tl['scenes'] if s_['id']=='dates'][0]
+for i in range(int((ds['e']-ds['s'])/0.25)):add(fx,tick()*1.2,ds['s']+i*0.25)
 vo=np.zeros(N)
 def rw(p):
     w=wave.open(p);return np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
