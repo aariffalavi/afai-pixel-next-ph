@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Regular.otf);font-weight:400}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+:root{--bg:#0a0b0c;--ln:#f2f2f2;--dim:rgba(255,255,255,.28);--g:#6dbe45}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+body{font-family:IN,sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
+.scene{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+svg.full{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+svg *{vector-effect:non-scaling-stroke}
+.l{fill:none;stroke:var(--ln);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.lg{fill:none;stroke:var(--g);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.ld{fill:none;stroke:var(--dim);stroke-width:3;stroke-linecap:round;stroke-dasharray:2 14}
+.lbl{font-weight:600;font-size:26px;letter-spacing:.32em;color:rgba(255,255,255,.75);text-transform:uppercase}
+.eyebrow{font-weight:700;font-size:30px;letter-spacing:.34em;color:var(--g);text-transform:uppercase}
+.w{display:inline-block;opacity:0}
+#grain{position:absolute;left:0;top:0;width:1080px;height:1920px;opacity:.06;mix-blend-mode:screen;pointer-events:none;z-index:80}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 60% at 50% 48%,transparent 55%,rgba(0,0,0,.55));z-index:79;pointer-events:none}
+#mark{position:absolute;right:70px;top:205px;width:120px;opacity:.55;z-index:60}
+#caps{position:absolute;left:80px;right:80px;top:1470px;text-align:center;z-index:70;font-weight:600;font-size:50px;line-height:1.25;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.9)}
+#caps span{opacity:.32}
+#caps span.p{opacity:1}
+#caps span.on{opacity:1;color:var(--g)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:90}
+#fade{position:absolute;inset:0;background:#000;opacity:0;z-index:85}
+/* hook */
+.hk{position:absolute;left:190px;font-weight:700;font-size:96px;letter-spacing:-.03em;white-space:nowrap}
+/* push */
+.ptx{position:absolute;left:110px;font-weight:700;font-size:84px;letter-spacing:-.03em}
+/* example */
+.bn{position:absolute;left:110px;font-weight:700;font-size:44px;letter-spacing:-.01em}
+.bn small{font-weight:500;font-size:30px;color:rgba(255,255,255,.6);margin-left:18px;letter-spacing:0}
+.wk{position:absolute;font-size:22px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.1em}
+/* toggle */
+.tg{position:absolute;left:150px;font-weight:600;font-size:66px;letter-spacing:-.02em}
+/* comment */
+.ct{position:absolute;left:90px;right:90px;font-weight:700;letter-spacing:-.03em}
+.planbox{display:inline-block;color:var(--g);border:5px solid var(--g);border-radius:18px;padding:0 22px 6px;margin-left:10px}
+.typed{position:absolute;font-weight:700;font-size:44px;letter-spacing:.04em}
+.cmt{position:absolute;left:245px;top:902px;opacity:0}
+.cmt b{font-weight:700;font-size:32px}
+.cmt small{font-weight:500;font-size:26px;color:rgba(255,255,255,.5);margin-left:12px}
+.cmt div{font-weight:700;font-size:46px;margin-top:6px;letter-spacing:.04em}
+/* outro */
+.ob{position:absolute;left:140px;font-weight:800;letter-spacing:-.04em;line-height:1}
+#site{position:absolute;left:0;right:0;text-align:center;top:1080px;font-weight:600;font-size:46px;letter-spacing:.02em;opacity:0}
+</style></head><body>
+<div id="stage">
+
+<!-- 1 HOOK -->
+<div class="scene" id="s_hook">
+  <svg class="full" id="hk_svg"></svg>
+  <div class="hk" id="hk1" style="top:760px"></div>
+  <div class="hk" id="hk2" style="top:890px"></div>
+</div>
+
+<!-- 2 PUSH -->
+<div class="scene" id="s_push">
+  <div class="ptx" style="top:330px" id="p1"><span id="p1t">Not motivation.</span></div>
+  <div class="ptx" style="top:450px;color:var(--g)" id="p2">Consistency.</div>
+  <svg class="full">
+    <line id="p_strike" class="l" x1="104" y1="388" x2="760" y2="388" style="stroke-width:6"/>
+    <path id="p_slope" class="l" d="M60 1380 L1040 640"/>
+    <g id="p_ticks"></g>
+    <g id="p_grp">
+      <circle id="p_rock" class="l" cx="215" cy="-112" r="110"/>
+      <path id="p_rock2" class="l" style="stroke:var(--dim)" d="M165 -150 q30 -25 70 -10 M240 -60 q25 5 40 -20"/>
+      <circle id="p_head" class="l" cx="62" cy="-242" r="30"/>
+      <path id="p_body" class="l" d="M-20 -120 L42 -205 M42 -205 L104 -165 M42 -205 L100 -100 M-20 -120 L-55 -62 L-115 -2 M-20 -120 L12 -58 L-8 -2"/>
+    </g>
+  </svg>
+</div>
+
+<!-- 3 CHART -->
+<div class="scene" id="s_chart">
+  <svg class="full" id="ch_svg"></svg>
+  <div class="lbl abs" id="ch_l1" style="left:120px;top:790px">Intensity</div>
+  <div class="lbl abs" id="ch_l2" style="left:120px;top:1250px;color:var(--g)">Consistency</div>
+</div>
+
+<!-- 4 EXAMPLE -->
+<div class="scene" id="s_example">
+  <div class="eyebrow abs" id="ex_eb" style="left:110px;top:300px">Example</div>
+  <div id="ex_grids">
+    <div class="bn" id="ex_a" style="top:440px">Business A<small id="ex_as">10 posts, then quiet</small></div>
+    <div class="bn" id="ex_b" style="top:930px">Business B<small id="ex_bs">2 posts, every week</small></div>
+    <div class="wk" style="left:186px;top:880px" id="wk1">W1</div><div class="wk" style="left:884px;top:880px" id="wk2">W12</div>
+    <div class="wk" style="left:186px;top:1262px" id="wk3">W1</div><div class="wk" style="left:884px;top:1262px" id="wk4">W12</div>
+  </div>
+  <svg class="full" id="ex_svg"></svg>
+  <div id="ex_chart" style="opacity:0">
+    <div class="lbl abs" style="left:110px;top:440px">Reach · 3 months</div>
+    <div class="abs" id="ex_lA" style="font-weight:700;font-size:44px;left:960px;top:1150px;opacity:0">A</div>
+    <div class="abs" id="ex_lB" style="font-weight:800;font-size:60px;left:955px;top:560px;color:var(--g);opacity:0">B</div>
+    <div class="abs" id="ex_win" style="font-weight:700;font-size:64px;left:110px;top:1280px;letter-spacing:-.03em;opacity:0">B gets <span style="color:var(--g)">remembered.</span></div>
+  </div>
+</div>
+
+<!-- 5 REAL -->
+<div class="scene" id="s_real">
+  <div class="abs" id="rl_tag" style="left:282px;top:245px;font-weight:600;font-size:30px;letter-spacing:.06em"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:#e5484d;margin-right:14px;vertical-align:2px" id="rl_dot"></span>REAL SITE · afaipixel.com</div>
+  <div class="abs" id="rl_scr" style="left:300px;top:338px;width:480px;height:1040px;border-radius:52px;overflow:hidden;background:#111;opacity:0">
+    <canvas id="rl_img" width="860" height="1864" style="width:480px;height:1040px;display:block"></canvas>
+  </div>
+  <svg class="full">
+    <rect id="rl_ph" class="l" x="282" y="320" width="516" height="1076" rx="70"/>
+    <line id="rl_isl" class="l" x1="510" y1="354" x2="570" y2="354" style="stroke-width:10;opacity:0"/>
+  </svg>
+</div>
+
+<!-- 6 TOGGLE -->
+<div class="scene" id="s_toggle">
+  <div class="tg" style="top:770px" id="tg1">Motivation</div>
+  <div class="tg" style="top:1000px" id="tg2">Discipline</div>
+  <svg class="full">
+    <rect id="tg_r1" class="l" x="700" y="760" width="230" height="110" rx="55"/>
+    <circle id="tg_k1" cx="0" cy="815" r="38" fill="#fff"/>
+    <rect id="tg_r2" class="l" x="700" y="990" width="230" height="110" rx="55"/>
+    <circle id="tg_k2" cx="0" cy="1045" r="38" fill="#fff"/>
+  </svg>
+</div>
+
+<!-- 7 COMMENT -->
+<div class="scene" id="s_comment">
+  <div class="ct" id="cm_q" style="top:300px;font-size:66px;line-height:1.08">Want a plan for<br>your business?</div>
+  <div class="ct" id="cm_c" style="top:500px;font-size:96px">Comment<span class="planbox">PLAN</span></div>
+  <svg class="full" id="cm_svg">
+    <rect id="cm_panel" class="l" x="90" y="720" width="900" height="640" rx="44" style="stroke-width:3"/>
+    <path id="cm_bub" class="l" d="M150 790 h56 a14 14 0 0 1 14 14 v30 a14 14 0 0 1 -14 14 h-34 l-16 14 v-14 h-6 a14 14 0 0 1 -14 -14 v-30 a14 14 0 0 1 14 -14z" style="stroke-width:3"/>
+    <g id="cm_sk"></g>
+    <rect id="cm_in" class="l" x="130" y="1240" width="700" height="84" rx="42" style="stroke-width:3"/>
+    <circle id="cm_send" class="l" cx="900" cy="1282" r="42" style="stroke-width:3"/>
+    <path id="cm_arr" class="l" d="M884 1282 h34 M904 1266 l16 16 -16 16" style="stroke-width:4"/>
+    <circle id="cm_av" class="lg" cx="185" cy="948" r="34" style="opacity:0"/>
+    <path id="cm_heart" d="M920 950 c-10-14-34-8-34 10 c0 16 22 28 34 38 c12-10 34-22 34-38 c0-18-24-24-34-10z" style="fill:none;stroke:#fff;stroke-width:3;opacity:0"/>
+  </svg>
+  <div class="abs" style="left:228px;top:840px;font-weight:600;font-size:30px;color:rgba(255,255,255,.75)" id="cm_ttl">Comments</div>
+  <div class="typed" id="cm_typed" style="left:170px;top:1254px"></div>
+  <div class="typed" id="cm_ph" style="left:170px;top:1256px;font-weight:500;font-size:34px;letter-spacing:0;color:rgba(255,255,255,.4)">Add a comment…</div>
+  <div class="cmt" id="cm_new"><b>you</b><small>now</small><div>PLAN</div></div>
+</div>
+
+<!-- 8 OUTRO -->
+<div class="scene" id="s_outro">
+  <div id="ob_wrap">
+    <div class="ob" id="ob1" style="top:620px;font-size:220px;color:var(--g)">1%</div>
+    <div class="ob" id="ob2" style="top:860px;font-size:120px">better</div>
+    <div class="ob" id="ob3" style="top:1000px;font-size:120px">every day.</div>
+  </div>
+  <img id="ob_logo" src="assets/logo_white.png" style="position:absolute;left:290px;top:680px;width:500px;opacity:0">
+  <svg class="full"><line id="ob_line" class="lg" x1="340" y1="1050" x2="740" y2="1050"/></svg>
+  <div id="site">afaipixel.com</div>
+</div>
+
+<img id="mark" src="assets/logo_white.png">
+<div id="caps"></div>
+<canvas id="grain" width="540" height="960"></canvas>
+<div id="vig"></div>
+<div id="fade"></div>
+<div id="flash"></div>
+</div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+function mk(parent,tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
+function draw(el,p){ if(!el._L){el._L=el.getTotalLength()+2;} el.style.strokeDasharray=el._L+' '+el._L; el.style.strokeDashoffset=el._L*(1-cl(p)); el.style.visibility=p<=0?'hidden':'visible'; }
+let TL,W=[];
+function wt(i,k){const v=TL.vo[i];return v.start+v.words[Math.min(k,v.words.length-1)].s}
+function we(i,k){const v=TL.vo[i];return v.start+v.words[Math.min(k,v.words.length-1)].e}
+function wordsHTML(el,txt){el.innerHTML=txt.split(' ').map(w=>`<span class="w">${w}</span> `).join('');return [...el.querySelectorAll('.w')]}
+function pop(el,t,t0,d=.22,dy=26){const p=P(t,t0,t0+d);el.style.opacity=eo(p);el.style.transform=`translateY(${(1-eo(p))*dy}px)`}
+
+function init(tl){
+  TL=tl;
+  // grain
+  const g=$('grain').getContext('2d'),im=g.createImageData(540,960);for(let i=0;i<im.data.length;i+=4){const v=Math.random()*255;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255}g.putImageData(im,0,0);
+  // captions: tokens with punctuation, aligned to boundaries
+  TL.vo.forEach(v=>{const toks=v.text.split(' ');v.toks=toks.length===v.words.length?toks:v.words.map(w=>w.w);});
+  // HOOK
+  const hs=$('hk_svg');
+  for(let y=360;y<=1680;y+=86) mk(hs,'line',{x1:0,y1:y,x2:1080,y2:y,class:'hkr',style:'stroke:rgba(255,255,255,.08);stroke-width:2'});
+  mk(hs,'line',{x1:150,y1:0,x2:150,y2:1920,id:'hk_m',style:'stroke:rgba(109,190,69,.45);stroke-width:3'});
+  mk(hs,'path',{id:'hk_h1',d:'M180 820 L895 822',style:'fill:none;stroke:rgba(109,190,69,.38);stroke-width:72;stroke-linecap:round'});
+  mk(hs,'path',{id:'hk_h2',d:'M180 950 L930 948',style:'fill:none;stroke:rgba(109,190,69,.38);stroke-width:72;stroke-linecap:round'});
+  mk(hs,'path',{id:'hk_u',d:'M705 1010 C770 1000 850 1004 925 996',class:'lg',style:'stroke-width:7'});
+  W.hk1=wordsHTML($('hk1'),'Forget your mood.'); W.hk2=wordsHTML($('hk2'),'Stick to the plan.');
+  // PUSH ticks along slope (steps ahead)
+  const pt=$('p_ticks');
+  for(let i=0;i<9;i++){const s=600+i*58,x=60+0.798*s,y=1380-0.6026*s;mk(pt,'line',{x1:x,y1:y,x2:x+0.6026*18,y2:y+0.798*18,class:'l',style:'stroke:var(--dim);stroke-width:3'})}
+  // CHART
+  const cs=$('ch_svg');
+  mk(cs,'line',{id:'ch_b1',x1:120,y1:760,x2:960,y2:760,class:'ld'});mk(cs,'circle',{id:'ch_d1',cx:960,cy:760,r:7,fill:'#fff'});mk(cs,'circle',{id:'ch_d1a',cx:120,cy:760,r:7,fill:'#fff'});
+  mk(cs,'line',{id:'ch_b2',x1:120,y1:1220,x2:960,y2:1220,class:'ld'});mk(cs,'circle',{id:'ch_d2',cx:960,cy:1220,r:7,fill:'#6dbe45'});mk(cs,'circle',{id:'ch_d2a',cx:120,cy:1220,r:7,fill:'#6dbe45'});
+  let x=120;W.arcI=[[250,330],[160,190],[100,90],[62,40],[40,16]].map(([w,h])=>{const e=mk(cs,'path',{d:`M${x} 760 C${x} ${760-h*1.33} ${x+w} ${760-h*1.33} ${x+w} 760`,class:'l'});x+=w;return e});
+  W.arcC=[];for(let i=0;i<10;i++){const x=120+i*84;W.arcC.push(mk(cs,'path',{d:`M${x} 1220 C${x} 1127 ${x+84} 1127 ${x+84} 1220`,class:'lg'}))}
+  // EXAMPLE grids
+  const es=$('ex_svg');
+  mk(es,'line',{id:'ex_ba',x1:170,y1:860,x2:940,y2:860,class:'l',style:'stroke-width:3'});
+  mk(es,'line',{id:'ex_bb',x1:170,y1:1240,x2:940,y2:1240,class:'l',style:'stroke-width:3'});
+  W.dA=[];W.dB=[];W.eA=[];
+  for(let c=0;c<12;c++){const cx=200+c*64;
+    if(c===0) for(let k=0;k<10;k++) W.dA.push(mk(es,'circle',{cx,cy:834-k*28,r:11,fill:'#fff'}));
+    else W.eA.push(mk(es,'circle',{cx,cy:834,r:9,class:'l',style:'stroke:var(--dim);stroke-width:2.5'}));
+    for(let k=0;k<2;k++) W.dB.push(mk(es,'circle',{cx,cy:1214-k*28,r:11,fill:'#6dbe45'}));
+  }
+  // reach chart
+  mk(es,'line',{id:'ex_ax',x1:110,y1:1200,x2:940,y2:1200,class:'l',style:'stroke-width:3;stroke:rgba(255,255,255,.5)'});
+  mk(es,'line',{id:'ex_ay',x1:110,y1:520,x2:110,y2:1200,class:'l',style:'stroke-width:3;stroke:rgba(255,255,255,.5)'});
+  mk(es,'path',{id:'ex_cA',d:'M110 1190 L160 640 C200 900 260 1080 360 1140 S700 1180 940 1180',class:'l'});
+  mk(es,'path',{id:'ex_cB',d:'M110 1190 C300 1150 500 1020 680 860 S880 640 940 610',class:'lg',style:'stroke-width:7'});
+  mk(es,'circle',{id:'ex_pB',cx:940,cy:610,r:14,fill:'#6dbe45'});
+  // COMMENT skeleton (line style)
+  const sk=$('cm_sk');W.sk=[];
+  [[0,'78%'],[1,'55%']].forEach(([i])=>{const y=902+i*110;W.sk.push(mk(sk,'circle',{cx:185,cy:y+20,r:30,class:'l',style:'stroke:var(--dim);stroke-width:3'}));W.sk.push(mk(sk,'line',{x1:240,y1:y+6,x2:i?600:760,y2:y+6,class:'l',style:'stroke:var(--dim);stroke-width:14'}));W.sk.push(mk(sk,'line',{x1:240,y1:y+38,x2:i?460:560,y2:y+38,class:'l',style:'stroke:rgba(255,255,255,.14);stroke-width:14'}))});
+  W.cmt0=0;
+}
+
+const SC={};
+function sceneT(name){return TL.scenes.find(s=>s[0]===name)}
+
+SC.hook=(t)=>{
+  document.querySelectorAll('.hkr').forEach((l,i)=>draw(l,eo(P(t,0.02+i*.025,0.5+i*.025))));
+  draw($('hk_m'),eo(P(t,0,.6)));
+  const all=[...W.hk1,...W.hk2];
+  all.forEach((w,k)=>pop(w,t,wt(0,k)-0.04,.18,22));
+  draw($('hk_h1'),eio(P(t,wt(0,0)-.05,we(0,2))));
+  draw($('hk_h2'),eio(P(t,wt(0,3)-.05,we(0,6))));
+  draw($('hk_u'),eo(P(t,we(0,6),we(0,6)+.35)));
+  const s=1+0.035*P(t,0,3.95);$('s_hook').style.transform=`scale(${s})`;
+};
+SC.push=(t)=>{
+  const [_,a,b]=sceneT('push');
+  draw($('p_slope'),eo(P(t,a,a+.55)));
+  const ta=a+.25;
+  draw($('p_rock'),eo(P(t,ta,ta+.6)));draw($('p_rock2'),eo(P(t,ta+.4,ta+.8)));
+  draw($('p_head'),eo(P(t,ta+.3,ta+.7)));draw($('p_body'),eo(P(t,ta+.35,ta+.95)));
+  [...$('p_ticks').children].forEach((l,i)=>draw(l,eo(P(t,ta+.6+i*.05,ta+.8+i*.05))));
+  // small, consistent steps: one push per beat (0.572 s)
+  const beat=0.572; const st=Math.max(0,(t-(a+1.0))/beat); const n=Math.floor(st), f=eio(cl((st-n)/0.55));
+  const s=200+ (n+f)*42*(t>a+1.0?1:0);
+  const x=60+0.798*s, y=1380-0.6026*s;
+  $('p_grp').setAttribute('transform',`translate(${x} ${y}) rotate(-37.06)`);
+  pop($('p1'),t,wt(1,5)-.05,.25); // "motivation"
+  draw($('p_strike'),eo(P(t,wt(1,6),wt(1,6)+.3)));
+  $('p1t').style.opacity=t>wt(1,6)+.15?0.45:1;
+  pop($('p2'),t,wt(1,9)-.08,.28,30);
+};
+SC.chart=(t)=>{
+  const [_,a]=sceneT('chart');
+  draw($('ch_b1'),eo(P(t,a,a+.4)));draw($('ch_b2'),eo(P(t,a+.1,a+.5)));
+  ['ch_d1','ch_d1a'].forEach(id=>$(id).style.opacity=P(t,a,a+.2));['ch_d2','ch_d2a'].forEach(id=>$(id).style.opacity=P(t,a+.1,a+.3));
+  const i0=wt(2,0)-.1, i1=we(2,3);  // Big bursts burn out
+  const dur=[.42,.34,.26,.2,.16];let c=i0;W.arcI.forEach((e,i)=>{draw(e,eio(P(t,c,c+dur[i])));c+=dur[i]});
+  W.arcI.forEach(e=>e.style.stroke=t>we(2,3)?'rgba(255,255,255,.45)':'');
+  const c0=wt(2,4)-.05,c1=we(2,9);W.arcC.forEach((e,i)=>{const s=c0+(c1-c0)*i/10;draw(e,eio(P(t,s,s+(c1-c0)/10+.05)))});
+  pop($('ch_l1'),t,a+.2,.3,14);pop($('ch_l2'),t,a+.3,.3,14);
+};
+SC.example=(t)=>{
+  const [_,a,b]=sceneT('example'); const r0=TL.vo[5].start;
+  pop($('ex_eb'),t,a+.05,.3,16);
+  pop($('ex_a'),t,wt(4,0)-.1,.3);  // Business A
+  $('ex_as').style.opacity=P(t,wt(4,8),wt(4,8)+.25);
+  draw($('ex_ba'),eo(P(t,wt(4,0),wt(4,0)+.5)));
+  const ten=wt(4,3);W.dA.forEach((d,k)=>{const p=P(t,ten+k*.06,ten+k*.06+.18);d.setAttribute('r',11*back(p));d.style.opacity=p>0?1:0});
+  const q=wt(4,10);W.eA.forEach((d,k)=>{d.style.opacity=P(t,q+k*.04,q+k*.04+.15)});
+  pop($('ex_b'),t,wt(4,11)-.1,.3);
+  $('ex_bs').style.opacity=P(t,wt(4,13),wt(4,13)+.25);
+  draw($('ex_bb'),eo(P(t,wt(4,11),wt(4,11)+.5)));
+  const b0=wt(4,14), b1=we(4,18)+.2;W.dB.forEach((d,k)=>{const c=Math.floor(k/2),s=b0+(b1-b0)*c/12+(k%2)*.05;const p=P(t,s,s+.16);d.setAttribute('r',11*back(p));d.style.opacity=p>0?1:0});
+  ['wk1','wk2','wk3','wk4'].forEach((id,i)=>$(id).style.opacity=P(t,(i<2?wt(4,0):wt(4,11))+.3,(i<2?wt(4,0):wt(4,11))+.6));
+  // switch to reach chart
+  const sw=P(t,r0-.15,r0+.25);$('ex_grids').style.opacity=1-sw;
+  [...W.dA,...W.dB,...W.eA].forEach(d=>d.style.visibility=sw>=1?'hidden':'visible');
+  ['ex_ba','ex_bb'].forEach(id=>$(id).style.opacity=1-sw);
+  W.dA.concat(W.dB,W.eA).forEach(d=>{if(sw>0)d.style.opacity=Math.min(+d.style.opacity||0,1-sw)});
+  $('ex_chart').style.opacity=sw;
+  draw($('ex_ax'),eo(P(t,r0,r0+.4)));draw($('ex_ay'),eo(P(t,r0,r0+.4)));
+  draw($('ex_cA'),eio(P(t,r0+.3,r0+1.5)));draw($('ex_cB'),eio(P(t,r0+.6,r0+2.0)));
+  const pb=P(t,r0+2.0,r0+2.2);$('ex_pB').setAttribute('r',14*back(pb));$('ex_pB').style.opacity=pb>0?1:0;
+  $('ex_lA').style.opacity=P(t,r0+1.4,r0+1.7);pop($('ex_lB'),t,r0+2.0,.25,10);
+  pop($('ex_win'),t,wt(5,8)-.1,.3);
+  // pulse ring on B after reveal
+  const pr=((t-(r0+2.3))%1.1)/1.1; $('ex_pB').style.filter=t>r0+2.3?`drop-shadow(0 0 ${8+14*Math.sin(pr*Math.PI)}px rgba(109,190,69,.9))`:'none';
+};
+let _imgFrame=-1;
+SC.real=(t)=>{
+  const [_,a,b]=sceneT('real');
+  draw($('rl_ph'),eio(P(t,a,a+.5)));
+  $('rl_isl').style.opacity=P(t,a+.4,a+.6);
+  $('rl_scr').style.opacity=P(t,a+.35,a+.6);
+  pop($('rl_tag'),t,a+.15,.3,14);
+  $('rl_dot').style.opacity=(Math.floor((t-a)*2)%2)?.35:1;
+  const f=Math.max(0,Math.min(199,Math.round((t-a)*30)));
+  if(f!==_imgFrame){_imgFrame=f;const im=new Image();im.src='rec/'+String(f).padStart(4,'0')+'.jpg';return im.decode().then(()=>{$('rl_img').getContext('2d').drawImage(im,0,0,860,1864)});}
+};
+SC.toggle=(t)=>{
+  const [_,a]=sceneT('toggle');
+  ['tg_r1','tg_r2'].forEach((id,i)=>draw($(id),eo(P(t,a+i*.08,a+.45+i*.08))));
+  pop($('tg1'),t,a+.05,.3,16);pop($('tg2'),t,a+.12,.3,16);
+  const off=eio(P(t,wt(7,1)-.05,wt(7,1)+.22)), on=eio(P(t,wt(7,3)-.05,wt(7,3)+.22));
+  const k1=$('tg_k1'),k2=$('tg_k2');
+  k1.setAttribute('cx',875-120*off);k2.setAttribute('cx',755+120*on);
+  k1.style.opacity=k2.style.opacity=P(t,a+.3,a+.5);
+  $('tg_r1').style.stroke=off<.5?'var(--g)':'rgba(255,255,255,.35)';k1.setAttribute('fill',off<.5?'#6dbe45':'rgba(255,255,255,.4)');
+  $('tg_r2').style.stroke=on>.5?'var(--g)':'rgba(255,255,255,.35)';k2.setAttribute('fill',on>.5?'#6dbe45':'rgba(255,255,255,.4)');
+  $('tg1').style.color=off>.5?'rgba(255,255,255,.4)':'#fff';$('tg2').style.color=on>.5?'var(--g)':'rgba(255,255,255,.55)';
+  if(on>.5){$('tg2').style.transform=`scale(${1+.06*Math.sin(Math.PI*P(t,wt(7,3)+.1,wt(7,3)+.45))})`;$('tg2').style.transformOrigin='0 50%'}
+};
+SC.comment=(t)=>{
+  const [_,a]=sceneT('comment');
+  pop($('cm_q'),t,wt(8,0)-.1,.3);
+  pop($('cm_c'),t,wt(8,6)-.08,.25,30);
+  draw($('cm_panel'),eio(P(t,a,a+.6)));draw($('cm_bub'),eo(P(t,a+.3,a+.7)));
+  $('cm_ttl').style.opacity=P(t,a+.4,a+.7);
+  W.sk.forEach((e,i)=>draw(e,eo(P(t,a+.4+i*.06,a+.8+i*.06))));
+  draw($('cm_in'),eo(P(t,a+.5,a+.9)));draw($('cm_send'),eo(P(t,a+.6,a+1.0)));draw($('cm_arr'),eo(P(t,a+.8,a+1.1)));
+  const ty0=wt(8,7), ty1=we(8,8)-.1, n=Math.round(4*P(t,ty0,ty1));
+  $('cm_typed').textContent='PLAN'.slice(0,n)+((n<4&&t>=ty0)?((Math.floor(t*3)%2)?'|':''):'');
+  $('cm_ph').style.opacity=t<ty0?P(t,a+.7,a+1):0;
+  const post=ty1+.35;
+  if(t>post){$('cm_typed').textContent='';$('cm_ph').style.opacity=P(t,post+.2,post+.4);}
+  $('cm_send').style.stroke=(t>ty1&&t<post+.3)?'var(--g)':'';$('cm_arr').style.stroke=(t>ty1&&t<post+.3)?'var(--g)':'';
+  const np=eo(P(t,post,post+.35));
+  $('cm_new').style.opacity=np;$('cm_new').style.transform=`translateY(${(1-np)*40}px)`;
+  $('cm_av').style.opacity=np;draw($('cm_av'),np);
+  $('cm_sk').setAttribute('transform',`translate(0 ${np*140})`);
+  const hp=P(t,post+.6,post+.9),h=$('cm_heart');h.style.opacity=np;
+  h.style.fill=hp>0?'#6dbe45':'none';h.style.stroke=hp>0?'#6dbe45':'#fff';
+  h.style.transformOrigin='920px 968px';h.style.transform=`scale(${hp>0?back(hp)*1+0.0:1})`;
+};
+SC.outro=(t)=>{
+  const [_,a,b]=sceneT('outro'); const im=TL.impact;
+  pop($('ob1'),t,wt(9,0)-.05,.25,30);pop($('ob2'),t,wt(9,2)-.05,.25,30);pop($('ob3'),t,wt(9,3)-.05,.25,30);
+  $('ob_wrap').style.display=t<im?'block':'none';
+  const lp=eo(P(t,im,im+.5));$('ob_logo').style.opacity=lp;$('ob_logo').style.transform=`scale(${.92+.08*lp})`;
+  draw($('ob_line'),eio(P(t,im+.35,im+.9)));
+  pop($('site'),t,im+.6,.35,16);
+};
+
+const ORDER=TL0=>TL0.scenes.map(s=>s[0]);
+function render(t){
+  let ret;
+  for(const [name,a,b] of TL.scenes){
+    const el=$('s_'+name), on=t>=a&&t<b;
+    el.style.display=on?'block':'none';
+    if(on){ret=SC[name](t); el.style.opacity=name==='hook'?1:eo(P(t,a,a+.12));}
+  }
+  // flashes on the drop and the impact
+  const fl=(c)=>Math.max(0,1-Math.abs(t-c)/.09);
+  $('flash').style.opacity=Math.max(.75*fl(8.05+.03),.85*fl(TL.impact+.03));
+  $('fade').style.opacity=P(t,TL.total-.35,TL.total)+ (1-P(t,0,.1));
+  $('mark').style.opacity=(t>=TL.impact||t<0.3)?0:.5;
+  // captions
+  const cap=$('caps');let html='';
+  for(const v of TL.vo){
+    if(!v.cap) continue;
+    if(t<v.start-.05||t>v.start+v.dur+.25) continue;
+    // chunk by sentence/comma
+    const ch=[];let cur=[];v.toks.forEach((tk,k)=>{cur.push(k);if(/[.,?!]$/.test(tk)&&cur.length>=2){ch.push(cur);cur=[]}});if(cur.length)ch.push(cur);
+    let use=ch[0];for(const c of ch){if(t>=v.start+v.words[c[0]].s-.05)use=c}
+    html=use.map(k=>{const s=v.start+v.words[k].s,e=v.start+v.words[k].e;const cls=t>=s&&t<e+.06?'on':(t>=s?'p':'');return `<span class="${cls}">${v.toks[k]}</span>`}).join(' ');
+  }
+  cap.innerHTML=html;
+  return ret;
+}
+</script>
+</body></html>

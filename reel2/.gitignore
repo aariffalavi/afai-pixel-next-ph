@@ -1,0 +1,6 @@
+src/frames/
+src/prev/
+src/rec/
+src/*.wav
+src/song_ref.m4a
+src/vo/*.mp3
