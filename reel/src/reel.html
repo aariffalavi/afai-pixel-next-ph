@@ -100,9 +100,9 @@ body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antiali
 
 <!-- CASE -->
 <div class="scene light" id="case">
-  <div class="abs center eyebrow" id="cs_eb" style="top:120px;color:var(--g3)">Real example · E-commerce</div>
-  <div class="abs center h1" id="cs_h" style="top:168px;font-size:92px;color:var(--ink)">Global Supermarket EU</div>
-  <div class="abs center" id="cs_sub" style="top:276px;font-size:34px;color:#5b6168;font-weight:600">Online grocery store for shoppers across Europe</div>
+  <div class="abs center eyebrow" id="cs_eb" style="top:120px;color:var(--g3)">Real example · Wholesale food</div>
+  <div class="abs center h1" id="cs_h" style="top:172px;font-size:84px;color:var(--ink)">Transfood Grosshandel</div>
+  <div class="abs center" id="cs_sub" style="top:276px;font-size:34px;color:#5b6168;font-weight:600">Wholesale food supply across Germany 🇩🇪</div>
   <div class="phone" id="cs_ph" style="top:350px;box-shadow:0 0 0 3px #2b3136,0 50px 120px rgba(0,0,0,.30)"><div class="island"></div><div class="scr"><img id="cs_img"></div></div>
   <div id="cs_cards"></div>
 </div>
@@ -167,7 +167,7 @@ body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antiali
   <img id="ou_logo" class="abs" src="assets/logo.png" style="left:65px;top:560px;width:950px">
   <div class="abs center" id="ou_url" style="top:950px"><span class="urlpill" style="background:var(--ink);color:#fff;font-size:58px;padding:24px 52px"><span class="lock">●</span>afaipixel.com</span></div>
   <div class="abs center" id="ou_btn" style="top:1110px"><span style="display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g3));color:#fff;font-weight:800;font-size:46px;padding:26px 60px;border-radius:999px;box-shadow:0 20px 50px rgba(25,149,65,.35)">Get a free quote →</span></div>
-  <div class="abs center" id="ou_loc" style="top:1260px;font-weight:600;font-size:34px;color:#5b6168">Web design · Branding · Digital marketing<br><span style="color:var(--g3)">UK · Europe · Sri Lanka</span></div>
+  <div class="abs center" id="ou_loc" style="top:1260px;font-weight:600;font-size:34px;color:#5b6168">Web design · Branding · Digital marketing<br><span style="color:var(--g3)">🌍 Serving clients worldwide</span></div>
   
 </div>
 
@@ -184,7 +184,7 @@ const iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
 const oB=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
 const $=id=>document.getElementById(id);
 let TL=null, REC={};
-const NREC={hero:180,services:246,case:384,reviews:108};
+const NREC={hero:180,services:246,case:461,reviews:108};
 function sc(id){return TL.scenes.find(s=>s.id===id)}
 function words(line){return TL.caps.filter(c=>c.line===line)}
 function wordT(line,idx){return words(line)[idx].s}
@@ -207,8 +207,8 @@ function init(tl){
   // brand chips
   const bc=$('br_chips');
   [["Web design","▣",1000],["Branding","◆",1130],["Digital marketing","↗",1260]].forEach(([t,ic,y],i)=>{const c=document.createElement('div');c.className='chip dk';c.id='brc'+i;c.innerHTML=`<span class="ic">${ic}</span>${t}`;c.style.top=y+'px';bc.appendChild(c)});
-  const fl=document.createElement('div');fl.className='chip';fl.id='brc3';fl.innerHTML='🇬🇧 UK &nbsp;·&nbsp; 🇪🇺 Europe';fl.style.top='1400px';fl.style.boxShadow='0 0 0 3px #6dbe45, 0 20px 50px rgba(0,0,0,.15)';bc.appendChild(fl);
-  const sb=document.createElement('div');sb.className='abs center';sb.id='brc4';sb.style.cssText='top:900px;font-weight:700;font-size:40px;color:#4d4d4d';sb.textContent='for small businesses';bc.appendChild(sb);
+  const fl=document.createElement('div');fl.className='chip';fl.id='brc3';fl.innerHTML='🌍 Serving clients worldwide';fl.style.top='1400px';fl.style.boxShadow='0 0 0 3px #6dbe45, 0 20px 50px rgba(0,0,0,.15)';bc.appendChild(fl);
+  const sb=document.createElement('div');sb.className='abs center';sb.id='brc4';sb.style.cssText='top:1500px;font-weight:700;font-size:40px;color:#4d4d4d';sb.textContent='UK · Europe · Middle East · Asia · Australia';bc.appendChild(sb);
   SQ.hero=makeSquares($('hero_sq'),14,7,{min:18,max:46,y0:300,y1:1800,op:.35});
   SQ.sv=makeSquares($('sv_sq'),14,11,{min:18,max:46,y0:300,y1:1800,op:.35});
   SQ.ou=makeSquares($('ou_sq'),12,5,{min:16,max:40,y0:100,y1:1800,op:.5});
@@ -221,9 +221,10 @@ function init(tl){
   SVC.forEach(([t,ic,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='svc'+i;c.innerHTML=`<span class="ic" style="${ic.length>2?'font-size:20px':''}">${ic}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';sv.appendChild(c)});
   // case cards
   const cc=$('cs_cards');
-  CASE=[["1","Category structure","categories",40,620],["2","Product → Basket → Checkout","path",120,900],["3","Ongoing marketing","marketing",420,1180]];
+  CASE=[["1","Shop by brand","brands",40,640],["2","New arrivals","new",380,900],["3","Order in bulk","bulk",60,1180]];
   CASE.forEach(([n,t,w,x,y],i)=>{const c=document.createElement('div');c.className='chip';c.id='csc'+i;c.innerHTML=`<span class="ic">${n}</span>${t}`;c.style.left=x+'px';c.style.top=y+'px';c.style.boxShadow='0 0 0 3px #6dbe45,0 24px 60px rgba(0,0,0,.25)';cc.appendChild(c)});
-  const tag=document.createElement('div');tag.className='chip dk';tag.id='cstag';tag.innerHTML='<span class="ic">🛒</span>Online store · Europe';tag.style.left='520px';tag.style.top='760px';cc.appendChild(tag);
+  const tag=document.createElement('div');tag.className='chip dk';tag.id='cstag';tag.innerHTML='<span class="ic">🚚</span>Wholesale · Germany';tag.style.left='500px';tag.style.top='700px';cc.appendChild(tag);
+  const tag2=document.createElement('div');tag2.className='chip';tag2.id='cstag2';tag2.innerHTML='🍛 Indian · Asian · African &amp; more';tag2.style.left='60px';tag2.style.top='1120px';tag2.style.boxShadow='0 0 0 3px #6dbe45,0 24px 60px rgba(0,0,0,.25)';cc.appendChild(tag2);
   // caption chunks
   CH=[];let cur=[];const caps=TL.caps;
   for(let i=0;i<caps.length;i++){const c=caps[i];const prev=cur[cur.length-1];
@@ -261,9 +262,9 @@ async function render(t){
     lg.style.top=(470-oC(P(u,0.9,1.4))*90)+'px';
     fade($('br_meet'),u,0.1,0.5);
     const ts=[findWord(L,'web'),findWord(L,'branding'),findWord(L,'digital')];
-    for(let i=0;i<3;i++){const c=$('brc'+i);const w=c.offsetWidth;c.style.left=((1080-w)/2)+'px';const kk=P(t,ts[i]-0.05,ts[i]+0.35);c.style.opacity=clamp(kk*3);c.style.transform=`translateX(${(1-oC(kk))*(i%2?300:-300)}px)`}
-    const c3=$('brc3');c3.style.left=((1080-c3.offsetWidth)/2)+'px';pop(c3,t,findWord(L,'uk')-0.1,.4,.4);
-    fade($('brc4'),t,findWord(L,'small')-0.05,findWord(L,'small')+0.35);
+    for(let i=0;i<3;i++){const c=$('brc'+i);c.style.left='0';c.style.right='0';c.style.margin='0 auto';c.style.width='fit-content';const kk=P(t,ts[i]-0.05,ts[i]+0.35);c.style.opacity=clamp(kk*3);c.style.transform=`translateX(${(1-oC(kk))*(i%2?300:-300)}px)`}
+    const c3=$('brc3');c3.style.left='0';c3.style.right='0';c3.style.margin='0 auto';c3.style.width='fit-content';pop(c3,t,findWord(L,'worldwide')-0.1,.4,.4);
+    fade($('brc4'),t,findWord(L,'worldwide')+0.3,findWord(L,'worldwide')+0.7);
   }
   if(s.id==='hero'){
     animSquares(SQ.hero,u);
@@ -285,8 +286,9 @@ async function render(t){
     fade($('cs_eb'),u,0.15,0.5);fade($('cs_h'),u,0.25,0.65);fade($('cs_sub'),u,0.4,0.8);
     phoneIn($('cs_ph'),u);
     const w=setImg($('cs_img'),'rec_case',NREC.case,u);if(w)waits.push(w);
-    const tg=$('cstag');const t4=findWord(4,'online');const kt=P(t,t4-.05,t4+.35);const ot=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg.style.opacity=clamp(kt*3)*(1-ot);tg.style.transform=`scale(${kt<=0?.4:.4+.6*oB(kt)})`;
-    CASE.forEach((d,i)=>{const c=$('csc'+i);const ts=findWord(5,d[2]);const kk=P(t,ts-0.1,ts+0.3);const out=P(u,D-0.4,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(i===2?260:-260)}px) rotate(${(1-oC(kk))*-6}deg)`});
+    const tg2=$('cstag2');const ti=findWord(4,'indian');const ki=P(t,ti-.05,ti+.35);const oi=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg2.style.opacity=clamp(ki*3)*(1-oi);tg2.style.transform=`translateX(${(1-oC(ki))*-200}px)`;
+    const tg=$('cstag');const t4=findWord(4,'wholesale');const kt=P(t,t4-.05,t4+.35);const ot=P(t,findWord(5,'we')-.4,findWord(5,'we')-.1);tg.style.opacity=clamp(kt*3)*(1-ot);tg.style.transform=`scale(${kt<=0?.4:.4+.6*oB(kt)})`;
+    CASE.forEach((d,i)=>{const c=$('csc'+i);const ts=findWord(5,d[2]);const kk=P(t,ts-0.1,ts+0.3);const out=P(u,D-0.4,D-0.1);c.style.opacity=clamp(kk*3)*(1-out);c.style.transform=`translateX(${(1-oC(kk))*(i===1?260:-260)}px) rotate(${(1-oC(kk))*-6}deg)`});
   }
   if(s.id==='reviews'){
     const k=P(u,0.1,0.5);$('rv_card').style.opacity=clamp(k*3);$('rv_card').style.transform=`scale(${k<=0?.5:.5+.5*oB(k)})`;

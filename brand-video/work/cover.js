@@ -1,0 +1,2 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch();for(const [w,h,n] of [[1080,1920,'9x16'],[1920,1080,'16x9']]){const p=await b.newPage({viewport:{width:w,height:h}});await p.goto(`file://${process.cwd()}/cover.html?w=${w}&h=${h}`);await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(600);await p.screenshot({path:`../cover-${n}.jpg`,type:'jpeg',quality:92});await p.close()}await b.close()})();

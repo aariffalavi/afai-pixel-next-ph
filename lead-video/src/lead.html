@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
+:root{--g1:#6dbe45;--g2:#3fa33e;--g3:#199541;--ink:#111518;--red:#e5484d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#fff}
+.scene{position:absolute;inset:0;overflow:hidden;display:none}
+.abs{position:absolute}
+.center{left:0;right:0;text-align:center}
+.dark{background:radial-gradient(1200px 900px at 85% 10%,rgba(63,163,62,.30),transparent 60%),radial-gradient(900px 900px at 0% 95%,rgba(25,149,65,.25),transparent 60%),#101417}
+.darkred{background:radial-gradient(1100px 800px at 80% 15%,rgba(229,72,77,.28),transparent 60%),radial-gradient(900px 900px at 0% 95%,rgba(229,72,77,.15),transparent 60%),#121012}
+.light{background:radial-gradient(900px 700px at 100% 0%,rgba(109,190,69,.18),transparent 60%),#f4f7f2}
+.eyebrow{font-weight:700;font-size:30px;letter-spacing:.22em;color:var(--g1);text-transform:uppercase}
+.h1{font-weight:800;letter-spacing:-.035em;line-height:1.02}
+.phone{position:absolute;left:254px;top:330px;width:572px;height:1204px;border-radius:78px;background:#0b0d0e;padding:16px;box-shadow:0 0 0 3px #2b3136,0 50px 120px rgba(0,0,0,.55)}
+.phone .scr{width:540px;height:1172px;border-radius:62px;overflow:hidden;position:relative;background:#fff}
+.phone .scr>img{width:540px;height:1172px;display:block;position:absolute;top:66px;left:0}
+.phone .island{position:absolute;top:30px;left:50%;width:132px;height:36px;margin-left:-66px;background:#000;border-radius:24px;z-index:9}
+.sbar{position:absolute;top:0;left:0;right:0;height:66px;background:#fff;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:6px 46px 0 52px;font-weight:700;font-size:24px;color:#111}
+.sbar i{font-style:normal;letter-spacing:3px;font-size:20px}
+.chip{position:absolute;display:inline-flex;align-items:center;gap:16px;background:#fff;color:var(--ink);border-radius:26px;padding:20px 28px;font-weight:700;font-size:38px;box-shadow:0 20px 50px rgba(0,0,0,.30);white-space:nowrap}
+.chip .ic{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--g1),var(--g3));display:grid;place-items:center;color:#fff;font-size:28px;font-weight:800}
+.chip.neg .ic{background:var(--red)}
+.urlpill{display:inline-flex;align-items:center;gap:16px;background:#fff;color:var(--ink);border-radius:999px;padding:18px 36px;font-weight:700;font-size:42px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.sq{position:absolute;border-radius:10px;background:linear-gradient(135deg,var(--g1),var(--g3))}
+#caps{position:absolute;left:90px;right:90px;top:1585px;text-align:center;z-index:50;display:none}
+#caps span.box{display:inline-block;background:rgba(10,12,14,.86);border-radius:22px;padding:14px 30px 18px;font-weight:800;font-size:62px;color:#fff;letter-spacing:-.02em;line-height:1.15;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+#caps b.on{color:var(--g1)}
+.wipebar{position:absolute;left:0;right:0;height:26px;background:linear-gradient(90deg,var(--g1),var(--g3));z-index:40}
+.word{display:inline-block;margin:0 .12em;transform-origin:50% 80%}
+/* mock bad site */
+.bad{position:absolute;left:0;right:0;top:66px;bottom:0;background:#f2f2f2;font-family:'Times New Roman',serif;color:#555;overflow:hidden}
+.bad .hd{background:#d9d9d9;padding:18px 22px;display:flex;justify-content:space-between;align-items:center}
+.bad .hd b{font-size:26px;color:#666;letter-spacing:.05em}
+.bad .hd span{font-size:15px;color:#2a4bd7;text-decoration:underline;margin-left:8px}
+.bad .img{margin:22px;height:300px;background:repeating-linear-gradient(45deg,#cfcfcf 0 14px,#d8d8d8 14px 28px);display:grid;place-items:center;color:#999;font-size:22px}
+.bad p{margin:0 22px 14px;font-size:17px;line-height:1.35;text-align:justify;color:#777}
+.bad h3{margin:0 22px 10px;font-size:28px;color:#666;font-weight:400}
+/* mock good site */
+.good{position:absolute;left:0;right:0;top:66px;bottom:0;background:#111518;color:#fff;overflow:hidden}
+.good .hd{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:#fff;color:#111}
+.good .hd b{font-size:26px;font-weight:900;letter-spacing:-.02em}
+.good .hero{padding:44px 32px 30px;background:radial-gradient(500px 400px at 90% 0%,rgba(109,190,69,.35),transparent 70%)}
+.good .hero .k{font-size:18px;letter-spacing:.2em;color:var(--g1);font-weight:700}
+.good .hero h2{font-size:58px;font-weight:900;letter-spacing:-.04em;line-height:1;margin:14px 0}
+.good .hero p{font-size:22px;color:#c6cdc8;line-height:1.4}
+.good .cta{display:inline-block;margin-top:26px;background:linear-gradient(135deg,var(--g1),var(--g3));padding:20px 34px;border-radius:999px;font-weight:800;font-size:26px}
+.good .pic{margin:6px 32px;height:260px;border-radius:24px;background:linear-gradient(135deg,#e9c48a,#b97a3c);display:grid;place-items:center;font-size:120px}
+.good .rt{margin:22px 32px;font-size:22px;color:#c6cdc8}
+/* search mock */
+.srch{position:absolute;left:0;right:0;top:66px;bottom:0;background:#fff;color:#222;overflow:hidden}
+.srch .bar{margin:26px 22px;height:76px;border-radius:38px;box-shadow:0 2px 10px rgba(0,0,0,.18);display:flex;align-items:center;gap:16px;padding:0 28px;font-size:26px;font-weight:500}
+.srch .res{margin:0 28px 26px}
+.srch .res small{color:#1a7f37;font-size:18px}
+.srch .res b{display:block;color:#1a0dab;font-size:27px;font-weight:600;margin:4px 0}
+.srch .res span{font-size:19px;color:#555;line-height:1.35}
+/* comment ui */
+.sheet{position:absolute;left:40px;right:40px;top:790px;height:830px;background:#fff;border-radius:44px;box-shadow:0 30px 90px rgba(0,0,0,.25);overflow:hidden}
+.sheet .grab{width:90px;height:10px;border-radius:9px;background:#d9d9d9;margin:22px auto 0}
+.sheet .ttl{text-align:center;font-weight:700;font-size:36px;margin:20px 0 10px;color:#111}
+.sheet hr{border:0;border-top:2px solid #eee}
+.cm{display:flex;gap:24px;padding:20px 40px;align-items:flex-start;position:relative}
+.av{width:84px;height:84px;border-radius:50%;flex:none;display:grid;place-items:center;overflow:hidden}
+.cm .nm{font-weight:700;font-size:30px;color:#111}
+.cm .nm small{font-weight:500;color:#8a8a8a;font-size:26px;margin-left:12px}
+.cm .tx{font-size:36px;color:#111;margin-top:6px;font-weight:500;line-height:1.3}
+.cm .meta{font-size:25px;color:#8a8a8a;margin-top:10px;font-weight:600}
+.cm .heart{position:absolute;right:44px;top:44px;font-size:40px;color:#8a8a8a;line-height:1}
+.inputrow{position:absolute;left:0;right:0;bottom:0;height:150px;border-top:2px solid #eee;display:flex;align-items:center;gap:22px;padding:0 34px;background:#fff}
+.inputbox{flex:1;height:92px;border:2px solid #ddd;border-radius:46px;display:flex;align-items:center;padding:0 34px;font-size:38px;color:#111;font-weight:600}
+.send{width:92px;height:92px;border-radius:50%;background:var(--g2);display:grid;place-items:center;color:#fff;font-size:44px;font-weight:800}
+.pinned{font-size:24px;color:#8a8a8a;font-weight:600;padding:18px 40px 0}
+</style></head>
+<body><div id="stage">
+
+<!-- HOOK -->
+<div class="scene darkred" id="hook">
+  <div class="abs center h1" id="hk_t" style="top:150px;font-size:112px;color:#fff;padding:0 50px"></div>
+  <div class="phone" id="hk_ph" style="top:640px;transform-origin:50% 0;box-shadow:0 0 0 3px #3a2b2e,0 50px 120px rgba(0,0,0,.6),0 0 120px rgba(229,72,77,.25)"><div class="island"></div><div class="scr" id="hk_scr"></div></div>
+  <div id="hk_people"></div>
+</div>
+
+<!-- SIGNS -->
+<div class="scene darkred" id="signs">
+  <div class="abs center" id="sg_n" style="top:420px;font-weight:900;font-size:640px;line-height:1;color:var(--red);letter-spacing:-.06em;text-shadow:0 30px 80px rgba(229,72,77,.35)">3</div>
+  <div class="abs center h1" id="sg_t" style="top:1120px;font-size:150px;color:#fff">SIGNS</div>
+  <div class="abs center" id="sg_s" style="top:1300px;font-weight:700;font-size:44px;color:#e9b7b9">your website is costing you customers</div>
+</div>
+
+<!-- SIGN 1 -->
+<div class="scene darkred" id="s1">
+  <div class="abs center" id="s1_b" style="top:140px"><span class="chip neg" style="position:static;font-size:52px;padding:22px 36px"><span class="ic" style="width:66px;height:66px;font-size:36px">1</span>Slow on mobile</span></div>
+  <div class="phone" id="s1_ph"><div class="island"></div><div class="scr" id="s1_scr"></div></div>
+  <div class="chip neg" id="s1_timer" style="left:600px;top:560px;z-index:20"><span class="ic">⏱</span><span id="s1_sec">0.0s</span></div>
+</div>
+
+<!-- SIGN 2 -->
+<div class="scene darkred" id="s2">
+  <div class="abs center" id="s2_b" style="top:140px"><span class="chip neg" style="position:static;font-size:52px;padding:22px 36px"><span class="ic" style="width:66px;height:66px;font-size:36px">2</span>No clear next step</span></div>
+  <div class="phone" id="s2_ph"><div class="island"></div><div class="scr" id="s2_scr"></div></div>
+  <div id="s2_q"></div>
+  <svg id="s2_cur" class="abs" style="z-index:20" width="80" height="92" viewBox="0 0 24 28"><path d="M2 2 L2 22 L7.5 17 L11 25 L14.5 23.5 L11 15.8 L18.5 15.5 Z" fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<!-- SIGN 3 -->
+<div class="scene darkred" id="s3">
+  <div class="abs center" id="s3_b" style="top:140px"><span class="chip neg" style="position:static;font-size:52px;padding:22px 36px"><span class="ic" style="width:66px;height:66px;font-size:36px">3</span>Not found on Google</span></div>
+  <div class="phone" id="s3_ph"><div class="island"></div><div class="scr">
+    <div class="srch">
+      <div class="bar">🔍 <span id="s3_q"></span><span id="s3_caret" style="display:inline-block;width:3px;height:34px;background:#1a73e8"></span></div>
+      <div id="s3_res">
+      <div class="res"><small>citybakes.example</small><b>City Bakes · Fresh bread daily</b><span>Open now · Order online · 4.8 ★</span></div>
+      <div class="res"><small>goldencrust.example</small><b>Golden Crust Bakery</b><span>Cakes, pastries and sourdough near you.</span></div>
+      <div class="res"><small>morningloaf.example</small><b>The Morning Loaf</b><span>Award-winning local bakery. Book a table.</span></div>
+      <div class="res"><small>flourhouse.example</small><b>Flour House</b><span>Same-day cake delivery across the city.</span></div>
+      <div class="res"><small>bakedlocal.example</small><b>Baked Local</b><span>Family bakery since 1998. Visit us today.</span></div>
+      </div>
+    </div></div><div class="island"></div></div>
+  <div class="chip neg" id="s3_nf" style="left:120px;top:1290px;z-index:20;font-size:40px"><span class="ic">✕</span>Your business? Not on page 1</div>
+</div>
+
+<!-- FIX -->
+<div class="scene dark" id="fix">
+  <div class="abs center eyebrow" id="fx_eb" style="top:150px">The fix</div>
+  <div class="abs center h1" id="fx_h" style="top:200px;font-size:88px;color:#fff">We fix <span style="color:var(--g1)">all three.</span></div>
+  <div class="phone" id="fx_ph"><div class="island"></div><div class="scr"><div id="fx_bad" class="abs" style="inset:0"></div><div id="fx_good" class="abs" style="inset:0"></div></div></div>
+  <div class="chip" id="fx_c0" style="left:24px;top:1060px"><span class="ic">⚡</span>Loads fast</div>
+  <div class="chip" id="fx_c1" style="left:590px;top:800px"><span class="ic">👆</span>Clear next step</div>
+  <div class="chip" id="fx_c2" style="left:420px;top:1300px"><span class="ic">🔍</span>Found on Google</div>
+</div>
+
+<!-- PROOF -->
+<div class="scene dark" id="proof">
+  <div class="abs center eyebrow" id="pf_eb" style="top:130px">Real client websites</div>
+  <div class="abs center" id="pf_url" style="top:190px"><span class="urlpill"><span id="pf_flag"></span><span id="pf_name"></span></span></div>
+  <div class="phone" id="pf_ph"><div class="island"></div><div class="scr"><img id="pf_img"></div></div>
+  <div class="abs center" id="pf_count" style="top:1545px;font-weight:700;font-size:30px;color:#9fb0a5"></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="scene dark" id="reviews">
+  <div class="abs center" id="rv_card" style="top:420px">
+    <div style="display:inline-block;background:#fff;border-radius:44px;padding:44px 70px;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+      <div style="font-weight:900;font-size:220px;color:var(--ink);letter-spacing:-.05em;line-height:1">5.0</div>
+      <div id="rv_stars" style="font-size:96px;letter-spacing:8px"></div>
+      <div style="font-weight:700;font-size:44px;color:#333;margin-top:8px"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span> · 25 reviews</div>
+    </div>
+  </div>
+  <div class="abs" id="rv_q1" style="left:60px;top:1060px;width:700px;background:#1b2125;border-radius:28px;padding:28px 34px;color:#e9efe9;font-size:32px;font-weight:600;line-height:1.35;box-shadow:0 0 0 2px rgba(109,190,69,.4)">“Afai Pixel is an outstanding team with exceptional skills in web design and development.”<div style="font-size:24px;color:var(--g1);margin-top:12px">Umar N. · Google review</div></div>
+  <div class="abs" id="rv_q2" style="left:320px;top:1330px;width:700px;background:#1b2125;border-radius:28px;padding:28px 34px;color:#e9efe9;font-size:32px;font-weight:600;line-height:1.35;box-shadow:0 0 0 2px rgba(109,190,69,.4)">“Highly recommended agency. This guys knows the stuff.”<div style="font-size:24px;color:var(--g1);margin-top:12px">Minfaz M. · Google review</div></div>
+</div>
+
+<!-- OFFER -->
+<div class="scene" id="offer" style="background:linear-gradient(180deg,#eaf5e4,#f7faf5 60%,#e3f0dc)">
+  <div class="abs center h1" id="of_q" style="top:230px;font-size:86px;color:var(--ink);padding:0 60px">What's holding your site back?</div>
+  <div class="abs center" id="of_ticket" style="top:640px">
+    <div style="display:inline-block;position:relative;background:var(--ink);color:#fff;border-radius:40px;padding:60px 70px;box-shadow:16px 18px 0 var(--g2),0 40px 90px rgba(0,0,0,.25);border:4px dashed rgba(109,190,69,.7)">
+      <div style="font-weight:800;font-size:40px;letter-spacing:.2em;color:var(--g1)">GET A</div>
+      <div style="font-weight:900;font-size:150px;letter-spacing:-.04em;line-height:.95">FREE</div>
+      <div style="font-weight:900;font-size:86px;letter-spacing:-.03em;line-height:1">WEBSITE<br>AUDIT</div>
+      <div style="position:absolute;right:-40px;top:-50px;background:linear-gradient(135deg,var(--g1),var(--g3));width:150px;height:150px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:30px;line-height:1.05;text-align:center;transform:rotate(14deg);box-shadow:0 20px 40px rgba(0,0,0,.3)">NO<br>COST</div>
+    </div>
+  </div>
+  <div class="abs center" id="of_sub" style="top:1260px;font-weight:700;font-size:42px;color:#2f3a33;line-height:1.4">We review your website and send<br><span style="color:var(--g3)">practical fixes for more enquiries</span></div>
+</div>
+
+<!-- COMMENT -->
+<div class="scene" id="comment" style="background:linear-gradient(180deg,#eaf5e4 0%,#f7faf5 55%,#e3f0dc 100%)">
+  <div class="abs center" id="cm_cta" style="top:150px">
+    <div style="font-weight:800;font-size:72px;color:var(--ink);letter-spacing:-.02em">Comment</div>
+    <div style="display:inline-block;margin-top:16px;background:var(--ink);color:#fff;font-weight:900;font-size:170px;letter-spacing:.04em;padding:16px 64px;border-radius:38px;box-shadow:14px 16px 0 var(--g2)" id="cm_word">AUDIT</div>
+  </div>
+  <div class="abs center" id="cm_free" style="top:600px;font-weight:700;font-size:44px;color:#2f3a33">Free · <span style="color:var(--g3)">No obligation</span></div>
+  <div class="abs center" id="cm_arrow" style="top:680px;font-size:84px;color:var(--g2);font-weight:900">↓</div>
+  <div class="sheet" id="cm_sheet">
+    <div class="grab"></div><div class="ttl">Comments</div><hr>
+    <div class="pinned">📌 Pinned by afaipixel</div>
+    <div class="cm">
+      <div class="av" style="background:#fff;border:2px solid #e6e6e6"><img src="../assets/logomark.png" style="width:70px;height:70px"></div>
+      <div style="padding-right:90px"><div class="nm">afaipixel<small>Author</small></div>
+        <div class="tx">Comment <b>AUDIT</b> and we'll review your website for free 👇</div><div class="meta">Reply</div></div>
+      <div class="heart">♡</div>
+    </div>
+    <div class="cm" id="cm_user" style="opacity:0">
+      <div class="av" style="background:linear-gradient(135deg,#f6c453,#e6683c)"><span style="font-size:44px">🙂</span></div>
+      <div><div class="nm">you<small>now</small></div><div class="tx" style="font-weight:800">AUDIT</div><div class="meta">Reply</div></div>
+      <div class="heart" id="cm_uheart">♡</div>
+    </div>
+    <div class="cm" id="cm_ans" style="opacity:0;padding-left:148px">
+      <div class="av" style="width:64px;height:64px;background:#fff;border:2px solid #e6e6e6"><img src="../assets/logomark.png" style="width:54px;height:54px"></div>
+      <div><div class="nm" style="font-size:28px">afaipixel<small>Author</small></div><div class="tx" style="font-size:33px">On it! Check your DMs 🚀</div></div>
+    </div>
+    <div class="inputrow">
+      <div class="av" style="width:76px;height:76px;background:linear-gradient(135deg,#f6c453,#e6683c)"><span style="font-size:40px">🙂</span></div>
+      <div class="inputbox"><span id="cm_typed"></span><span id="cm_caret" style="display:inline-block;width:4px;height:46px;background:var(--g2);margin-left:4px"></span><span id="cm_ph" style="color:#9a9a9a;font-weight:500">Add a comment…</span></div>
+      <div class="send" id="cm_send">➤</div>
+    </div>
+  </div>
+  <div id="cm_tap" class="abs" style="width:120px;height:120px;border-radius:50%;border:8px solid rgba(63,163,62,.8);display:none"></div>
+</div>
+
+<!-- OUTRO -->
+<div class="scene" id="outro" style="background:#fff">
+  <div class="abs" style="inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 2px,transparent 2px),linear-gradient(90deg,rgba(0,0,0,.035) 2px,transparent 2px);background-size:90px 90px"></div>
+  <div id="ou_sq"></div>
+  <img id="ou_logo" class="abs" src="../assets/logo.png" style="left:65px;top:560px;width:950px">
+  <div class="abs center" id="ou_url" style="top:950px"><span class="urlpill" style="background:var(--ink);color:#fff;font-size:58px;padding:24px 52px"><span style="width:34px;height:34px;border-radius:9px;background:var(--g2);display:inline-block"></span>afaipixel.com</span></div>
+  <div class="abs center" id="ou_btn" style="top:1110px"><span style="display:inline-block;background:linear-gradient(135deg,var(--g1),var(--g3));color:#fff;font-weight:800;font-size:46px;padding:26px 60px;border-radius:999px;box-shadow:0 20px 50px rgba(25,149,65,.35)">Get your free website audit →</span></div>
+  <div class="abs center" id="ou_loc" style="top:1260px;font-weight:600;font-size:34px;color:#5b6168">🌍 Europe · Asia · Africa · Australia &amp; more</div>
+</div>
+
+<div id="caps"><span class="box" id="capbox"></span></div>
+<div class="wipebar" id="wipebar" style="display:none"></div>
+</div>
+
+<script>
+const FPS=30;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const oC=x=>1-Math.pow(1-x,3);
+const iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const oB=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const $=id=>document.getElementById(id);
+let TL,CH,SQ={};
+function words(line){return TL.caps.filter(c=>c.line===line)}
+function fw(line,txt){for(const w of words(line)){if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt.toLowerCase()))return w.s}return null}
+function rnd(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return (s-1)/2147483646}}
+function makeSquares(el,n,seed,o){const r=rnd(seed);const a=[];for(let i=0;i<n;i++){const d=document.createElement('div');d.className='sq';const sz=o.min+(o.max-o.min)*r();d.style.width=d.style.height=sz+'px';a.push({el:d,x:r()*1080,y:o.y0+(o.y1-o.y0)*r(),sp:.3+r()*.9,ph:r()*6.28,op:o.op*(.4+.6*r()),rot:r()*40-20});el.appendChild(d)}return a}
+function animSquares(a,u){for(const o of a){o.el.style.transform=`translate(${o.x+Math.cos(u*o.sp*.7+o.ph)*12}px,${o.y+Math.sin(u*o.sp+o.ph)*18}px) rotate(${o.rot+u*8*o.sp}deg)`;o.el.style.opacity=o.op}}
+const BAD=`<div class="bad"><div class="hd"><b>YOUR BUSINESS</b><div><span>Home</span><span>About</span><span>Info</span><span>Links</span></div></div>
+<div class="img">[ image ]</div><h3>Welcome to our website</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper.</p>
+<p>Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur. Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+<p>Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+<p>Etiam porta sem malesuada magna mollis euismod. Curabitur blandit tempus porttitor. Donec sed odio dui. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p></div>`;
+const GOOD=`<div class="good"><div class="hd"><b>YOUR BUSINESS</b><span style="font-size:30px">☰</span></div>
+<div class="hero"><div class="k">LOCAL BAKERY</div><h2>Fresh bread,<br><span style="color:var(--g1)">baked daily.</span></h2><p>Order online for pickup or same-day delivery.</p><div class="cta" id="good_cta">Order now →</div></div>
+<div class="pic">🥐</div><div class="rt"><span style="color:#fbbc04">★★★★★</span> Loved by locals</div></div>`;
+function addSbar(scr){const b=document.createElement('div');b.className='sbar';b.innerHTML='<span>9:41</span><i>▂▄▆ ◖▮▮▯</i>';scr.prepend(b)}
+function init(tl){
+  TL=tl;
+  $('hk_scr').innerHTML=BAD+'<div id="hk_spin" class="abs" style="left:0;right:0;top:66px;bottom:0;background:rgba(255,255,255,.75);display:grid;place-items:center"><div id="hk_sp" style="width:110px;height:110px;border-radius:50%;border:12px solid #ddd;border-top-color:#888"></div></div>';
+  $('s1_scr').innerHTML='<div id="s1_blank" class="abs" style="left:0;right:0;top:66px;bottom:0;background:#fff"><div id="s1_bar" style="height:8px;background:#1a73e8;width:0"></div><div style="position:absolute;left:0;right:0;top:420px;display:grid;place-items:center"><div id="s1_sp" style="width:120px;height:120px;border-radius:50%;border:12px solid #e5e5e5;border-top-color:#999"></div><div style="margin-top:30px;font-size:28px;color:#999;font-weight:600">Loading…</div></div></div>';
+  $('s2_scr').innerHTML=BAD;
+  $('fx_bad').innerHTML=BAD;$('fx_good').innerHTML=GOOD;
+  document.querySelectorAll('.scr').forEach(addSbar);
+  // hook words
+  const q=$('hk_t');const L=[["Is","your","website"],["LOSING"],["you","customers?"]];let i=0;
+  L.forEach(r=>{const row=document.createElement('div');r.forEach(w=>{const s=document.createElement('span');s.className='word';s.textContent=w;s.dataset.i=i++;if(w==='LOSING'){s.style.color='#fff';s.style.background='var(--red)';s.style.padding='4px 30px 14px';s.style.borderRadius='26px';s.style.margin='14px 0'}row.appendChild(s)});q.appendChild(row)});
+  const hp=$('hk_people');for(let k=0;k<6;k++){const d=document.createElement('div');d.className='abs';d.id='hp'+k;d.style.cssText='font-size:70px;left:500px;top:1100px;opacity:0';d.textContent='👤';hp.appendChild(d)}
+  // question marks
+  const qq=$('s2_q');[[150,600],[820,700],[180,980],[800,1060],[480,520]].forEach(([x,y],k)=>{const d=document.createElement('div');d.className='abs';d.id='q'+k;d.style.cssText=`left:${x}px;top:${y}px;font-size:96px;font-weight:900;color:#fff;background:var(--red);width:120px;height:120px;border-radius:50%;display:grid;place-items:center;box-shadow:0 20px 50px rgba(0,0,0,.4);z-index:15`;d.textContent='?';qq.appendChild(d)});
+  SQ.ou=makeSquares($('ou_sq'),12,5,{min:16,max:40,y0:100,y1:1800,op:.5});
+  CH=[];let cur=[];for(const c of TL.caps){const pv=cur[cur.length-1];if(cur.length&&(cur.length>=3||c.line!==pv.line||c.s-pv.e>0.22)){CH.push(cur);cur=[]}cur.push(c)}if(cur.length)CH.push(cur);
+}
+function setImg(img,dir,n,u,off=0){const f=clamp(Math.floor(u*FPS),0,n-1)+off;const src=`${dir}/${String(f).padStart(4,'0')}.jpg`;if(img.getAttribute('src')!==src){img.setAttribute('src',src);return img.decode().catch(()=>{})}return null}
+function show(id,v){$(id).style.display=v?'block':'none'}
+function popS(el,k,from=.4){el.style.opacity=clamp(k*3);return `scale(${k<=0?from:from+(1-from)*oB(k)})`}
+function fade(el,u,a,b,dy=40){const k=oC(P(u,a,b));el.style.opacity=k;el.style.transform=`translateY(${(1-k)*dy}px)`;return k}
+function phoneIn(el,u,extra=''){const k=oC(P(u,0.02,0.5));el.style.transform=`translateY(${(1-k)*900}px) ${extra}`}
+const PROOF=[["🇩🇪","transfoodgrosshandel.com"],["🇱🇰","windoors.lk"],["🇪🇺","smeraldomilano.eu"],["🇱🇰","aglsrilanka.com"]];
+
+async function render(t){
+  const waits=[];const active=[];
+  TL.scenes.forEach((s,i)=>{const nx=TL.scenes[i+1];const vis=(t>=s.s&&(t<s.e||(!nx&&t<=s.e+1)))||(nx&&t>=nx.s&&t<nx.s+0.32&&t>=s.s);show(s.id,vis);if(vis)active.push(s)});
+  let wipe=null;
+  TL.scenes.forEach((s,i)=>{const el=$(s.id);el.style.zIndex=i;if(i===0){el.style.clipPath='none';return}const k=iO(P(t,s.s,s.s+0.3));el.style.clipPath=k<1?`inset(${(1-k)*100}% 0 0 0)`:'none';if(k>0&&k<1)wipe=(1-k)*1920});
+  const wb=$('wipebar');if(wipe!==null){wb.style.display='block';wb.style.top=(wipe-13)+'px'}else wb.style.display='none';
+  for(const s of active){const u=t-s.s,D=s.e-s.s;
+  if(s.id==='hook'){
+    document.querySelectorAll('#hk_t .word').forEach(w=>{const ts=TL.caps[+w.dataset.i].s;const k=P(t,ts-0.12,ts+0.18);w.style.transform=`translateY(${(1-oC(k))*40}px) `+popS(w,k,.5)});
+    const ph=$('hk_ph');const k=oC(P(u,-0.3,0.35));ph.style.transform=`translateY(${(1-k)*700}px) scale(.78) rotate(${Math.sin(u*14)*0.6*(u>1.2?1:0)}deg)`;
+    $('hk_sp').style.transform=`rotate(${u*400}deg)`;
+    for(let j=0;j<6;j++){const e=$('hp'+j);const st=0.5+j*0.28;const kk=P(u,st,st+0.9);const dir=j%2?1:-1;e.style.opacity=kk>0&&kk<1?Math.sin(Math.PI*kk):0;e.style.transform=`translate(${dir*kk*430}px,${-kk*260+j*40}px) scale(${1-kk*.3})`}
+  }
+  if(s.id==='signs'){
+    const k=P(u,0,0.35);$('sg_n').style.transform=popS($('sg_n'),k,.2);
+    const k2=P(t,fw(1,'signs')-0.1,fw(1,'signs')+0.2);$('sg_t').style.transform=popS($('sg_t'),k2,.6);
+    fade($('sg_s'),u,0.7,1.1,20);
+  }
+  if(s.id==='s1'){
+    const k=P(u,0.05,0.4);$('s1_b').style.transform=popS($('s1_b'),k,.5);
+    phoneIn($('s1_ph'),u);$('s1_sp').style.transform=`rotate(${u*360}deg)`;
+    $('s1_bar').style.width=(30*oC(P(u,0.4,1.4))+5*P(u,1.4,3.3))+'%';
+    const kt=P(t,fw(2,'slow')-0.1,fw(2,'slow')+0.2);$('s1_timer').style.transform=popS($('s1_timer'),kt,.4);
+    $('s1_sec').textContent=(Math.max(0,u-0.3)*1.9+1).toFixed(1)+'s';
+  }
+  if(s.id==='s2'){
+    const k=P(u,0.05,0.4);$('s2_b').style.transform=popS($('s2_b'),k,.5);
+    phoneIn($('s2_ph'),u);
+    const cur=$('s2_cur');const path=[[620,1300],[380,760],[700,980],[420,1180],[640,640],[520,1050]];const seg=clamp(u/0.7,0,path.length-1.001);const a=path[Math.floor(seg)],b=path[Math.min(path.length-1,Math.floor(seg)+1)];const f=iO(seg%1);
+    cur.style.left=(a[0]+(b[0]-a[0])*f)+'px';cur.style.top=(a[1]+(b[1]-a[1])*f)+'px';cur.style.opacity=P(u,0.5,0.7);
+    for(let j=0;j<5;j++){const e=$('q'+j);const st=fw(3,'see')-0.3+j*0.35;const kk=P(t,st,st+0.3);e.style.transform=popS(e,kk,.2)+` rotate(${(j%2?1:-1)*10}deg)`}
+  }
+  if(s.id==='s3'){
+    const k=P(u,0.05,0.4);$('s3_b').style.transform=popS($('s3_b'),k,.5);
+    phoneIn($('s3_ph'),u);
+    const qtxt='bakery near me';const n=clamp(Math.floor((u-0.45)/0.06),0,qtxt.length);$('s3_q').textContent=qtxt.slice(0,n);
+    $('s3_caret').style.opacity=(Math.floor(u*3)%2===0)?1:0;
+    const kr=P(u,0.45+qtxt.length*0.06,0.45+qtxt.length*0.06+0.4);$('s3_res').style.opacity=kr;$('s3_res').style.transform=`translateY(${(1-oC(kr))*30}px)`;
+    const kn=P(t,fw(4,'nobody')-0.05,fw(4,'nobody')+0.3);$('s3_nf').style.transform=popS($('s3_nf'),kn,.4)+` rotate(-3deg)`;
+  }
+  if(s.id==='fix'){
+    fade($('fx_eb'),u,0.1,0.45);fade($('fx_h'),u,0.2,0.6);phoneIn($('fx_ph'),u);
+    const kg=iO(P(t,fw(5,'fast')-0.5,fw(5,'fast')));$('fx_good').style.clipPath=`inset(0 0 ${(1-kg)*100}% 0)`;
+    ['fast','clear','enquiries'].forEach((w,j)=>{const e=$('fx_c'+j);const ts=fw(5,w);const kk=P(t,ts-0.08,ts+0.3);e.style.opacity=clamp(kk*3);e.style.transform=`translateX(${(1-oC(kk))*(j===0?-220:220)}px) scale(${kk<=0?.5:.5+.5*oB(kk)})`});
+    const cta=document.getElementById('good_cta');if(cta){const ts=fw(5,'clear');cta.style.transform=`scale(${1+0.08*Math.sin(Math.max(0,t-ts)*7)*(t>ts?1:0)})`}
+  }
+  if(s.id==='proof'){
+    fade($('pf_eb'),u,0.05,0.4);phoneIn($('pf_ph'),u);
+    const idx=clamp(Math.floor(u*FPS/40),0,3);const ul=u-idx*40/FPS;
+    $('pf_flag').textContent=PROOF[idx][0];$('pf_name').textContent=PROOF[idx][1];
+    const ku=P(ul,0,0.22);$('pf_url').style.opacity=clamp(ku*2);$('pf_url').style.transform=`scale(${ku<=0?.7:.7+.3*oB(ku)})`;
+    const w=setImg($('pf_img'),'rec_proof',160,u);if(w)waits.push(w);
+    $('pf_count').textContent='';
+  }
+  if(s.id==='reviews'){
+    const k=P(u,0.05,0.45);$('rv_card').style.transform=popS($('rv_card'),k,.5);
+    let st='';for(let j=0;j<5;j++){st+=`<span style="color:${u>0.35+j*0.12?'#fbbc04':'#e3e3e3'}">★</span>`}$('rv_stars').innerHTML=st;
+    const k1=P(u,0.8,1.15);$('rv_q1').style.opacity=clamp(k1*2);$('rv_q1').style.transform=`translateX(${(1-oC(k1))*-300}px) rotate(-2deg)`;
+    const k2=P(u,1.15,1.5);$('rv_q2').style.opacity=clamp(k2*2);$('rv_q2').style.transform=`translateX(${(1-oC(k2))*300}px) rotate(2deg)`;
+  }
+  if(s.id==='offer'){
+    fade($('of_q'),u,0.1,0.5,30);
+    const tf=fw(8,'back');const k=P(t,tf-0.15,tf+0.25);$('of_ticket').style.transform=popS($('of_ticket'),k,.3)+` rotate(${(1-oC(k))*-8}deg)`;
+    fade($('of_sub'),t,tf+0.6,tf+1.0,25);
+  }
+  if(s.id==='comment'){
+    const L=9;const k=P(u,0.0,0.35);$('cm_cta').style.transform=popS($('cm_cta'),k,.6);
+    const tw=fw(L,'audit');$('cm_word').style.transform=`scale(${t>tw?1+0.05*Math.sin((t-tw)*9)*Math.exp(-(t-tw)*1.2):1})`;
+    fade($('cm_free'),t,fw(L,'free')-0.1,fw(L,'free')+0.3,20);
+    const ar=$('cm_arrow');ar.style.opacity=clamp(P(u,0.6,0.9));ar.style.transform=`translateY(${Math.abs(Math.sin(u*5))*-22}px)`;
+    const ks=oC(P(u,0.1,0.55));$('cm_sheet').style.transform=`translateY(${(1-ks)*900}px)`;
+    const t0=s.s+0.75,word='AUDIT';const n=clamp(Math.floor((t-t0)/0.1),0,word.length);const sent=t0+word.length*0.1+0.35;
+    $('cm_typed').textContent=t<sent?word.slice(0,n):'';$('cm_ph').style.display=(t<t0||t>=sent)?'inline':'none';
+    $('cm_caret').style.display=(t>=t0&&t<sent&&Math.floor(u*3)%2===0)?'inline-block':'none';
+    const tap=$('cm_tap');const sb=$('cm_send').getBoundingClientRect();const kt=P(t,sent-0.12,sent+0.3);
+    if(kt>0&&kt<1){tap.style.display='block';tap.style.left=(sb.left+sb.width/2-60)+'px';tap.style.top=(sb.top+sb.height/2-60)+'px';tap.style.transform=`scale(${0.4+kt*1.1})`;tap.style.opacity=1-kt}else tap.style.display='none';
+    $('cm_send').style.transform=`scale(${1-0.15*Math.sin(Math.PI*P(t,sent-0.1,sent+0.15))})`;
+    const ku=P(t,sent,sent+0.35);$('cm_user').style.opacity=clamp(ku*2);$('cm_user').style.transform=`translateY(${(1-oC(ku))*60}px)`;
+    const hk=P(t,sent+0.7,sent+1.0);$('cm_uheart').innerHTML=hk>0?'<span style="color:#ed4956">♥</span>':'♡';
+    const ta=Math.max(sent+1.1,fw(L,'send')-0.2);const ka=P(t,ta,ta+0.35);$('cm_ans').style.opacity=clamp(ka*2);$('cm_ans').style.transform=`translateY(${(1-oC(ka))*50}px)`;
+    window.__sent=sent;
+  }
+  if(s.id==='outro'){
+    animSquares(SQ.ou,u);
+    const lg=$('ou_logo');const k=oC(P(u,0.15,1.0));lg.style.clipPath=`inset(0 ${(1-k)*100}% 0 0)`;lg.style.transform=`scale(${0.9+0.1*k+u*0.006})`;
+    const ku=P(u,0.6,1.0);$('ou_url').style.transform=popS($('ou_url'),ku,.5);
+    const kb=P(u,1.0,1.4);$('ou_btn').style.opacity=clamp(kb*3);$('ou_btn').style.transform=`scale(${(kb<=0?.5:.5+.5*oB(kb))*(1+0.035*Math.sin(Math.max(0,u-1.5)*5))})`;
+    fade($('ou_loc'),u,1.3,1.8,25);
+  }
+  }
+  const capScenes=['s1','s2','s3','fix','proof','reviews'];const cur=active[active.length-1];let chunk=null;
+  if(cur&&capScenes.includes(cur.id)){for(const c of CH){if(t>=c[0].s-0.05&&t<c[c.length-1].e+0.25)chunk=c}}
+  const ce=$('caps');if(chunk){ce.style.display='block';$('capbox').innerHTML=chunk.map((w,j)=>`<b class="${(t>=w.s-0.02&&(j===chunk.length-1||t<chunk[j+1].s-0.02))?'on':''}">${w.w.toUpperCase()}</b>`).join(' ');const k=P(t,chunk[0].s-0.05,chunk[0].s+0.1);ce.style.transform=`scale(${0.85+0.15*oB(k)})`}else ce.style.display='none';
+  await Promise.all(waits);return true;
+}
+</script></body></html>

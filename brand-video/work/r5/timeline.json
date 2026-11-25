@@ -1,0 +1,1275 @@
+{
+ "total": 75.751,
+ "scenes": [
+  {
+   "id": "s1",
+   "s": 0,
+   "e": 8.948
+  },
+  {
+   "id": "s2",
+   "s": 8.948,
+   "e": 18.865
+  },
+  {
+   "id": "s3",
+   "s": 18.865,
+   "e": 28.428
+  },
+  {
+   "id": "s4",
+   "s": 28.428,
+   "e": 39.835
+  },
+  {
+   "id": "s5",
+   "s": 39.835,
+   "e": 55.283
+  },
+  {
+   "id": "s6",
+   "s": 55.283,
+   "e": 63.356
+  },
+  {
+   "id": "s7",
+   "s": 63.356,
+   "e": 75.751
+  }
+ ],
+ "clips": [
+  {
+   "i": 0,
+   "t": 0.4
+  },
+  {
+   "i": 1,
+   "t": 9.098
+  },
+  {
+   "i": 2,
+   "t": 19.065
+  },
+  {
+   "i": 3,
+   "t": 28.628
+  },
+  {
+   "i": 4,
+   "t": 40.035
+  },
+  {
+   "i": 5,
+   "t": 55.483
+  },
+  {
+   "i": 6,
+   "t": 63.556
+  }
+ ],
+ "caps": [
+  {
+   "w": "Every",
+   "s": 0.5,
+   "e": 0.758,
+   "line": 0
+  },
+  {
+   "w": "successful",
+   "s": 0.769,
+   "e": 1.275,
+   "line": 0
+  },
+  {
+   "w": "business",
+   "s": 1.285,
+   "e": 1.543,
+   "line": 0
+  },
+  {
+   "w": "starts",
+   "s": 1.554,
+   "e": 1.874,
+   "line": 0
+  },
+  {
+   "w": "with",
+   "s": 1.884,
+   "e": 1.998,
+   "line": 0
+  },
+  {
+   "w": "a",
+   "s": 2.008,
+   "e": 2.06,
+   "line": 0
+  },
+  {
+   "w": "dream",
+   "s": 2.07,
+   "e": 2.473,
+   "line": 0
+  },
+  {
+   "w": "A",
+   "s": 3.177,
+   "e": 3.291,
+   "line": 0
+  },
+  {
+   "w": "vision",
+   "s": 3.301,
+   "e": 3.539,
+   "line": 0
+  },
+  {
+   "w": "to",
+   "s": 3.549,
+   "e": 3.621,
+   "line": 0
+  },
+  {
+   "w": "grow",
+   "s": 3.632,
+   "e": 3.952,
+   "line": 0
+  },
+  {
+   "w": "A",
+   "s": 4.665,
+   "e": 4.789,
+   "line": 0
+  },
+  {
+   "w": "passion",
+   "s": 4.799,
+   "e": 5.13,
+   "line": 0
+  },
+  {
+   "w": "to",
+   "s": 5.14,
+   "e": 5.212,
+   "line": 0
+  },
+  {
+   "w": "create",
+   "s": 5.223,
+   "e": 5.698,
+   "line": 0
+  },
+  {
+   "w": "And",
+   "s": 6.411,
+   "e": 6.576,
+   "line": 0
+  },
+  {
+   "w": "a",
+   "s": 6.586,
+   "e": 6.638,
+   "line": 0
+  },
+  {
+   "w": "determination",
+   "s": 6.648,
+   "e": 7.278,
+   "line": 0
+  },
+  {
+   "w": "to",
+   "s": 7.289,
+   "e": 7.392,
+   "line": 0
+  },
+  {
+   "w": "achieve",
+   "s": 7.403,
+   "e": 7.702,
+   "line": 0
+  },
+  {
+   "w": "something",
+   "s": 7.712,
+   "e": 8.064,
+   "line": 0
+  },
+  {
+   "w": "greater",
+   "s": 8.074,
+   "e": 8.518,
+   "line": 0
+  },
+  {
+   "w": "But",
+   "s": 9.198,
+   "e": 9.343,
+   "line": 1
+  },
+  {
+   "w": "in",
+   "s": 9.353,
+   "e": 9.415,
+   "line": 1
+  },
+  {
+   "w": "today's",
+   "s": 9.425,
+   "e": 9.766,
+   "line": 1
+  },
+  {
+   "w": "competitive",
+   "s": 9.777,
+   "e": 10.262,
+   "line": 1
+  },
+  {
+   "w": "digital",
+   "s": 10.273,
+   "e": 10.603,
+   "line": 1
+  },
+  {
+   "w": "world",
+   "s": 10.613,
+   "e": 10.923,
+   "line": 1
+  },
+  {
+   "w": "having",
+   "s": 11.13,
+   "e": 11.326,
+   "line": 1
+  },
+  {
+   "w": "a",
+   "s": 11.337,
+   "e": 11.378,
+   "line": 1
+  },
+  {
+   "w": "great",
+   "s": 11.388,
+   "e": 11.677,
+   "line": 1
+  },
+  {
+   "w": "business",
+   "s": 11.688,
+   "e": 11.998,
+   "line": 1
+  },
+  {
+   "w": "isn't",
+   "s": 12.008,
+   "e": 12.215,
+   "line": 1
+  },
+  {
+   "w": "enough",
+   "s": 12.225,
+   "e": 12.628,
+   "line": 1
+  },
+  {
+   "w": "You",
+   "s": 13.332,
+   "e": 13.477,
+   "line": 1
+  },
+  {
+   "w": "need",
+   "s": 13.487,
+   "e": 13.601,
+   "line": 1
+  },
+  {
+   "w": "a",
+   "s": 13.611,
+   "e": 13.663,
+   "line": 1
+  },
+  {
+   "w": "powerful",
+   "s": 13.673,
+   "e": 14.117,
+   "line": 1
+  },
+  {
+   "w": "online",
+   "s": 14.127,
+   "e": 14.479,
+   "line": 1
+  },
+  {
+   "w": "presence",
+   "s": 14.489,
+   "e": 14.964,
+   "line": 1
+  },
+  {
+   "w": "You",
+   "s": 15.677,
+   "e": 15.832,
+   "line": 1
+  },
+  {
+   "w": "need",
+   "s": 15.842,
+   "e": 16.008,
+   "line": 1
+  },
+  {
+   "w": "to",
+   "s": 16.018,
+   "e": 16.08,
+   "line": 1
+  },
+  {
+   "w": "stand",
+   "s": 16.09,
+   "e": 16.39,
+   "line": 1
+  },
+  {
+   "w": "out",
+   "s": 16.4,
+   "e": 16.72,
+   "line": 1
+  },
+  {
+   "w": "You",
+   "s": 17.433,
+   "e": 17.599,
+   "line": 1
+  },
+  {
+   "w": "need",
+   "s": 17.609,
+   "e": 17.764,
+   "line": 1
+  },
+  {
+   "w": "to",
+   "s": 17.774,
+   "e": 17.826,
+   "line": 1
+  },
+  {
+   "w": "be",
+   "s": 17.836,
+   "e": 17.919,
+   "line": 1
+  },
+  {
+   "w": "remembered",
+   "s": 17.929,
+   "e": 18.435,
+   "line": 1
+  },
+  {
+   "w": "That's",
+   "s": 19.165,
+   "e": 19.382,
+   "line": 2
+  },
+  {
+   "w": "where",
+   "s": 19.393,
+   "e": 19.506,
+   "line": 2
+  },
+  {
+   "w": "Afai",
+   "s": 19.517,
+   "e": 19.847,
+   "line": 2
+  },
+  {
+   "w": "Pixel",
+   "s": 19.858,
+   "e": 20.198,
+   "line": 2
+  },
+  {
+   "w": "comes",
+   "s": 20.209,
+   "e": 20.446,
+   "line": 2
+  },
+  {
+   "w": "in",
+   "s": 20.457,
+   "e": 20.674,
+   "line": 2
+  },
+  {
+   "w": "We're",
+   "s": 21.378,
+   "e": 21.584,
+   "line": 2
+  },
+  {
+   "w": "more",
+   "s": 21.595,
+   "e": 21.719,
+   "line": 2
+  },
+  {
+   "w": "than",
+   "s": 21.729,
+   "e": 21.843,
+   "line": 2
+  },
+  {
+   "w": "a",
+   "s": 21.853,
+   "e": 21.894,
+   "line": 2
+  },
+  {
+   "w": "creative",
+   "s": 21.905,
+   "e": 22.277,
+   "line": 2
+  },
+  {
+   "w": "agency",
+   "s": 22.287,
+   "e": 22.772,
+   "line": 2
+  },
+  {
+   "w": "We're",
+   "s": 23.485,
+   "e": 23.692,
+   "line": 2
+  },
+  {
+   "w": "your",
+   "s": 23.702,
+   "e": 23.836,
+   "line": 2
+  },
+  {
+   "w": "digital",
+   "s": 23.847,
+   "e": 24.229,
+   "line": 2
+  },
+  {
+   "w": "growth",
+   "s": 24.239,
+   "e": 24.487,
+   "line": 2
+  },
+  {
+   "w": "partner",
+   "s": 24.498,
+   "e": 24.88,
+   "line": 2
+  },
+  {
+   "w": "turning",
+   "s": 25.055,
+   "e": 25.324,
+   "line": 2
+  },
+  {
+   "w": "ambitious",
+   "s": 25.334,
+   "e": 25.717,
+   "line": 2
+  },
+  {
+   "w": "ideas",
+   "s": 25.727,
+   "e": 26.109,
+   "line": 2
+  },
+  {
+   "w": "into",
+   "s": 26.119,
+   "e": 26.336,
+   "line": 2
+  },
+  {
+   "w": "powerful",
+   "s": 26.347,
+   "e": 26.77,
+   "line": 2
+  },
+  {
+   "w": "digital",
+   "s": 26.781,
+   "e": 27.122,
+   "line": 2
+  },
+  {
+   "w": "experiences",
+   "s": 27.132,
+   "e": 27.948,
+   "line": 2
+  },
+  {
+   "w": "From",
+   "s": 28.728,
+   "e": 28.966,
+   "line": 3
+  },
+  {
+   "w": "stunning",
+   "s": 28.976,
+   "e": 29.265,
+   "line": 3
+  },
+  {
+   "w": "website",
+   "s": 29.276,
+   "e": 29.637,
+   "line": 3
+  },
+  {
+   "w": "design",
+   "s": 29.647,
+   "e": 29.988,
+   "line": 3
+  },
+  {
+   "w": "and",
+   "s": 29.999,
+   "e": 30.102,
+   "line": 3
+  },
+  {
+   "w": "development",
+   "s": 30.112,
+   "e": 30.577,
+   "line": 3
+  },
+  {
+   "w": "to",
+   "s": 30.753,
+   "e": 30.815,
+   "line": 3
+  },
+  {
+   "w": "creative",
+   "s": 30.825,
+   "e": 31.238,
+   "line": 3
+  },
+  {
+   "w": "branding",
+   "s": 31.249,
+   "e": 31.621,
+   "line": 3
+  },
+  {
+   "w": "graphic",
+   "s": 31.827,
+   "e": 32.147,
+   "line": 3
+  },
+  {
+   "w": "design",
+   "s": 32.158,
+   "e": 32.592,
+   "line": 3
+  },
+  {
+   "w": "social",
+   "s": 32.726,
+   "e": 33.015,
+   "line": 3
+  },
+  {
+   "w": "media",
+   "s": 33.026,
+   "e": 33.325,
+   "line": 3
+  },
+  {
+   "w": "marketing",
+   "s": 33.335,
+   "e": 33.78,
+   "line": 3
+  },
+  {
+   "w": "video",
+   "s": 33.997,
+   "e": 34.286,
+   "line": 3
+  },
+  {
+   "w": "editing",
+   "s": 34.296,
+   "e": 34.658,
+   "line": 3
+  },
+  {
+   "w": "SEO",
+   "s": 34.864,
+   "e": 35.247,
+   "line": 3
+  },
+  {
+   "w": "and",
+   "s": 35.464,
+   "e": 35.557,
+   "line": 3
+  },
+  {
+   "w": "complete",
+   "s": 35.567,
+   "e": 35.887,
+   "line": 3
+  },
+  {
+   "w": "digital",
+   "s": 35.897,
+   "e": 36.228,
+   "line": 3
+  },
+  {
+   "w": "marketing",
+   "s": 36.238,
+   "e": 36.61,
+   "line": 3
+  },
+  {
+   "w": "solutions",
+   "s": 36.621,
+   "e": 37.147,
+   "line": 3
+  },
+  {
+   "w": "we",
+   "s": 37.313,
+   "e": 37.478,
+   "line": 3
+  },
+  {
+   "w": "bring",
+   "s": 37.488,
+   "e": 37.674,
+   "line": 3
+  },
+  {
+   "w": "your",
+   "s": 37.685,
+   "e": 37.829,
+   "line": 3
+  },
+  {
+   "w": "entire",
+   "s": 37.84,
+   "e": 38.222,
+   "line": 3
+  },
+  {
+   "w": "digital",
+   "s": 38.232,
+   "e": 38.594,
+   "line": 3
+  },
+  {
+   "w": "vision",
+   "s": 38.604,
+   "e": 38.831,
+   "line": 3
+  },
+  {
+   "w": "together",
+   "s": 38.842,
+   "e": 39.255,
+   "line": 3
+  },
+  {
+   "w": "Whether",
+   "s": 40.135,
+   "e": 40.393,
+   "line": 4
+  },
+  {
+   "w": "you're",
+   "s": 40.403,
+   "e": 40.527,
+   "line": 4
+  },
+  {
+   "w": "building",
+   "s": 40.538,
+   "e": 40.827,
+   "line": 4
+  },
+  {
+   "w": "your",
+   "s": 40.837,
+   "e": 40.951,
+   "line": 4
+  },
+  {
+   "w": "business",
+   "s": 40.961,
+   "e": 41.323,
+   "line": 4
+  },
+  {
+   "w": "in",
+   "s": 41.333,
+   "e": 41.426,
+   "line": 4
+  },
+  {
+   "w": "Sri",
+   "s": 41.437,
+   "e": 41.581,
+   "line": 4
+  },
+  {
+   "w": "Lanka",
+   "s": 41.591,
+   "e": 41.922,
+   "line": 4
+  },
+  {
+   "w": "or",
+   "s": 42.056,
+   "e": 42.149,
+   "line": 4
+  },
+  {
+   "w": "taking",
+   "s": 42.16,
+   "e": 42.47,
+   "line": 4
+  },
+  {
+   "w": "your",
+   "s": 42.48,
+   "e": 42.594,
+   "line": 4
+  },
+  {
+   "w": "dreams",
+   "s": 42.604,
+   "e": 42.914,
+   "line": 4
+  },
+  {
+   "w": "across",
+   "s": 42.924,
+   "e": 43.203,
+   "line": 4
+  },
+  {
+   "w": "borders",
+   "s": 43.213,
+   "e": 43.585,
+   "line": 4
+  },
+  {
+   "w": "Afai",
+   "s": 43.74,
+   "e": 44.029,
+   "line": 4
+  },
+  {
+   "w": "Pixel",
+   "s": 44.04,
+   "e": 44.401,
+   "line": 4
+  },
+  {
+   "w": "is",
+   "s": 44.412,
+   "e": 44.505,
+   "line": 4
+  },
+  {
+   "w": "here",
+   "s": 44.515,
+   "e": 44.691,
+   "line": 4
+  },
+  {
+   "w": "to",
+   "s": 44.701,
+   "e": 44.784,
+   "line": 4
+  },
+  {
+   "w": "help",
+   "s": 44.794,
+   "e": 45.125,
+   "line": 4
+  },
+  {
+   "w": "We",
+   "s": 45.829,
+   "e": 46.025,
+   "line": 4
+  },
+  {
+   "w": "proudly",
+   "s": 46.035,
+   "e": 46.397,
+   "line": 4
+  },
+  {
+   "w": "work",
+   "s": 46.407,
+   "e": 46.676,
+   "line": 4
+  },
+  {
+   "w": "with",
+   "s": 46.686,
+   "e": 46.789,
+   "line": 4
+  },
+  {
+   "w": "Sri",
+   "s": 46.8,
+   "e": 46.955,
+   "line": 4
+  },
+  {
+   "w": "Lankan",
+   "s": 46.965,
+   "e": 47.285,
+   "line": 4
+  },
+  {
+   "w": "businesses",
+   "s": 47.296,
+   "e": 47.802,
+   "line": 4
+  },
+  {
+   "w": "and",
+   "s": 47.967,
+   "e": 48.06,
+   "line": 4
+  },
+  {
+   "w": "Sri",
+   "s": 48.07,
+   "e": 48.205,
+   "line": 4
+  },
+  {
+   "w": "Lankans",
+   "s": 48.215,
+   "e": 48.597,
+   "line": 4
+  },
+  {
+   "w": "living",
+   "s": 48.608,
+   "e": 48.866,
+   "line": 4
+  },
+  {
+   "w": "worldwide",
+   "s": 48.876,
+   "e": 49.434,
+   "line": 4
+  },
+  {
+   "w": "across",
+   "s": 49.599,
+   "e": 49.889,
+   "line": 4
+  },
+  {
+   "w": "Australia",
+   "s": 49.899,
+   "e": 50.436,
+   "line": 4
+  },
+  {
+   "w": "Europe",
+   "s": 50.643,
+   "e": 50.984,
+   "line": 4
+  },
+  {
+   "w": "the",
+   "s": 51.159,
+   "e": 51.221,
+   "line": 4
+  },
+  {
+   "w": "UK",
+   "s": 51.232,
+   "e": 51.696,
+   "line": 4
+  },
+  {
+   "w": "the",
+   "s": 51.924,
+   "e": 51.986,
+   "line": 4
+  },
+  {
+   "w": "USA",
+   "s": 51.996,
+   "e": 52.533,
+   "line": 4
+  },
+  {
+   "w": "Canada",
+   "s": 52.729,
+   "e": 53.132,
+   "line": 4
+  },
+  {
+   "w": "the",
+   "s": 53.329,
+   "e": 53.391,
+   "line": 4
+  },
+  {
+   "w": "Middle",
+   "s": 53.401,
+   "e": 53.67,
+   "line": 4
+  },
+  {
+   "w": "East",
+   "s": 53.68,
+   "e": 53.938,
+   "line": 4
+  },
+  {
+   "w": "and",
+   "s": 54.072,
+   "e": 54.176,
+   "line": 4
+  },
+  {
+   "w": "beyond",
+   "s": 54.186,
+   "e": 54.703,
+   "line": 4
+  },
+  {
+   "w": "Your",
+   "s": 55.583,
+   "e": 55.748,
+   "line": 5
+  },
+  {
+   "w": "business",
+   "s": 55.758,
+   "e": 56.089,
+   "line": 5
+  },
+  {
+   "w": "deserves",
+   "s": 56.099,
+   "e": 56.481,
+   "line": 5
+  },
+  {
+   "w": "creativity",
+   "s": 56.492,
+   "e": 57.174,
+   "line": 5
+  },
+  {
+   "w": "commitment",
+   "s": 57.349,
+   "e": 57.793,
+   "line": 5
+  },
+  {
+   "w": "and",
+   "s": 57.969,
+   "e": 58.041,
+   "line": 5
+  },
+  {
+   "w": "a",
+   "s": 58.052,
+   "e": 58.103,
+   "line": 5
+  },
+  {
+   "w": "team",
+   "s": 58.114,
+   "e": 58.351,
+   "line": 5
+  },
+  {
+   "w": "that",
+   "s": 58.362,
+   "e": 58.506,
+   "line": 5
+  },
+  {
+   "w": "understands",
+   "s": 58.517,
+   "e": 59.002,
+   "line": 5
+  },
+  {
+   "w": "your",
+   "s": 59.012,
+   "e": 59.136,
+   "line": 5
+  },
+  {
+   "w": "vision",
+   "s": 59.147,
+   "e": 59.529,
+   "line": 5
+  },
+  {
+   "w": "Let's",
+   "s": 60.233,
+   "e": 60.46,
+   "line": 5
+  },
+  {
+   "w": "create",
+   "s": 60.471,
+   "e": 60.77,
+   "line": 5
+  },
+  {
+   "w": "something",
+   "s": 60.781,
+   "e": 61.09,
+   "line": 5
+  },
+  {
+   "w": "that",
+   "s": 61.101,
+   "e": 61.225,
+   "line": 5
+  },
+  {
+   "w": "makes",
+   "s": 61.235,
+   "e": 61.431,
+   "line": 5
+  },
+  {
+   "w": "your",
+   "s": 61.442,
+   "e": 61.535,
+   "line": 5
+  },
+  {
+   "w": "brand",
+   "s": 61.545,
+   "e": 61.855,
+   "line": 5
+  },
+  {
+   "w": "impossible",
+   "s": 61.865,
+   "e": 62.278,
+   "line": 5
+  },
+  {
+   "w": "to",
+   "s": 62.289,
+   "e": 62.392,
+   "line": 5
+  },
+  {
+   "w": "ignore",
+   "s": 62.402,
+   "e": 62.826,
+   "line": 5
+  },
+  {
+   "w": "Your",
+   "s": 63.656,
+   "e": 63.832,
+   "line": 6
+  },
+  {
+   "w": "next",
+   "s": 63.842,
+   "e": 64.111,
+   "line": 6
+  },
+  {
+   "w": "chapter",
+   "s": 64.121,
+   "e": 64.41,
+   "line": 6
+  },
+  {
+   "w": "of",
+   "s": 64.42,
+   "e": 64.524,
+   "line": 6
+  },
+  {
+   "w": "business",
+   "s": 64.534,
+   "e": 64.844,
+   "line": 6
+  },
+  {
+   "w": "growth",
+   "s": 64.854,
+   "e": 65.123,
+   "line": 6
+  },
+  {
+   "w": "starts",
+   "s": 65.133,
+   "e": 65.464,
+   "line": 6
+  },
+  {
+   "w": "here",
+   "s": 65.474,
+   "e": 65.753,
+   "line": 6
+  },
+  {
+   "w": "Don't",
+   "s": 66.457,
+   "e": 66.664,
+   "line": 6
+  },
+  {
+   "w": "wait",
+   "s": 66.674,
+   "e": 66.881,
+   "line": 6
+  },
+  {
+   "w": "for",
+   "s": 66.891,
+   "e": 66.963,
+   "line": 6
+  },
+  {
+   "w": "the",
+   "s": 66.974,
+   "e": 67.056,
+   "line": 6
+  },
+  {
+   "w": "right",
+   "s": 67.067,
+   "e": 67.315,
+   "line": 6
+  },
+  {
+   "w": "opportunity",
+   "s": 67.325,
+   "e": 67.852,
+   "line": 6
+  },
+  {
+   "w": "Create",
+   "s": 68.565,
+   "e": 68.937,
+   "line": 6
+  },
+  {
+   "w": "it",
+   "s": 68.947,
+   "e": 69.154,
+   "line": 6
+  },
+  {
+   "w": "Get",
+   "s": 69.866,
+   "e": 70.052,
+   "line": 6
+  },
+  {
+   "w": "in",
+   "s": 70.063,
+   "e": 70.166,
+   "line": 6
+  },
+  {
+   "w": "touch",
+   "s": 70.176,
+   "e": 70.393,
+   "line": 6
+  },
+  {
+   "w": "with",
+   "s": 70.404,
+   "e": 70.528,
+   "line": 6
+  },
+  {
+   "w": "Afai",
+   "s": 70.538,
+   "e": 70.796,
+   "line": 6
+  },
+  {
+   "w": "Pixel",
+   "s": 70.806,
+   "e": 71.127,
+   "line": 6
+  },
+  {
+   "w": "today",
+   "s": 71.137,
+   "e": 71.53,
+   "line": 6
+  },
+  {
+   "w": "Let's",
+   "s": 72.242,
+   "e": 72.48,
+   "line": 6
+  },
+  {
+   "w": "make",
+   "s": 72.49,
+   "e": 72.656,
+   "line": 6
+  },
+  {
+   "w": "your",
+   "s": 72.666,
+   "e": 72.852,
+   "line": 6
+  },
+  {
+   "w": "ideas",
+   "s": 72.862,
+   "e": 73.193,
+   "line": 6
+  },
+  {
+   "w": "a",
+   "s": 73.203,
+   "e": 73.255,
+   "line": 6
+  },
+  {
+   "w": "reality",
+   "s": 73.265,
+   "e": 73.771,
+   "line": 6
+  }
+ ],
+ "lines": [
+  "Every successful business starts with a dream. A vision to grow. A passion to create. And a determination to achieve something greater.",
+  "But in today's competitive digital world, having a great business isn't enough. You need a powerful online presence. You need to stand out. You need to be remembered.",
+  "That's where Afai Pixel comes in. We're more than a creative agency. We're your digital growth partner, turning ambitious ideas into powerful digital experiences.",
+  "From stunning website design and development, to creative branding, graphic design, social media marketing, video editing, SEO, and complete digital marketing solutions, we bring your entire digital vision together.",
+  "Whether you're building your business in Sri Lanka, or taking your dreams across borders, Afai Pixel is here to help. We proudly work with Sri Lankan businesses, and Sri Lankans living worldwide, across Australia, Europe, the UK, the USA, Canada, the Middle East, and beyond.",
+  "Your business deserves creativity, commitment, and a team that understands your vision. Let's create something that makes your brand impossible to ignore.",
+  "Your next chapter of business growth starts here. Don't wait for the right opportunity. Create it. Get in touch with Afai Pixel today. Let's make your ideas a reality."
+ ]
+}

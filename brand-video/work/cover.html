@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:IN;color:#fff;background:#04070a;overflow:hidden;position:relative}
+.gr{background:linear-gradient(100deg,#c4f5a0,#62c847 45%,#1a9a4b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.k{font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1}
+.card{position:absolute;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.7)}
+.card .bar{height:26px;background:#eef0f2;display:flex;align-items:center;gap:6px;padding:0 10px}.card .bar i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.card img{width:100%;display:block}
+</style></head><body><div id="r"></div><script>
+const Q=new URLSearchParams(location.search);const W=+Q.get('w'),H=+Q.get('h');const V=H>W;document.body.style.width=W+'px';document.body.style.height=H+'px';
+const o=(v,h)=>V?v:h;
+let s=`<div style="position:absolute;left:${W*0.35}px;top:${-H*0.1}px;width:${W*0.9}px;height:${W*0.9}px;border-radius:50%;filter:blur(140px);background:rgba(40,160,80,.38)"></div>
+<div style="position:absolute;left:${-W*0.2}px;top:${H*0.55}px;width:${W*0.8}px;height:${W*0.8}px;border-radius:50%;filter:blur(140px);background:rgba(20,120,70,.3)"></div>
+<div style="position:absolute;left:-50%;right:-50%;bottom:-10%;height:50%;transform:perspective(1000px) rotateX(62deg);transform-origin:50% 0;background-image:linear-gradient(rgba(109,190,69,.18) 2px,transparent 2px),linear-gradient(90deg,rgba(109,190,69,.18) 2px,transparent 2px);background-size:90px 90px;-webkit-mask:linear-gradient(transparent,#000 60%)"></div>`;
+const C=[['clients/tf_d.jpg','transfoodgrosshandel.com'],['clients/ks_d.jpg','kingstonesurface.co.uk'],['clients/sm_d.jpg','smeraldomilano.eu']];
+const cw=o(560,520),cy=o(1060,330),cx=o(W/2,W*0.75);
+[[-1,-7,1],[1,7,2],[0,0,0]].forEach(([p,r,i])=>{s+=`<div class="card" style="left:${cx-cw/2+p*cw*0.5}px;top:${cy+(p?cw*0.08:0)}px;width:${cw}px;transform:rotate(${r}deg);z-index:${p?1:2}"><div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div><img src="${C[i][0]}"></div>`});
+const tx=o('left:0;right:0;text-align:center','left:110px;width:900px');
+s+=`<img src="assets/logo_white.png" style="position:absolute;${V?`left:${W/2-260}px`:'left:110px'};top:${o(200,140)}px;width:${o(520,400)}px">`;
+s+=`<div style="position:absolute;${tx};top:${o(600,440)}px"><div class="k" style="font-size:${o(96,76)}px">Your digital<br><span class="gr">growth partner.</span></div>
+<div style="margin-top:${o(36,30)}px;font-weight:600;font-size:${o(34,30)}px;letter-spacing:.2em;color:#e7dcc0">FROM SRI LANKA TO THE WORLD</div></div>`;
+s+=`<div style="position:absolute;${tx};top:${o(1640,930)}px;font-weight:600;font-size:${o(30,24)}px;white-space:${o('normal','nowrap')};letter-spacing:.14em;color:#cfe9c2">WEBSITES · BRANDING · DIGITAL MARKETING · AFAIPIXEL.COM</div>`;
+s+=`<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.65) 100%)"></div>`;
+document.getElementById('r').innerHTML=s;
+</script></body></html>

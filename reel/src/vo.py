@@ -3,11 +3,11 @@ import edge_tts.communicate as _c
 _c._SSL_CTX=ssl.create_default_context(cafile="/root/.ccr/ca-bundle.crt")
 lines=[
 "Hey! Is your website actually bringing you customers?",
-"Meet Afai Pixel. Web design, branding and digital marketing for small businesses in the UK and Europe.",
+"Meet Afai Pixel. Web design, branding and digital marketing for businesses worldwide.",
 "This is the real site. Fast, clean, and built to turn visitors into enquiries.",
 "Websites, logos, branding, social media, Google Ads, hosting and custom systems. All under one roof.",
-"Here's a real example. Global Supermarket EU needed an online store for shoppers across Europe.",
-"We planned the categories, built a short path from product to basket to checkout, and we still run their marketing today.",
+"Here's a real example. Transfood Grosshandel supplies wholesale food across Germany, covering Indian, Asian, African and more.",
+"We built their online store, so shops can browse the brands, see what's new, and order in bulk, right from their phone.",
 "Rated five stars from twenty-five Google reviews.",
 "Want a free quote? Comment WEBSITE below, and we'll reply within one working day.",
 "Afai Pixel. Make your ideas a reality.",
