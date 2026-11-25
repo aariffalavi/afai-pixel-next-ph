@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
+@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;position:relative}
+.abs{position:absolute}
+.k{font-weight:900;letter-spacing:-.05em;line-height:.84;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:10px;font-weight:700;border-radius:999px;padding:12px 20px}
+.phone{position:absolute;border-radius:36px;background:#111;padding:8px;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid #333}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:29px;overflow:hidden;background:#fff}
+.phone .scr img{position:absolute;top:0;left:0;width:100%}
+.phone .isl{position:absolute;top:13px;left:50%;width:70px;height:20px;margin-left:-35px;background:#000;border-radius:12px;z-index:3}
+</style></head><body><div id="root"></div>
+<script>
+const Q=new URLSearchParams(location.search);const W=+Q.get('w'),H=+Q.get('h');const V=Q.get('v')||'dark';
+document.body.style.width=W+'px';document.body.style.height=H+'px';
+const SQ=W===H,TALL=H>1600;
+const C=V==='green'?{bg:'#46b03f',ink:'#06120a',acc:'#06120a',sub:'#0f2a12',chipBg:'rgba(6,18,10,.12)',btnBg:'#06120a',btnInk:'#f4f2ed',tk:'#06120a',tkInk:'#46b03f',logo:'brightness(0)'}
+                  :{bg:'#0b0b0b',ink:'#f4f2ed',acc:'#46b03f',sub:'#a7a49d',chipBg:'#1b1b1b',btnBg:'#46b03f',btnInk:'#06120a',tk:'#46b03f',tkInk:'#06120a',logo:'none'};
+document.body.style.background=C.bg;document.body.style.color=C.ink;
+const L=SQ?{bf:104,bfTop:128,pct:330,pctTop:226,off:140,offTop:512,ev:32,chips:23,chipTop:668,cta:32,ctaTop:742,tk:48,nchip:3,lgTop:840,lgH:120,lgLab:17}
+ :TALL?{bf:146,bfTop:290,pct:455,pctTop:436,off:230,offTop:828,ev:50,chips:30,chipTop:1070,cta:44,ctaTop:1180,tk:68,nchip:3,pkTop:1336,lgTop:1416,lgH:186,lgLab:22}
+ :{bf:150,bfTop:158,pct:400,pctTop:292,off:180,offTop:640,ev:42,chips:26,chipTop:820,cta:38,ctaTop:910,tk:58,nchip:3,lgTop:1024,lgH:150,lgLab:19};
+let h=`<div class="abs" style="left:56px;right:56px;top:${SQ?40:48}px;display:flex;justify-content:space-between;align-items:center"><img src="../assets/logo_white.png" style="height:${SQ?60:70}px;filter:${C.logo}"><span style="font-weight:900;font-size:${SQ?20:23}px;letter-spacing:.12em;padding:9px 14px;border:2px solid ${C.ink};border-radius:6px">LIMITED TIME</span></div>`;
+h+=`<div class="abs k" style="left:52px;top:${L.bfTop}px;font-size:${L.bf}px;white-space:nowrap">Black Friday</div>`;
+h+=`<div class="abs k" id="pct" style="left:34px;top:${L.pctTop}px;font-size:${L.pct}px;color:${C.acc};white-space:nowrap">20%</div>`;
+h+=`<div class="abs" id="offwrap" style="left:52px;top:${L.offTop}px;display:flex;align-items:center;gap:${SQ?24:30}px"><div class="k" style="font-size:${L.off}px">OFF</div>
+ <span style="display:inline-block;background:${C.ink};color:${C.bg};font-weight:900;font-size:${L.ev}px;letter-spacing:-.02em;line-height:1.02;padding:${L.ev*0.4}px ${L.ev*0.5}px;border-radius:10px;text-transform:uppercase">Every new<br>website</span></div>`;
+const chips=['Custom design','Mobile-ready','SEO-ready'];
+h+=`<div class="abs" style="left:56px;right:56px;top:${L.chipTop}px;display:flex;flex-wrap:wrap;gap:12px">${chips.slice(0,L.nchip).map(c=>`<span class="chip" style="font-size:${L.chips}px;background:${C.chipBg};color:${C.ink}"><b style="color:${C.acc}">✓</b>${c}</span>`).join('')}</div>`;
+h+=`<div class="abs" style="left:56px;right:56px;top:${L.ctaTop}px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+ <span id="btn" style="display:inline-flex;align-items:center;gap:16px;background:${C.btnBg};color:${C.btnInk};font-weight:900;font-size:${L.cta}px;padding:${L.cta*0.6}px ${L.cta*0.85}px;border-radius:12px;text-transform:uppercase;letter-spacing:-.01em;white-space:nowrap">💬 Message us to claim</span>
+ <span style="font-weight:800;font-size:${L.cta*0.8}px;color:${C.ink};line-height:1.2;text-align:right">afaipixel.com</span></div>`;
+if(L.pkTop)h+=`<div class="abs" style="left:56px;right:56px;top:${L.pkTop}px;font-weight:700;font-size:30px;color:${C.sub};letter-spacing:.06em;text-transform:uppercase">Starter · Business · E-commerce websites</div>`;
+{const lg=['../bf3/logos/kingstone.png','../bf3/logos/surfacestone.png','../bf3/logos/agl.png','../bf3/logos/smeraldo.png','../bf3/logos/primepark.png'];
+ h+=`<div class="abs" style="left:56px;right:56px;top:${L.lgTop}px"><div style="font-weight:700;font-size:${L.lgLab}px;letter-spacing:.16em;color:${C.sub};text-transform:uppercase">Trusted by brands worldwide</div><div style="display:flex;gap:14px;margin-top:${SQ?12:16}px">${lg.map(f=>`<div style="flex:1;height:${L.lgH}px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:hidden"><img src="${f}" style="max-width:84%;max-height:70%;width:auto;height:auto"></div>`).join('')}</div></div>`}
+h+=`<div class="abs" style="left:0;right:0;bottom:0;height:${L.tk}px;line-height:${L.tk}px;background:${C.tk};color:${C.tkInk};font-weight:900;font-size:${L.tk*0.42}px;letter-spacing:.06em;white-space:nowrap;overflow:hidden">${'&nbsp;BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;MESSAGE US&nbsp;&nbsp;·'.repeat(6)}</div>`;
+document.getElementById('root').innerHTML=h;
+
+</script></body></html>
