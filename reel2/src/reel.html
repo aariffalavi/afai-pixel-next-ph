@@ -154,8 +154,8 @@ const eo=x=>1-Math.pow(1-x,3), eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
 const back=x=>{const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
 function mk(parent,tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
 function draw(el,p){ if(!el._L){el._L=el.getTotalLength()+2;} el.style.strokeDasharray=el._L+' '+el._L; el.style.strokeDashoffset=el._L*(1-cl(p)); el.style.visibility=p<=0?'hidden':'visible'; }
-// beat grid of the song, anchored on the drop (8.05 s), 0.572 s per beat
-const B=k=>8.05+0.572*k;
+// beat grid: the music starts on the drop (t=0), 0.572 s per beat
+const B=k=>0.572*(k+14);
 let TL,W={};
 function wordsHTML(el,txt){el.innerHTML=txt.split(' ').map(w=>`<span class="w">${w}</span> `).join('');return [...el.querySelectorAll('.w')]}
 function pop(el,t,t0,d=.22,dy=26){const p=P(t,t0,t0+d);el.style.opacity=eo(p);el.style.transform=`translateY(${(1-eo(p))*dy}px)`}
@@ -325,7 +325,7 @@ function render(t){
     if(on){SC[name](t); el.style.opacity=1;}
   }
   const fl=c=>Math.max(0,1-Math.abs(t-c)/.09);
-  $('flash').style.opacity=Math.max(.75*fl(8.05+.03),.85*fl(TL.impact+.03));
+  $('flash').style.opacity=.85*fl(TL.impact+.03);
   $('fade').style.opacity=P(t,TL.total-.35,TL.total)+(1-P(t,0,.1));
 }
 </script>
