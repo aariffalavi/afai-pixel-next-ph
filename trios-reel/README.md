@@ -2,6 +2,8 @@
 
 `top10-trios-reel.mp4`: 1080x1920 vertical, 30 fps, 96.9 s, H.264 + AAC (-15 LUFS). For Instagram Reels, TikTok and YouTube Shorts. `cover.jpg` is a suggested cover (the #1 MSN frame).
 
+**Music:** an original drift-phonk beat, synthesised in `src/phonk.py` at 140 BPM in F# minor: cowbell riff, distorted 808 with slides, hard kick and clap, triplet hat rolls. A filtered intro under the hook builds with a riser, and the beat drops on #10. It's royalty-free (no samples), and it's ducked under the voice-over.
+
 Everything is drawn in chalk on a green board: hand-drawn player busts (with hairstyle, beard and kit colours for each player), a mini pitch with the trio's passing triangle, a stat box, and word-by-word captions. An eraser wipes the board between scenes.
 
 ## Countdown
@@ -28,7 +30,7 @@ Suggested pinned comment: "Who's YOUR #1 trio? Drop it below 👇 Wrong answers 
 ## Rebuilding (src/)
 1. `python3 vo.py`: voice-over (edge-tts, en-GB-RyanNeural) with word timings; long pauses are tightened.
 2. `python3 build_timeline.py`: builds the scene timing, captions and the marks used to sync drawings to the words.
-3. `python3 audio.py`: music bed, chalk/eraser/whistle/crowd SFX and the VO mix → `mix.wav`.
+3. `python3 audio.py`: phonk bed (`phonk.py`), chalk/eraser/whistle/crowd SFX and the VO mix → `mix.wav`.
 4. `node render.js range 0 2908` (split into parallel ranges if you like) renders frames. `node render.js preview 12.5 70` writes test stills.
 5. Encode:
    `ffmpeg -framerate 30 -i frames/%05d.jpg -i mix.wav -af loudnorm=I=-14:TP=-1 -c:v libx264 -crf 19 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart -shortest ../top10-trios-reel.mp4`

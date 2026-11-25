@@ -10,41 +10,18 @@ def lp(x,a):  # one-pole lowpass (vectorised via lfilter-like loop on chunks)
     y=np.empty_like(x); s=0.0
     for i in range(len(x)): s+=a*(x[i]-s); y[i]=s
     return y
-# ---- music: upbeat stadium-ish groove, 120 bpm
-bpm=120; beat=60/bpm; bar=beat*4
-mus=np.zeros(N)
-def kick():
-    n=int(.3*SR);t=np.arange(n)/SR;f=48+110*np.exp(-t*32);return np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*10)
-def hat(d=70):
-    n=int(.05*SR);x=np.diff(np.concatenate([[0],rng.standard_normal(n)]));return x*np.exp(-np.arange(n)/SR*d)*.22
-def clap():
-    n=int(.2*SR);x=rng.standard_normal(n);x=x-np.convolve(x,np.ones(25)/25,'same');t=np.arange(n)/SR
-    e=np.exp(-t*20)*(1+.6*(np.sin(2*np.pi*90*t)>0));return x*e*.28
-def pluck(m,d=.28):
-    n=int(d*SR);t=np.arange(n)/SR;s=sum(np.sin(2*np.pi*mf(m)*k*t)/k**1.3 for k in range(1,6));return s*np.exp(-t*9)*.07
-def bass(m,d):
-    n=int(d*SR);t=np.arange(n)/SR;return (np.sin(2*np.pi*mf(m-24)*t)+.3*np.sin(2*np.pi*mf(m-12)*t))*np.minimum(1,t/.01)*np.exp(-t*3)*.25
-def pad(ns,d):
-    n=int(d*SR);t=np.arange(n)/SR;s=np.zeros(n)
-    for m in ns:
-        for dt in(-.1,.1): s+=np.sin(2*np.pi*mf(m)*(1+dt/100)*t)
-    return s*np.minimum(1,t/.3)*np.minimum(1,(d-t)/.3)*.025
-prog=[[62,66,69],[59,62,66],[55,59,62],[57,61,64]]  # D Bm G A
-arp=[0,1,2,1,0,2,1,2]
-for b in range(int(T/bar)+1):
-    t0=b*bar;c=prog[b%4];add(mus,pad([x+12 for x in c],bar),t0)
-    for k in range(4):
-        tb=t0+k*beat;add(mus,kick()*.5,tb);add(mus,bass(c[0],beat*.8),tb)
-        if k in(1,3):add(mus,clap(),tb)
-        add(mus,hat(),tb+beat/2);add(mus,hat(120)*.5,tb+beat*.25);add(mus,hat(120)*.5,tb+beat*.75)
-    for k in range(8): add(mus,pluck(c[arp[k]]+24),t0+k*beat/2)
-fade=np.ones(N);fi=int(.05*SR);fade[:fi]=np.linspace(0,1,fi);fo=int(1.8*SR);fade[-fo:]=np.linspace(1,0,fo);mus*=fade
+# ---- music: original drift-phonk bed (see phonk.py); drops at the #10 scene
+from phonk import phonk
+drop=[x for x in tl['scenes'] if x['id']=='t10'][0]['s']
+mus_hi,mus_lo=phonk(T,SR,drop,rng)
+mus=mus_hi+mus_lo
+fade=np.ones(N);fo=int(2.0*SR);fade[-fo:]=np.linspace(1,0,fo);mus*=fade
 # ---- VO
 vo=np.zeros(N)
 def readwav(p):
     w=wave.open(p);return np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
 for c in tl['clips']: add(vo,readwav(f"vo/{c['i']}.wav"),c['t'])
-k=int(.2*SR);envv=np.convolve(np.abs(vo),np.ones(k)/k,'same');mus*=1-0.6*np.clip(envv*14,0,1)
+k=int(.2*SR);envv=np.convolve(np.abs(vo),np.ones(k)/k,'same');mus*=1-0.7*np.clip(envv*14,0,1)
 # ---- SFX
 sfx=np.zeros(N)
 def chalk(d):  # scratchy chalk stroke
@@ -78,7 +55,7 @@ for s in tl['scenes']:
     if s['id']=='ex2':
         tF=t0+m[2]+.25;add(sfx,kickball(),tF);add(sfx,crowd(2.8),tF+.1)
         add(sfx,whistle(.35),t0+m[4]-.2);add(sfx,whistle(.35),t0+m[4]+.25);add(sfx,whistle(.9),t0+m[4]+.7)
-mix=mus*0.55+vo*1.0+sfx
+mix=mus*0.26+vo*1.3+sfx
 mix/=max(1,np.max(np.abs(mix))/0.97)
 w=wave.open('mix.wav','wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((mix*32767).astype(np.int16).tobytes());w.close()
 print('ok',T,np.max(np.abs(mix)))
