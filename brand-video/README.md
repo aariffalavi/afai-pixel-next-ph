@@ -2,7 +2,7 @@
 
 Script: 7 scenes, 75.75 s, premium cinematic, digital-only visuals. Rendered in both 9:16 (1080x1920) and 16:9 (1920x1080).
 
-Status: voice-over, music mix, all scenes and both layouts are built and previewed. The full render was stopped on request and is scheduled to finish on 25 November.
+Status: finished. `afaipixel-brand-9x16.mp4` and `afaipixel-brand-16x9.mp4` (75.7 s) with covers `cover-9x16.jpg` and `cover-16x9.jpg`.
 
 ## Finish the render (from `brand-video/work/r5`)
 ```bash
