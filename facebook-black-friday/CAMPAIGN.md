@@ -6,13 +6,21 @@
 ## Files
 | File | Size | Use it for |
 |---|---|---|
-| `afaipixel-black-friday-video-feed-4x5.mp4` | 1080x1350, 31 s | Facebook and Instagram feed video ads |
-| `afaipixel-black-friday-video-reels-9x16.mp4` | 1080x1920, 31 s | Reels and Stories |
-| `afaipixel-black-friday-post-feed-4x5.png` | 1080x1350 | Feed image ad or organic post |
-| `afaipixel-black-friday-post-square-1x1.png` | 1080x1080 | Square placements and carousels |
+| `afaipixel-black-friday-video-feed-4x5.mp4` | 1080x1350, 29 s | Facebook and Instagram feed video ads |
+| `afaipixel-black-friday-video-reels-9x16.mp4` | 1080x1920, 29 s | Reels and Stories |
+| `afaipixel-black-friday-post-feed-4x5.png` | 1080x1350 | Feed image ad, black version |
+| `afaipixel-black-friday-post-feed-4x5-green.png` | 1080x1350 | Feed image ad, green version (A/B test) |
+| `afaipixel-black-friday-post-square-1x1.png` / `-green.png` | 1080x1080 | Square placements and carousels |
 | `afaipixel-black-friday-post-story-9x16.png` | 1080x1920 | Stories image ad |
 
-Upload the 4:5 and 9:16 versions together in one ad (Meta "placement asset customisation"), so each placement gets the right size. The video has on-screen text for every key message, so it still works with the sound off.
+The video is cut to the beat (124 BPM). Every voice line starts on a beat, "BLACK FRIDAY" slams in at the start, and the screen flips to green on "20% OFF". Upload the 4:5 and 9:16 versions together in one ad (Meta "placement asset customisation"), so each placement gets the right size. Every key message is on screen, so it still works with the sound off.
+
+**A/B test idea:** run the black and green feed posts against each other for 3–4 days and keep the one with the lower cost per message.
+
+### Extra hook copy (first line of the post, which shows before "See more")
+- 🖤 BLACK FRIDAY: 20% OFF every new website. Message us now 👇
+- Your business deserves a website that brings customers. Now 20% off 🔥
+- Last chance this year: 20% off websites, Black Friday only ⏳
 
 ## Ad copy
 
@@ -39,7 +47,7 @@ Upload the 4:5 and 9:16 versions together in one ad (Meta "placement asset custo
 > 💬 Message us today for a fixed quote within one working day.
 
 ### Primary text: option C (short, for Reels/Stories)
-> Black Friday: 20% off every new website 🖤 Custom, SEO-ready, fast and secure. Message us to claim your discount.
+> 🖤 BLACK FRIDAY: 20% OFF every new website. Custom design, mobile-ready, built for Google. Message us now to claim yours 👇
 
 ### Headlines (pick 2–3 to test)
 - 20% Off Every New Website

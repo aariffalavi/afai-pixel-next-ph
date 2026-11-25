@@ -1,14 +1,21 @@
-import json
+import json,math
 vo=json.load(open('vo/vo.json'))
-plan=[('s1',[(0,0.5)],0.5),('s2',[(1,0.2)],0.6),('s3',[(2,0.2)],1.4),('s4',[(3,0.2)],0.8),('s5',[(4,0.3)],2.6)]
-t=0;scenes=[];clips=[];caps=[]
-for sid,items,tail in plan:
-  st=t
-  for vi,lead in items:
-    t+=lead; clips.append({'i':vi,'t':round(t,3)})
-    for w in vo[vi]['words']: caps.append({'w':w['w'],'s':round(t+w['s'],3),'e':round(t+w['e'],3),'line':vi})
-    t+=vo[vi]['dur']
-  t+=tail; scenes.append({'id':sid,'s':round(st,3),'e':round(t,3)})
-json.dump({'total':round(t,3),'scenes':scenes,'clips':clips,'caps':caps,'lines':[v['text'] for v in vo]},open('timeline.json','w'),indent=1)
-for s in scenes: print(s, round(s['e']-s['s'],2))
-print('total',t)
+BPM=124;beat=60/BPM
+# (scene, line, earliest start in beats after previous line end, tail beats)
+plan=[('hook',0,2),('hook',1,1),('hook',2,1),('ask',3,2),('feat',4,1),('pkg',5,1),('all',6,1),('lim',7,1),('cta',8,1)]
+t=beat*0.5;clips=[];caps=[];scenes={};prev_end=0
+for sid,li,gap in plan:
+    st=math.ceil((max(t,prev_end+0.15))/beat)*beat
+    clips.append({'i':li,'t':round(st,3)})
+    for w in vo[li]['words']:caps.append({'w':w['w'],'s':round(st+w['s'],3),'e':round(st+w['e'],3),'line':li})
+    end=st+vo[li]['dur'];prev_end=end;t=end+gap*beat*0.5
+    scenes.setdefault(sid,[st,end]);scenes[sid][1]=end
+order=['hook','ask','feat','pkg','all','lim','cta'];sc=[]
+for i,s in enumerate(order):
+    a=0 if i==0 else scenes[s][0]-beat*0.5
+    sc.append({'id':s,'s':round(a,3)})
+for i in range(len(sc)-1):sc[i]['e']=sc[i+1]['s']
+total=math.ceil((scenes['cta'][1]+beat*6)/beat)*beat;sc[-1]['e']=round(total,3)
+json.dump({'total':round(total,3),'bpm':BPM,'scenes':sc,'clips':clips,'caps':caps,'lines':[v['text'] for v in vo]},open('timeline.json','w'),indent=1)
+for s in sc:print(s,round(s['e']-s['s'],2))
+print('total',total)

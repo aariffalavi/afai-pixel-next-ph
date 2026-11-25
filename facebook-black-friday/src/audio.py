@@ -27,7 +27,7 @@ def hit():
     n=int(1.2*SR);t=np.arange(n)/SR;f=40+80*np.exp(-t*12);return (np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*3)+np.convolve(rng.standard_normal(n),np.ones(30)/30,'same')*np.exp(-t*10)*0.8)*0.5
 def tick():
     n=int(.025*SR);t=np.arange(n)/SR;return np.sin(2*np.pi*2200*t)*np.exp(-t*240)*0.14
-bpm=118;beat=60/bpm;bar=beat*4
+bpm=124;beat=60/bpm;bar=beat*4
 prog=[[62,65,69],[58,62,65],[60,64,67],[57,60,64]]  # Dm Bb C Am
 mus=np.zeros(N)
 for b in range(int(T/bar)+1):
@@ -39,20 +39,24 @@ for b in range(int(T/bar)+1):
     for k in range(8):add(mus,bass(c[0],beat/2*0.9),t0+k*beat/2)
     for k in (0,3,6):add(mus,chord([c[0]+12,c[1]+12,c[2]+12],0.5),t0+k*beat/2)
 fx=np.zeros(N)
-for sid in ('s2','s3','s4','s5'):add(fx,riser(0.6),sc[sid]['s']-0.6);add(fx,hit()*0.5,sc[sid]['s'])
+for s_ in tl['scenes'][1:]:add(fx,riser(0.45),s_['s']-0.45);add(fx,hit()*0.45,s_['s'])
 caps=tl['caps']
 def wt(l,w):
     for c in caps:
         if c['line']==l and c['w'].lower().startswith(w):return c['s']
-add(fx,hit(),wt(0,'twenty')-0.05)
-for w in ('starter','business','online'):add(fx,tick()*2,wt(2,w))
+for tt in (wt(0,'black'),wt(0,'friday')):add(fx,hit()*0.8,tt)
+add(fx,riser(0.9),wt(1,'twenty')-0.9);add(fx,hit()*1.3,wt(1,'twenty'));add(fx,hit()*0.8,wt(1,'off'))
+add(fx,hit()*1.2,wt(6,'all'));add(fx,hit(),wt(8,'claim'))
+for w in ('starter','business','online'):add(fx,hit()*0.6,wt(5,w)+0.25)
+for w in ('custom','mobile','built'):add(fx,tick()*2.5,wt(4,w))
+for i in range(int(1.9/0.25)):add(fx,tick()*1.2,tl['scenes'][5]['s']+i*0.25)
 vo=np.zeros(N)
 def rw(p):
     w=wave.open(p);return np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
 for c in tl['clips']:add(vo,rw(f"vo/{c['i']}.wav"),c['t'])
 env=np.convolve(np.abs(vo),np.ones(int(.25*SR))/int(.25*SR),'same');duck=1-0.5*np.clip(env*12,0,1)
-fade=np.ones(N);fi=int(.3*SR);fade[:fi]=np.linspace(0,1,fi);fo=int(1.5*SR);fade[-fo:]=np.linspace(1,0,fo)
-bed=(mus*0.18*duck+fx*0.2)*fade
+fade=np.ones(N);fi=int(.02*SR);fade[:fi]=np.linspace(0,1,fi);fo=int(1.5*SR);fade[-fo:]=np.linspace(1,0,fo)
+bed=(mus*0.2*duck+fx*0.24)*fade
 g=max(1,np.abs(vo+bed).max()/0.95)
 for nm,xx in (('vo.wav',vo/g),('bed.wav',bed/g)):
     w=wave.open(nm,'wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes((xx*32767).astype(np.int16).tobytes());w.close()

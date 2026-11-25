@@ -1,172 +1,160 @@
 <!DOCTYPE html>
 <html><head><meta charset="utf-8">
 <style>
-@font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Regular.otf);font-weight:400}
 @font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-Medium.otf);font-weight:500}
 @font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/Inter-SemiBold.otf);font-weight:600}
 @font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Bold.otf);font-weight:700}
 @font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf);font-weight:800}
 @font-face{font-family:IN;src:url(file:///usr/share/fonts/opentype/inter/InterDisplay-Black.otf);font-weight:900}
-:root{--bg:#0c0c0c;--ink:#f3f1ec;--mute:#8d8a84;--line:#2a2a2a;--g:#3fa33e;--g2:#57b947}
+:root{--bg:#0b0b0b;--ink:#f4f2ed;--mute:#8d8a84;--line:#2a2a2a;--g:#46b03f;--gd:#06120a}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow:hidden;background:#000}
-body{font-family:IN,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+body{font-family:IN,'Noto Color Emoji',sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
 #stage{position:relative;overflow:hidden;background:var(--bg)}
+#cam{position:absolute;inset:0}
 .abs{position:absolute}
-.scene{position:absolute;left:0;right:0;display:none}
-.mask{overflow:hidden;display:block}
-.mask>span{display:block}
-.k{font-weight:900;letter-spacing:-.045em;line-height:.9;text-transform:uppercase}
-.meta{font-weight:600;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
-.rule{height:1px;background:var(--line)}
-.tag{display:inline-block;background:var(--g);color:#06120a;font-weight:800;letter-spacing:.02em;border-radius:6px}
-.btn{display:inline-flex;align-items:center;gap:18px;background:var(--ink);color:#0c0c0c;font-weight:700;border-radius:10px}
-.browser{position:absolute;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.45);border:1px solid #333}
-.browser .bar{height:34px;background:#1b1b1b;display:flex;align-items:center;gap:8px;padding:0 14px}
+.scene{position:absolute;inset:0;display:none}
+.k{font-weight:900;letter-spacing:-.05em;line-height:.86;text-transform:uppercase}
+.meta{font-weight:700;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.c{left:0;right:0;text-align:center}
+.browser{position:absolute;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid #333}
+.browser .bar{height:32px;background:#1b1b1b;display:flex;align-items:center;gap:8px;padding:0 14px}
 .browser .bar i{width:10px;height:10px;border-radius:50%;background:#3a3a3a;display:inline-block}
 .browser .bar span{margin-left:12px;font-size:15px;color:#9a9a9a;font-weight:500}
 .browser img{display:block;width:100%}
-.phone{position:absolute;border-radius:44px;background:#111;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.5);border:1px solid #333}
+.phone{position:absolute;border-radius:44px;background:#111;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.55);border:1px solid #333}
 .phone .scr{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#fff}
 .phone .scr img{position:absolute;top:0;left:0;width:100%}
 .phone .isl{position:absolute;top:16px;left:50%;width:84px;height:24px;margin-left:-42px;background:#000;border-radius:14px;z-index:3}
-.pkg{position:absolute;left:0;right:0;border:1px solid var(--line);border-radius:14px;background:#121212;padding:30px 34px}
-.pkg h3{font-weight:800;font-size:46px;letter-spacing:-.03em}
-.pkg .n{font-weight:600;font-size:20px;letter-spacing:.14em;color:var(--mute)}
-.pkg ul{list-style:none;margin-top:16px}
-.pkg li{font-size:27px;color:#c9c6bf;padding:6px 0;display:flex;gap:14px;align-items:center}
-.pkg li:before{content:'';width:8px;height:8px;background:var(--g);border-radius:2px;flex:none}
-.pkg .off{position:absolute;right:30px;top:30px;font-size:26px;padding:10px 16px}
-.feat{position:absolute;border-top:1px solid var(--line);padding-top:26px}
-.feat .ic{width:64px;height:64px;border:2px solid var(--g);border-radius:12px;display:grid;place-items:center}
-.feat b{display:block;font-weight:800;font-size:44px;letter-spacing:-.03em;margin-top:22px;line-height:1.05}
-.feat span{display:block;font-size:26px;color:var(--mute);margin-top:10px;line-height:1.35}
-#ticker{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--g);color:#06120a;overflow:hidden;white-space:nowrap;font-weight:900;font-size:28px;letter-spacing:.06em;line-height:64px;z-index:20}
-#top{position:absolute;left:60px;right:60px;top:52px;display:flex;justify-content:space-between;align-items:center;z-index:20}
+.stamp{position:absolute;background:var(--g);color:var(--gd);font-weight:900;letter-spacing:-.03em;border-radius:10px;text-align:center}
+.row{position:absolute;left:60px;right:60px;border-top:2px solid #262626;display:flex;align-items:center;justify-content:space-between}
+.row b{font-weight:900;letter-spacing:-.045em;text-transform:uppercase}
+.row small{display:block;font-weight:600;color:var(--mute);letter-spacing:.02em}
+.btn{display:inline-flex;align-items:center;gap:18px;background:var(--ink);color:#0b0b0b;font-weight:800;border-radius:12px}
+#ticker{position:absolute;left:0;right:0;bottom:0;overflow:hidden;white-space:nowrap;font-weight:900;letter-spacing:.06em;z-index:30}
+#top{position:absolute;left:56px;right:56px;top:48px;display:flex;justify-content:space-between;align-items:center;z-index:30}
+#badge{font-weight:900;font-size:24px;letter-spacing:.12em;padding:10px 16px;border-radius:6px;border:2px solid currentColor}
+#flash{position:absolute;inset:0;background:#fff;z-index:40;pointer-events:none;opacity:0}
 #fade{position:absolute;inset:0;background:#000;z-index:50;pointer-events:none}
 </style></head>
-<body><div id="stage">
-<div id="top"><img src="../assets/logo_white.png" style="height:74px"><span class="meta" style="color:#bdbab3">Black Friday · Websites</span></div>
-<div id="rtop" class="abs rule" style="left:60px;right:60px;top:150px;z-index:20"></div>
+<body><div id="stage"><div id="cam">
+<div id="gbg" class="abs" style="inset:0;background:var(--g);opacity:0"></div>
+<div id="top"><img id="logoW" src="../assets/logo_white.png" style="height:72px"><span id="badge">BLACK FRIDAY</span></div>
 
-<!-- S1 -->
-<div class="scene" id="s1">
-  <div class="abs" style="left:60px;right:60px" id="s1c">
-    <div class="meta" id="s1m">Limited-time offer</div>
-    <div class="k" style="font-size:230px;margin-top:24px"><span class="mask"><span id="s1a">Black</span></span><span class="mask"><span id="s1b">Friday</span></span></div>
-    <div id="s1off" style="position:relative;margin-top:40px;height:290px">
-      <div id="s1blk" class="abs" style="left:0;top:0;height:290px;background:var(--g);border-radius:8px"></div>
-      <div id="s1pct" class="abs k" style="left:34px;top:34px;font-size:220px;white-space:nowrap;color:#06120a">20% off</div>
+<div class="scene" id="hook">
+  <div class="abs" id="h1" style="left:52px;right:52px">
+    <div class="k" id="hB" style="font-size:250px">Black</div>
+    <div class="k" id="hF" style="font-size:250px">Friday</div>
+    <div id="hHere" style="font-weight:800;font-size:64px;letter-spacing:-.02em;margin-top:26px;text-transform:uppercase">is here.</div>
+  </div>
+  <div class="abs c" id="h2">
+    <div class="k" id="h20" style="font-size:560px;color:var(--gd);line-height:.8">20%</div>
+    <div class="k" id="hOff" style="font-size:300px;color:var(--gd)">OFF</div>
+    <div id="hEv" style="display:inline-block;margin-top:40px;background:var(--gd);color:var(--ink);font-weight:900;font-size:64px;letter-spacing:-.02em;padding:18px 34px;border-radius:10px;text-transform:uppercase">Every new website</div>
+  </div>
+</div>
+
+<div class="scene" id="ask">
+  <div class="abs" id="aT" style="left:56px;right:56px"><div class="k" style="font-size:150px">Want<br>more<br><span style="color:var(--g)">customers?</span></div></div>
+  <div class="phone" id="aPh" style="width:300px;height:620px"><div class="isl"></div><div class="scr"><img id="aImg" src="../rec_case/0300.jpg"></div></div>
+  <div class="abs" id="aN" style="background:#f4f2ed;color:#111;border-radius:22px;padding:18px 22px;display:flex;gap:14px;align-items:center;box-shadow:0 20px 50px rgba(0,0,0,.5);width:440px"><div style="width:56px;height:56px;border-radius:14px;background:var(--g);display:grid;place-items:center;font-size:28px">💬</div><div><b style="font-size:24px">New enquiry</b><div style="font-size:21px;color:#444">“Hi, I'd like a quote for a website”</div></div></div>
+</div>
+
+<div class="scene" id="feat">
+  <div class="browser" id="fBr" style="left:60px;right:60px"><div class="bar"><i></i><i></i><i></i><span id="fUrl">windoors.lk</span></div><img id="fImg" src="../clients/wd_d.jpg"></div>
+  <div class="abs" id="fT" style="left:56px;right:56px"></div>
+</div>
+
+<div class="scene" id="pkg">
+  <div class="abs meta" id="pM" style="left:60px">Website packages</div>
+</div>
+
+<div class="scene" id="all">
+  <div class="abs c" id="alT"><div class="k" style="font-size:190px;color:var(--gd)">All</div><div class="k" id="al20" style="font-size:420px;color:var(--gd)">20%</div><div class="k" style="font-size:250px;color:var(--gd)">OFF</div></div>
+</div>
+
+<div class="scene" id="lim">
+  <div class="abs c" id="lT"><div class="k" style="font-size:200px">Limited<br>time<br><span style="color:var(--g)">only.</span></div>
+  <div style="margin:60px auto 0;width:760px;height:22px;border-radius:11px;background:#222;overflow:hidden"><div id="lBar" style="height:100%;background:var(--g);width:100%"></div></div>
+  <div class="meta" style="margin-top:22px;color:#bdbab3">Black Friday offer ends soon</div></div>
+</div>
+
+<div class="scene" id="cta">
+  <div class="abs" id="cT" style="left:56px;right:56px">
+    <div class="k" style="font-size:150px"><span id="c1" style="display:block">Message</span><span id="c2" style="display:block">us now.</span></div>
+    <div id="cBox" style="margin-top:40px;display:inline-block;background:var(--g);color:var(--gd);font-weight:900;font-size:96px;letter-spacing:-.04em;padding:16px 30px;border-radius:10px;text-transform:uppercase">Claim 20% off</div>
+    <div id="cBtns" style="margin-top:46px;display:flex;gap:20px;flex-wrap:wrap">
+      <span class="btn" style="font-size:36px;padding:24px 30px"><svg width="40" height="40" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.4 5.4 3.7 7.1V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.5 0 10-4.1 10-9.2S17.5 2 12 2z" fill="#0b0b0b"/><path d="M6.5 13.8l3.2-3.4 2 2 3.6-2.2-3.2 3.4-2-2z" fill="#f4f2ed"/></svg>Messenger</span>
+      <span class="btn" style="font-size:36px;padding:24px 30px;background:#1f1f1f;color:#f4f2ed;border:2px solid #3a3a3a"><svg width="40" height="40" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z" fill="#46b03f"/><path d="M8.6 7.4c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.5.7c-.1.2-.2.3 0 .6.5.9 1.4 1.9 2.6 2.4.3.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.3.3.6-.1.8-.8 1.5-1.6 1.6-1.6.3-5.4-1.1-6.9-4.6-.6-1.4-.5-2.9.4-3.7z" fill="#fff"/></svg>WhatsApp</span>
     </div>
-    <div class="mask" style="margin-top:34px"><span id="s1w" style="font-weight:700;font-size:58px;letter-spacing:-.02em">every new website.</span></div>
-  </div>
-</div>
-
-<!-- S2 -->
-<div class="scene" id="s2">
-  <div class="abs" style="left:60px;right:60px" id="s2t">
-    <div class="meta" id="s2m">01 — Custom websites</div>
-    <div style="font-weight:800;font-size:84px;letter-spacing:-.04em;line-height:1;margin-top:20px"><span class="mask"><span id="s2a">Built to bring</span></span><span class="mask"><span id="s2b">you <span style="color:var(--g2)">enquiries.</span></span></span></div>
-  </div>
-  <div class="browser" id="s2br" style="left:60px;width:820px"><div class="bar"><i></i><i></i><i></i><span id="s2url">windoors.lk</span></div><img id="s2img" src="../clients/wd_d.jpg"></div>
-  <div class="phone" id="s2ph" style="width:300px;height:620px"><div class="isl"></div><div class="scr"><img id="s2pimg" src="../rec_case/0000.jpg"></div></div>
-  <div class="abs meta" id="s2cap" style="left:60px;right:60px;font-size:20px">Client work — Windoors.lk · Transfood Grosshandel</div>
-</div>
-
-<!-- S3 -->
-<div class="scene" id="s3">
-  <div class="abs" style="left:60px;right:60px" id="s3t">
-    <div class="meta">02 — Website packages</div>
-    <div style="font-weight:800;font-size:76px;letter-spacing:-.04em;line-height:1;margin-top:18px"><span class="mask"><span id="s3a">20% off all three.</span></span></div>
-  </div>
-  <div class="abs" id="s3list" style="left:60px;right:60px">
-    <div class="pkg" id="p0"><span class="n">STARTER</span><span class="tag off">−20%</span><h3>Starter Website</h3><ul><li>4–6 pages, custom design</li><li>Contact form &amp; WhatsApp button</li><li>Google Business Profile setup</li></ul></div>
-    <div class="pkg" id="p1"><span class="n">BUSINESS</span><span class="tag off">−20%</span><h3>Business Website</h3><ul><li>8–15 pages, SEO service pages</li><li>Analytics &amp; Search Console</li><li>3 months free support</li></ul></div>
-    <div class="pkg" id="p2"><span class="n">E-COMMERCE</span><span class="tag off">−20%</span><h3>Online Store</h3><ul><li>WooCommerce or Shopify</li><li>Card, PayPal &amp; local payments</li><li>Training to manage your shop</li></ul></div>
-  </div>
-</div>
-
-<!-- S4 -->
-<div class="scene" id="s4">
-  <div class="abs" style="left:60px;right:60px" id="s4t">
-    <div class="meta">03 — Every website includes</div>
-  </div>
-  <div class="abs" id="s4g" style="left:60px;right:60px"></div>
-</div>
-
-<!-- S5 -->
-<div class="scene" id="s5">
-  <div class="abs" style="left:60px;right:60px" id="s5c">
-    <div class="meta" id="s5m">Black Friday · Limited time</div>
-    <div style="font-weight:900;font-size:128px;letter-spacing:-.05em;line-height:.92;margin-top:26px;text-transform:uppercase"><span class="mask"><span id="s5a">Claim</span></span><span class="mask"><span id="s5b"><span style="color:var(--g2)">20% off</span></span></span><span class="mask"><span id="s5c2">your website.</span></span></div>
-    <div id="s5btn" style="margin-top:56px"><span class="btn" style="font-size:40px;padding:28px 40px">Send us a message <svg width="36" height="36" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="#0c0c0c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-    <div class="rule" id="s5r" style="margin-top:56px"></div>
-    <div id="s5d" style="margin-top:30px;display:flex;justify-content:space-between;gap:20px;font-size:28px;line-height:1.5">
-      <div><div class="meta" style="font-size:18px">Web</div><b style="font-weight:700">afaipixel.com</b></div>
-      <div><div class="meta" style="font-size:18px">WhatsApp</div><b style="font-weight:700">+94 757 323 323<br>+44 7517 755147</b></div>
+    <div id="cInfo" style="margin-top:40px;border-top:2px solid #262626;padding-top:24px;display:flex;justify-content:space-between;font-size:30px;font-weight:700;line-height:1.45">
+      <div><div class="meta" style="font-size:18px">Web</div>afaipixel.com</div>
+      <div style="text-align:right"><div class="meta" style="font-size:18px">WhatsApp</div>+94 757 323 323<br>+44 7517 755147</div>
     </div>
   </div>
 </div>
 
 <div id="ticker"><span id="tk"></span></div>
-<div id="fade"></div>
-</div>
+</div><div id="flash"></div><div id="fade"></div></div>
 <script>
 const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1080),H=+(Q.get('h')||1350);const TALL=H>1600;
 document.body.style.width=W+'px';document.body.style.height=H+'px';const ST=document.getElementById('stage');ST.style.width=W+'px';ST.style.height=H+'px';
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));const P=(t,a,b)=>clamp((t-a)/(b-a));
 const oQ=x=>1-Math.pow(1-x,5),oC=x=>1-Math.pow(1-x,3),iO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
-const $=id=>document.getElementById(id);let TL;
-function fw(l,txt,n=1){let c=0;for(const w of TL.caps.filter(c=>c.line===l)){if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt)){c++;if(c===n)return w.s}}console.warn('nf',txt);return 0}
-function up(e,k,d=1.05){e.style.transform=`translateY(${(1-oQ(k))*100*d}%)`}   // mask reveal
-function fadeUp(e,k,px=30){e.style.opacity=k;e.style.transform=`translateY(${(1-oQ(k))*px}px)`}
-const CTOP=TALL?300:210;   // content top under header
-function init(tl){TL=tl;
-  $('tk').innerHTML=Array(14).fill('<span class="tu" style="display:inline-block;padding-right:42px">BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;AFAIPIXEL.COM&nbsp;&nbsp;·</span>').join('');$('tk').style.display='inline-block';
-  if(!TALL){$('ticker').style.height='56px';$('ticker').style.lineHeight='56px';$('ticker').style.fontSize='24px'}
-  ['s1c','s2t','s3t','s4t','s5c'].forEach(id=>$(id).style.top=CTOP+'px');
-  if(!TALL){document.querySelector('#s1 .k').style.fontSize='200px';$('s1off').style.height='250px';$('s1blk').style.height='250px';$('s1pct').style.fontSize='196px';$('s1pct').style.top='30px';}
-  // s2 layout
-  const bt=TALL?640:520;$('s2br').style.top=bt+'px';$('s2br').style.width=(TALL?820:760)+'px';
-  $('s2ph').style.left=(TALL?700:720)+'px';$('s2ph').style.top=(TALL?820:610)+'px';if(!TALL){$('s2ph').style.width='270px';$('s2ph').style.height='560px'}
-  $('s2cap').style.top=(TALL?1520:1195)+'px';
-  // s3 layout
-  $('s3list').style.top=(TALL?470:370)+'px';const ph=TALL?330:270,gap=TALL?30:22;
-  ['p0','p1','p2'].forEach((id,i)=>{const e=$(id);e.style.top=(i*(ph+gap))+'px';e.style.height=ph+'px';if(!TALL){e.style.padding='22px 30px';e.querySelector('h3').style.fontSize='40px';e.querySelectorAll('li').forEach(l=>{l.style.fontSize='24px';l.style.padding='4px 0'});e.querySelector('ul').style.marginTop='10px'}});
-  // s4 grid
-  const F=[['SEO-ready','Search-friendly pages from day one.','<path d="M10 17a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm5-2 6 6" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','ready'],
-           ['Fast & secure','SSL, speed set-up and backups.','<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','fast'],
-           ['Mobile-first','Designed and tested on every screen.','<rect x="7" y="2.5" width="10" height="19" rx="2.5" fill="none" stroke="#57b947" stroke-width="2.2"/><path d="M11 18.5h2" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','secure'],
-           ['Fixed quote','Clear price and plan in one working day.','<rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="#57b947" stroke-width="2.2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="#57b947" stroke-width="2.2" stroke-linecap="round"/>','fixed']];
-  const g=$('s4g');g.style.top=(CTOP+70)+'px';const cw=(W-120-40)/2,rh=TALL?420:330;
-  F.forEach(([b,s,ic,w],i)=>{const d=document.createElement('div');d.className='feat';d.id='f'+i;d.dataset.w=w;d.style.left=((i%2)*(cw+40))+'px';d.style.top=(Math.floor(i/2)*rh)+'px';d.style.width=cw+'px';d.innerHTML=`<div class="ic"><svg width="36" height="36" viewBox="0 0 24 24">${ic}</svg></div><b>${b}</b><span>${s}</span>`;g.appendChild(d)});
-  if(TALL){const big=document.createElement('div');big.className='abs';big.id='s4big';big.style.cssText=`left:0;right:0;top:${2*rh+40}px;border:1px solid var(--line);border-radius:14px;padding:34px;display:flex;justify-content:space-between;align-items:center`;big.innerHTML=`<div><div class="meta" style="font-size:20px">Black Friday</div><div style="font-weight:800;font-size:56px;letter-spacing:-.03em;margin-top:8px">All of this, 20% off.</div></div><span class="tag" style="font-size:40px;padding:14px 22px">−20%</span>`;g.appendChild(big)}
-  // s5
-  if(!TALL){$('s5c').querySelector('div[style*="font-size:128px"]').style.fontSize='112px';$('s5btn').style.marginTop='40px';$('s5r').style.marginTop='40px'}
+const $=id=>document.getElementById(id);let TL,BEAT;
+function fw(l,txt,n=1){let c=0;for(const w of TL.caps.filter(c=>c.line===l)){if(w.w.toLowerCase().replace(/[^a-z0-9]/g,'').startsWith(txt)){c++;if(c===n)return w.s}}console.warn('nf',l,txt);return 0}
+function slam(e,t,t0,from=1.5){const k=P(t,t0-0.04,t0+0.16);e.style.opacity=k>0?1:0;e.style.transform=`scale(${from-(from-1)*oQ(k)})`;return k}
+function slideIn(e,t,t0,dx=-120){const k=oQ(P(t,t0-0.05,t0+0.3));e.style.opacity=k;e.style.transform=`translateX(${(1-k)*dx}px)`;return k}
+const IMP=[];  // impact times for shake/flash
+function init(tl){TL=tl;BEAT=60/tl.bpm;
+  $('tk').innerHTML=Array(16).fill('<span class="tu" style="display:inline-block;padding-right:40px">BLACK FRIDAY&nbsp;&nbsp;·&nbsp;&nbsp;20% OFF WEBSITES&nbsp;&nbsp;·&nbsp;&nbsp;MESSAGE US&nbsp;&nbsp;·</span>').join('');$('tk').style.display='inline-block';
+  const th=TALL?70:58;$('ticker').style.height=th+'px';$('ticker').style.lineHeight=th+'px';$('ticker').style.fontSize=(TALL?30:25)+'px';
+  // layout per format
+  const top=TALL?330:200;
+  $('h1').style.top=(TALL?560:330)+'px';if(!TALL){$('hB').style.fontSize=$('hF').style.fontSize='224px'}
+  $('h2').style.top=(TALL?470:200)+'px';$('h20').style.fontSize=(TALL?445:470)+'px';if(!TALL){$('hOff').style.fontSize='250px';$('hEv').style.fontSize='54px'}
+  $('aT').style.top=(TALL?380:220)+'px';$('aPh').style.left=(TALL?700:720)+'px';$('aPh').style.top=(TALL?980:690)+'px';if(!TALL){$('aPh').style.width='250px';$('aPh').style.height='520px';$('aPh').style.left='760px'}
+  $('aN').style.left=(TALL?100:90)+'px';$('aN').style.top=(TALL?1180:930)+'px';
+  $('fBr').style.top=(TALL?820:560)+'px';$('fT').style.top=(TALL?340:200)+'px';
+  [['Custom design.','custom'],['Mobile ready.','mobile'],['Built for Google.','built']].forEach(([s,w],i)=>{const d=document.createElement('div');d.className='k';d.id='ft'+i;d.dataset.w=w;d.style.cssText=`font-size:${TALL?118:100}px;margin-bottom:12px;opacity:0`;d.innerHTML=i===2?`<span style="color:var(--g)">${s}</span>`:s;$('fT').appendChild(d)});
+  $('pM').style.top=(TALL?340:200)+'px';
+  const pk=[['Starter','4–6 pages · WhatsApp button · Google profile','starter'],['Business','8–15 pages · SEO pages · 3 months support','business'],['E-commerce','Online store · Card & PayPal payments','online']];
+  const r0=TALL?420:260,rh=TALL?300:250;
+  pk.forEach(([b,s,w],i)=>{const d=document.createElement('div');d.className='row';d.id='pr'+i;d.dataset.w=w;d.style.top=(r0+i*rh)+'px';d.style.height=rh+'px';d.innerHTML=`<div><b style="font-size:${TALL?100:100}px;white-space:nowrap">${b}</b><small style="font-size:${TALL?28:24}px;margin-top:12px">${s}</small></div><div class="stamp" id="ps${i}" style="font-size:${TALL?64:56}px;padding:14px 20px;position:relative;transform:rotate(-6deg)">−20%</div>`;$('pkg').appendChild(d)});
+  $('alT').style.top=(TALL?380:150)+'px';if(!TALL){$('al20').style.fontSize='380px'}
+  $('lT').style.top=(TALL?520:260)+'px';
+  $('cT').style.top=(TALL?380:200)+'px';if(!TALL){$('cT').querySelector('.k').style.fontSize='132px';$('cBox').style.fontSize='84px';$('cBtns').style.marginTop='36px';$('cInfo').style.marginTop='34px'}
+  // impacts
+  IMP.push(fw(0,'black'),fw(0,'friday'),fw(1,'twenty'),fw(6,'all'),fw(8,'claim'));
 }
-function centerTall(id,ofs=0){if(!TALL)return;const e=$(id);e.style.top=Math.max(230,(H-64-e.offsetHeight)/2+ofs)+'px'}
-function vis(s,t){return P(t,s.s-0.05,s.s+0.2)*(1-P(t,s.e-0.15,s.e+0.1))}
+function sc(id){return TL.scenes.find(x=>x.id===id)}
 async function render(t){
-  const sc=id=>TL.scenes.find(x=>x.id===id);
-  const uw=document.querySelector('.tu').offsetWidth;$('tk').style.transform=`translateX(${-((t*90)%uw)}px)`;
-  for(const s of TL.scenes){const a=vis(s,t);const e=$(s.id);if(a<=0){e.style.display='none';continue}e.style.display='block';e.style.opacity=a;e.style.top='0';e.style.height=H+'px';const u=t-s.s;
-  if(s.id==='s1'){centerTall('s1c',-20);fadeUp($('s1m'),P(u,0.1,0.5),16);up($('s1a'),P(t,fw(0,'black')-0.15,fw(0,'black')+0.35));up($('s1b'),P(t,fw(0,'friday')-0.15,fw(0,'friday')+0.35));
-    const tp=fw(0,'twenty');const kb=iO(P(t,tp-0.25,tp+0.3));const fullW=W-120;$('s1blk').style.width=(fullW*kb)+'px';$('s1pct').style.clipPath=`inset(0 ${(1-kb)*100}% 0 0)`;
-    up($('s1w'),P(t,fw(0,'every')-0.1,fw(0,'every')+0.4))}
-  if(s.id==='s2'){fadeUp($('s2m'),P(u,0.0,0.4),16);up($('s2a'),P(u,0.1,0.55));up($('s2b'),P(u,0.25,0.7));
-    const kb=oQ(P(u,0.2,0.9));$('s2br').style.opacity=kb;$('s2br').style.transform=`translateY(${(1-kb)*60}px)`;
-    const sw=t>fw(1,'built');$('s2img').src=sw?'../clients/tf_d.jpg':'../clients/wd_d.jpg';$('s2url').textContent=sw?'transfoodgrosshandel.com':'windoors.lk';
-    const kp=oQ(P(u,0.6,1.3));$('s2ph').style.opacity=kp;$('s2ph').style.transform=`translateY(${(1-kp)*80}px)`;
-    const f=clamp(240+Math.floor(u*30*1.4),240,460);const src=`../rec_case/${String(f).padStart(4,'0')}.jpg`;if($('s2pimg').getAttribute('src')!==src)$('s2pimg').setAttribute('src',src);
-    fadeUp($('s2cap'),P(u,1.2,1.7),10)}
-  if(s.id==='s3'){up($('s3a'),P(u,0.05,0.5));['starter','business','online'].forEach((w,i)=>{const tw=fw(2,w);const k=oQ(P(t,tw-0.3,tw+0.25));const e=$('p'+i);e.style.opacity=k;e.style.transform=`translateY(${(1-k)*40}px)`;e.style.borderColor=t>=tw-0.05&&(i===2||t<fw(2,['starter','business','online'][i+1])-0.05)?'#3fa33e':'#2a2a2a'})}
-  if(s.id==='s4'){for(let i=0;i<4;i++){const e=$('f'+i);const tw=fw(3,e.dataset.w);const k=oQ(P(t,tw-0.25,tw+0.25));e.style.opacity=k;e.style.transform=`translateY(${(1-k)*30}px)`}
-    const b=$('s4big');if(b){const k=oQ(P(t,fw(3,'working')-0.2,fw(3,'working')+0.4));b.style.opacity=k;b.style.transform=`translateY(${(1-k)*30}px)`}}
-  if(s.id==='s5'){centerTall('s5c',-40);fadeUp($('s5m'),P(u,0,0.4),16);up($('s5b'),P(u,0.25,0.65));up($('s5c2'),P(u,0.4,0.8));
-    up($('s5a'),P(u,0.1,0.5));
-    const kb=oQ(P(t,fw(4,'send')-0.1,fw(4,'send')+0.4));$('s5btn').style.opacity=kb;$('s5btn').style.transform=`translateY(${(1-kb)*20}px)`;
-    $('s5r').style.transform=`scaleX(${oC(P(t,fw(4,'claim')-0.2,fw(4,'claim')+0.6))})`;$('s5r').style.transformOrigin='0 0';fadeUp($('s5d'),P(t,fw(4,'claim'),fw(4,'claim')+0.5),14)}
+  // camera shake on impacts
+  let sh=0;for(const ti of IMP){const d=t-ti;if(d>=0&&d<0.25)sh=Math.max(sh,(1-d/0.25))}
+  const beatPh=(t%BEAT)/BEAT;const pulse=1+0.012*Math.exp(-beatPh*6);
+  $('cam').style.transform=`translate(${Math.sin(t*90)*10*sh}px,${Math.cos(t*77)*10*sh}px)`;
+  $('flash').style.opacity=0;for(const ti of IMP.slice(2,4)){const d=t-ti;if(d>=0&&d<0.12)$('flash').style.opacity=0.55*(1-d/0.12)}
+  // green background state
+  const g1=fw(1,'twenty'),hookE=sc('hook').e,A=sc('all');
+  const green=(t>=g1-0.03&&t<hookE)||(t>=A.s&&t<A.e);$('gbg').style.opacity=green?1:0;
+  $('logoW').style.filter=green?'brightness(0)':'none';$('badge').style.color=green?'#06120a':'#f4f2ed';
+  $('ticker').style.background=green?'#06120a':'#46b03f';$('ticker').style.color=green?'#46b03f':'#06120a';
+  const uw=document.querySelector('.tu').offsetWidth;$('tk').style.transform=`translateX(${-((t*110)%uw)}px)`;
+  for(const s of TL.scenes){const e=$(s.id);const on=t>=s.s&&t<s.e;e.style.display=on?'block':'none';if(!on)continue;const u=t-s.s;
+  if(s.id==='hook'){const pre=t<g1-0.03;$('h1').style.display=pre?'block':'none';$('h2').style.display=pre?'none':'block';
+    if(pre){[['hB','black'],['hF','friday']].forEach(([id,w])=>{const e=$(id);const k=slam(e,t,fw(0,w));e.style.opacity=1;if(k<=0){e.style.color='transparent';e.style.webkitTextStroke='3px rgba(244,242,237,.55)';e.style.transform='scale(1)'}else{e.style.color='#f4f2ed';e.style.webkitTextStroke='0'}});const kh=oQ(P(t,fw(0,'here')-0.05,fw(0,'here')+0.25));$('hHere').style.opacity=kh;$('hHere').style.transform=`translateY(${(1-kh)*30}px)`;$('h1').style.transform=`scale(${pulse})`}
+    else{slam($('h20'),t,g1,1.8);slam($('hOff'),t,fw(1,'off'),1.6);const ke=P(t,fw(2,'every')-0.05,fw(2,'every')+0.25);$('hEv').style.opacity=ke>0?1:0;$('hEv').style.clipPath=`inset(0 ${(1-oQ(ke))*100}% 0 0)`;$('h2').style.transform=`scale(${pulse})`}}
+  if(s.id==='ask'){const ka=oQ(P(u,0,0.3));$('aT').style.opacity=ka;$('aT').style.transform=`translateY(${(1-ka)*60}px)`;const kp=oQ(P(u,0.15,0.6));$('aPh').style.transform=`translateY(${(1-kp)*300}px) rotate(${(1-kp)*6}deg)`;$('aPh').style.opacity=kp;
+    const kn=P(u,0.7,0.95);$('aN').style.opacity=kn;$('aN').style.transform=`translateY(${(1-oQ(kn))*-40}px) scale(${0.9+0.1*oQ(kn)})`}
+  if(s.id==='feat'){const kb=oQ(P(u,0,0.4));$('fBr').style.opacity=0.35*kb+0.0;$('fBr').style.transform=`translateY(${(1-kb)*80}px)`;
+    let cur=0;[0,1,2].forEach(i=>{const d=$('ft'+i);const ti=fw(4,d.dataset.w);slideIn(d,t,ti,-160);if(t>=ti-0.05)cur=i});
+    const imgs=[['../clients/wd_d.jpg','windoors.lk'],['../clients/sm_d.jpg','smeraldomilano.eu'],['../clients/tf_d.jpg','transfoodgrosshandel.com']];$('fImg').src=imgs[cur][0];$('fUrl').textContent=imgs[cur][1];$('fBr').style.opacity=0.42}
+  if(s.id==='pkg'){$('pM').style.opacity=oQ(P(u,0,0.3));[0,1,2].forEach(i=>{const r=$('pr'+i);const ti=fw(5,r.dataset.w);slideIn(r,t,ti,-200);const st=$('ps'+i);const k=P(t,ti+0.25,ti+0.42);st.style.opacity=k>0?1:0;st.style.transform=`rotate(-6deg) scale(${1.8-0.8*oQ(k)})`})}
+  if(s.id==='all'){$('alT').style.transform=`scale(${pulse})`;slam($('alT'),t,s.s+0.04,1.4)}
+  if(s.id==='lim'){const k=oQ(P(u,0,0.3));$('lT').style.opacity=k;$('lT').style.transform=`scale(${1.15-0.15*k})`;$('lBar').style.width=(100-80*P(u,0.2,s.e-s.s))+'%'}
+  if(s.id==='cta'){const t1=fw(8,'message'),t2=fw(8,'claim');slam($('c1'),t,Math.min(t1,s.s+0.08),1.3);slam($('c2'),t,fw(8,'now'),1.3);const kb=P(t,t2-0.05,t2+0.2);$('cBox').style.opacity=kb>0?1:0;$('cBox').style.transform=`scale(${(1.5-0.5*oQ(kb))*(t>t2+0.3?pulse:1)})`;$('cBox').style.transformOrigin='0 50%';
+    const kc=oQ(P(t,t2+0.4,t2+0.8));$('cBtns').style.opacity=kc;$('cBtns').style.transform=`translateY(${(1-kc)*30}px)`;const ki=oQ(P(t,t2+0.8,t2+1.2));$('cInfo').style.opacity=ki;$('cInfo').style.transform=`translateY(${(1-ki)*20}px)`}
   }
-  $('fade').style.opacity=1-P(t,0,0.35)+P(t,TL.total-0.5,TL.total);
+  $('fade').style.opacity=P(t,TL.total-0.4,TL.total);
   await Promise.all([...document.images].filter(i=>!i.complete).map(i=>i.decode().catch(()=>{})));return true}
 </script></body></html>
