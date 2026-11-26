@@ -1,0 +1,7 @@
+node_modules/
+frames/
+prev/
+fonts/
+vo/*.mp3
+*.log
+mix.wav
