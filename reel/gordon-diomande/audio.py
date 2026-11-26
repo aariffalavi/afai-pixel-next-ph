@@ -7,41 +7,55 @@ def add(buf,sig,t,g=1.0):
 def lp(x,a):  # one-pole lowpass, vectorised via cumulative filter approximation
     from scipy.signal import lfilter; return lfilter([a],[1,a-1],x)
 mf=lambda m:440*2**((m-69)/12)
-# ---- music: driving 4/4 at 124 bpm, minor key
-bpm=124;beat=60/bpm;bar=beat*4
+# ---- music: original drift-phonk beat, 130 bpm
+from scipy.signal import butter,sosfilt
+def bp(x,lo,hi):return sosfilt(butter(2,[lo,hi],'bandpass',fs=SR,output='sos'),x)
+def hp(x,f):return sosfilt(butter(2,f,'highpass',fs=SR,output='sos'),x)
+bpm=130;st=60/bpm/4;bar=st*16;ROOT=42  # F#2
+def sq(f,n):t=np.arange(n)/SR;return np.sign(np.sin(2*np.pi*f*t))
+def cowbell(semi,d=.32):
+    n=int(d*SR);r=2**(semi/12);x=sq(587*r,n)*.6+sq(845*r,n)*.6
+    x=bp(x,500*r,2600*r);t=np.arange(n)/SR;return np.tanh(x*2)*np.exp(-t*9)*.32
 def kick():
-    n=int(.32*SR);t=np.arange(n)/SR;f=48+110*np.exp(-t*32);return np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*8)
-def snare():
-    n=int(.2*SR);t=np.arange(n)/SR;x=rng.standard_normal(n);x=x-np.convolve(x,np.ones(20)/20,'same');return (x*.5+np.sin(2*np.pi*190*t)*.5)*np.exp(-t*20)*.4
-def hat(o=False):
-    n=int((.18 if o else .05)*SR);x=np.diff(np.concatenate([[0],rng.standard_normal(n)]));return x*np.exp(-np.arange(n)/SR*(18 if o else 80))*.18
-def saw(f,n):
-    t=np.arange(n)/SR;return 2*((t*f)%1)-1
-def bassn(m,d):
-    n=int(d*SR);s=saw(mf(m-24),n)*.6+np.sin(2*np.pi*mf(m-24)*np.arange(n)/SR);return lp(s,.08)*np.exp(-np.arange(n)/SR*3)*.35
-def pad(ns,d):
-    n=int(d*SR);t=np.arange(n)/SR;s=sum(saw(mf(m)*(1+dt),n) for m in ns for dt in(-.003,.003))
-    s=lp(s,.04);e=np.minimum(1,t/.3)*np.minimum(1,(d-t)/.3);return s*e*.05
-def pluck(m,d=.25):
-    n=int(d*SR);t=np.arange(n)/SR;return lp(saw(mf(m),n),.25)*np.exp(-t*14)*.09
-prog=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]]  # Am F C G
-arp=[0,1,2,1]
+    n=int(.45*SR);t=np.arange(n)/SR;f=40+170*np.exp(-t*28);return np.tanh(np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*6)*3)*.9
+def clap():
+    n=int(.25*SR);t=np.arange(n)/SR;x=hp(rng.standard_normal(n),900)
+    e=sum(np.exp(-np.maximum(0,t-o)*60)*(t>=o) for o in(0,.012,.024))*.5+np.exp(-t*14)*.6
+    return np.tanh(x*e*2)*.45
+def hat(d=.04):n=int(d*SR);return hp(rng.standard_normal(n),7000)*np.exp(-np.arange(n)/SR*90)*.2
+def b808(semi,d,glide_to=None):
+    n=int(d*SR);t=np.arange(n)/SR;f0=mf(ROOT+semi)
+    f=np.full(n,f0) if glide_to is None else f0*2**((glide_to-semi)/12*np.clip((t-d*.55)/(d*.3),0,1))
+    x=np.sin(2*np.pi*np.cumsum(f)/SR);e=np.minimum(1,t/.004)*np.exp(-t*1.4)
+    return np.tanh(x*e*4)*.5
+riff=[0,None,0,3, None,0,5,None, 3,None,0,7, None,5,3,None,
+      0,None,0,3, None,0,5,None, 10,None,8,7, None,5,3,2]
+bassline=[(0,None),(0,None),(-4,None),(-2,0)]
 mus=np.zeros(N);nb=int(T/bar)+1
+sc_={s['id']:s for s in tl['scenes']}
+brk=(sc_['ex']['s']-bar,sc_['ex']['s'])  # one-bar breakdown before the example
 for b in range(nb):
-    t0=b*bar;c=prog[b%4];add(mus,pad([x+12 for x in c],bar),t0)
-    for k in range(4):
-        tb=t0+k*beat;add(mus,kick(),tb,.6)
-        if k in(1,3):add(mus,snare(),tb)
-        add(mus,hat(),tb+beat/2);add(mus,hat(),tb+beat*.25,.5);add(mus,hat(),tb+beat*.75,.5)
-        add(mus,bassn(c[0],beat*.45),tb);add(mus,bassn(c[0],beat*.45),tb+beat/2)
-        for q in range(2):add(mus,pluck(c[arp[(k*2+q)%4]]+24),tb+q*beat/2)
-fade=np.ones(N);fi=int(.1*SR);fade[:fi]=np.linspace(0,1,fi);fo=int(2*SR);fade[-fo:]=np.linspace(1,0,fo);mus*=fade
+    t0=b*bar;intro=b==0;inbrk=brk[0]-.01<=t0<brk[1]
+    for i in range(16):
+        n=riff[(b%2)*16+i]
+        if n is not None:add(mus,cowbell(n+12),t0+i*st,.8 if inbrk else 1)
+    if inbrk:continue
+    bn,gl=bassline[b%4];add(mus,b808(bn,bar*.95,gl),t0,.9)
+    if intro:continue
+    for i in(0,6,10):add(mus,kick(),t0+i*st)
+    add(mus,clap(),t0+8*st)
+    for i in range(16):
+        if b%2==1 and i>=12:
+            for k in range(3):add(mus,hat(.03),t0+i*st+k*st/3,.9)
+        else:add(mus,hat(),t0+i*st,1 if i%2==0 else .6)
+mus=np.tanh(mus*1.6)*.8  # tape-style saturation
+fade=np.ones(N);fo=int(2*SR);fade[-fo:]=np.linspace(1,0,fo);mus*=fade
 # ---- VO
 def readwav(p):
     w=wave.open(p);return np.frombuffer(w.readframes(w.getnframes()),dtype=np.int16).astype(float)/32768
 vo=np.zeros(N)
 for c in tl['clips']:add(vo,readwav(f"vo/{c['i']}.wav"),c['t'])
-env=np.convolve(np.abs(vo),np.ones(int(.25*SR))/int(.25*SR),'same');duck=1-.6*np.clip(env*12,0,1)
+env=np.convolve(np.abs(vo),np.ones(int(.25*SR))/int(.25*SR),'same');duck=1-.5*np.clip(env*12,0,1)
 # ---- crowd: ambience during pitch scenes + roars at goals
 crowd=lp(rng.standard_normal(N),.06)*.5+lp(rng.standard_normal(N),.2)*.15
 lvl=np.zeros(N)
@@ -70,7 +84,7 @@ for k in range(4):add(sfx,pop(),sc['gcard']['s']+1.0+k*.6);add(sfx,pop(),sc['dca
 c0=sc['comment']['s'];add(sfx,pop()*1.5,c0+.6);add(sfx,pop()*1.5,c0+.85)
 for k in range(19):add(sfx,tick(),c0+3.1+k*.07)
 add(sfx,pop()*1.4,c0+3.1+19*.07+.3)
-mix=vo*1.0+mus*duck*.22+crowd*.35+sfx*.5
+mix=vo*1.0+mus*duck*.42+crowd*.35+sfx*.5
 mix/=max(1,np.abs(mix).max()/.95)
 pcm=(mix*32767).astype(np.int16)
 w=wave.open('mix.wav','wb');w.setnchannels(1);w.setsampwidth(2);w.setframerate(SR);w.writeframes(pcm.tobytes());w.close()
