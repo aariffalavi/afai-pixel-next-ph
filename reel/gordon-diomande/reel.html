@@ -382,7 +382,7 @@ const tagEls={};
 function tag(id,text,cls,pos){
   let el=tagEls[id];if(!el){el=document.createElement('div');el.className='tag '+cls;el.textContent=text;$('tags').appendChild(el);tagEls[id]=el}
   const v=new THREE.Vector3(pos.x,pos.y,pos.z).project(camera);
-  const sx=(v.x+1)/2*W,sy=(1-v.y)/2*H;el.style.display=(v.z<1&&sx>-60&&sx<W+60&&sy>560&&sy<1500)?'block':'none';el.style.left=clamp(sx,110,W-110)+'px';el.style.top=((1-v.y)/2*H)+'px';return el;
+  const sx=(v.x+1)/2*W,sy=(1-v.y)/2*H;el.style.display=(v.z<1&&sx>-60&&sx<W+60&&sy>(document.getElementById('s_ex').style.display==='block'?640:560)&&sy<1500)?'block':'none';el.style.left=clamp(sx,110,W-110)+'px';el.style.top=((1-v.y)/2*H)+'px';return el;
 }
 
 function playReplay(R,t){
